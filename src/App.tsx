@@ -141,9 +141,20 @@ const AppContent: React.FC = () => {
 
       <MusicPlayer />
 
-      {/* Floating Controllers Container */}
-      <div className="fixed left-6 top-1/2 z-[1000] -translate-y-1/2 flex flex-row items-center gap-3">
+      {/* Floating Controllers Container (Samping Kanan Tengah) */}
+      <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4">
+        {/* Scroll to Top (Custom Boxy Style) */}
+        {isOpened && (
+          <button
+            onClick={scrollToTop}
+            className="group flex h-14 w-12 flex-col items-center justify-center gap-1 rounded-tl-2xl rounded-tr-sm rounded-bl-sm rounded-br-2xl border border-white/20 bg-white/80 shadow-xl backdrop-blur-md transition-all duration-300 hover:bg-white dark:bg-slate-900/80 dark:hover:bg-slate-900"
+          >
+            <ChevronUp className="h-5 w-5 text-slate-700 dark:text-white transition-transform group-hover:-translate-y-1" />
+          </button>
+        )}
+
         <MusicController />
+
         <AutoScrollController isOpened={isOpened} />
       </div>
 

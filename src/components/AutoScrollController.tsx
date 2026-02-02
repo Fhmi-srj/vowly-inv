@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect, useRef } from "react";
-import { MousePointer2, StopCircle } from "lucide-react";
+import { RefreshCw, ChevronDown } from "lucide-react";
 
 interface AutoScrollControllerProps {
     isOpened: boolean;
@@ -41,25 +41,17 @@ const AutoScrollController: React.FC<AutoScrollControllerProps> = ({ isOpened })
     if (!isOpened) return null;
 
     return (
-        <div className="animate-in fade-in slide-in-from-left-4 duration-1000">
+        <div className="animate-in fade-in slide-in-from-right-4 duration-1000">
             <button
                 onClick={toggleScroll}
-                className={`group flex items-center gap-3 rounded-full px-5 py-3 text-[11px] font-bold tracking-[0.15em] uppercase shadow-2xl transition-all duration-500 hover:scale-105 frosted-glass border border-white/20 ${isActive
-                    ? "bg-accent text-white"
-                    : "bg-white/80 text-slate-700 hover:bg-white dark:bg-slate-900/80 dark:text-white"
+                className={`group flex h-20 w-12 flex-col items-center justify-center gap-1.5 rounded-tl-2xl rounded-tr-sm rounded-bl-sm rounded-br-2xl border border-white/20 shadow-xl transition-all duration-500 hover:scale-105 backdrop-blur-md ${isActive
+                        ? "bg-accent text-white"
+                        : "bg-white/80 text-slate-700 hover:bg-white dark:bg-slate-900/80 dark:text-white"
                     }`}
             >
-                {isActive ? (
-                    <>
-                        <StopCircle className="h-4 w-4 animate-pulse" />
-                        <span>Stop Auto Scroll</span>
-                    </>
-                ) : (
-                    <>
-                        <MousePointer2 className="h-4 w-4 group-hover:animate-bounce" />
-                        <span>Auto Scroll</span>
-                    </>
-                )}
+                <RefreshCw className={`h-5 w-5 ${isActive ? "animate-spin" : ""}`} />
+                <span className="text-[10px] font-bold tracking-widest uppercase">Auto</span>
+                <ChevronDown className={`h-3 w-3 opacity-50 transition-transform ${isActive ? "rotate-180" : ""}`} />
             </button>
         </div>
     );
