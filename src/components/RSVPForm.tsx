@@ -11,6 +11,8 @@ import {
   Plus,
   Smile,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { dbService } from "../services/dbService";
 import { AttendanceStatus, type RSVP } from "../types";
@@ -30,6 +32,8 @@ const RSVPForm: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [isNameLocked, setIsNameLocked] = useState(false);
   const [rsvps, setRsvps] = useState<RSVP[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const rsvpsPerPage = 10;
   const [showStickerPicker, setShowStickerPicker] = useState(false);
 
   const loadRSVPs = async () => {
@@ -59,6 +63,7 @@ const RSVPForm: React.FC = () => {
       });
       setSubmitted(true);
       await loadRSVPs();
+      setCurrentPage(1); // Reset to first page after new submit
     } catch (err) {
       console.error(err);
     } finally {
@@ -94,6 +99,38 @@ const RSVPForm: React.FC = () => {
       default:
         return "text-slate-500 dark:text-slate-400";
     }
+  };
+
+  // Pagination logic
+  const totalPages = Math.ceil(rsvps.length / rsvpsPerPage);
+  const currentRSVPs = React.useMemo(() => {
+    const start = (currentPage - 1) * rsvpsPerPage;
+    const sorted = [...rsvps].sort(
+      (a, b) =>
+        new Date(b.created_at || 0).getTime() -
+        new Date(a.created_at || 0).getTime()
+    );
+    return sorted.slice(start, start + rsvpsPerPage);
+  }, [rsvps, currentPage]);
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    const element = document.getElementById("guest-list-header");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    if (endPage - startPage < maxVisiblePages - 1) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+    for (let i = startPage; i <= endPage; i++) pages.push(i);
+    return pages;
   };
 
   return (
@@ -367,7 +404,7 @@ const RSVPForm: React.FC = () => {
               <div className="from-accent/5 absolute inset-0 bg-gradient-to-br via-transparent to-transparent opacity-50"></div>
               <div className="relative z-10 flex h-full flex-col">
                 <div className="mb-8 flex flex-shrink-0 items-center justify-between">
-                  <h3 className="font-serif text-xl text-slate-900 italic md:text-3xl dark:text-white">
+                  <h3 id="guest-list-header" className="font-serif text-xl text-slate-900 italic md:text-3xl dark:text-white">
                     Daftar Tamu
                   </h3>
                   <div className="flex items-center gap-2 text-[10px] tracking-widest uppercase opacity-50">
@@ -376,7 +413,7 @@ const RSVPForm: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="custom-scrollbar -mr-2 h-96 flex-grow overflow-y-auto pr-2 md:h-[450px]">
+                <div className="flex-grow">
                   {rsvps.length === 0 ? (
                     <div className="flex h-full flex-col items-center justify-center opacity-40">
                       <Users className="mb-2 h-8 w-8" />
@@ -385,37 +422,73 @@ const RSVPForm: React.FC = () => {
                       </span>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      {rsvps.map((rsvp) => (
-                        <div
-                          key={rsvp.id}
-                          className="editorial-card animate-reveal space-y-4 rounded-2xl p-5"
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex min-w-0 items-center gap-3">
-                              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-slate-200 text-xs font-bold text-slate-500 dark:bg-slate-700 dark:text-slate-300">
-                                {rsvp.guest_name.charAt(0).toUpperCase()}
+                    <div className="flex flex-col gap-6">
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        {currentRSVPs.map((rsvp) => (
+                          <div
+                            key={rsvp.id}
+                            className="editorial-card animate-reveal space-y-4 rounded-2xl p-5"
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex min-w-0 items-center gap-3">
+                                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-slate-200 text-xs font-bold text-slate-500 dark:bg-slate-700 dark:text-slate-300">
+                                  {rsvp.guest_name.charAt(0).toUpperCase()}
+                                </div>
+                                <span className="truncate font-serif text-base text-slate-800 italic dark:text-slate-200">
+                                  {rsvp.guest_name}
+                                </span>
                               </div>
-                              <span className="truncate font-serif text-base text-slate-800 italic dark:text-slate-200">
-                                {rsvp.guest_name}
+                              <span
+                                className={`text-xs font-bold uppercase ${getStatusColor(
+                                  rsvp.attendance
+                                )}`}
+                              >
+                                {rsvp.attendance.replace("_", " ")}
                               </span>
                             </div>
-                            <span
-                              className={`text-xs font-bold uppercase ${getStatusColor(
-                                rsvp.attendance
-                              )}`}
-                            >
-                              {rsvp.attendance.replace("_", " ")}
-                            </span>
+                            {rsvp.attendance === AttendanceStatus.HADIR && (
+                              <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 text-xs text-slate-400 dark:border-white/5 dark:text-slate-500">
+                                <Users className="h-4 w-4" />
+                                <span>Datang ber-{rsvp.guest_count}</span>
+                              </div>
+                            )}
                           </div>
-                          {rsvp.attendance === AttendanceStatus.HADIR && (
-                            <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 text-xs text-slate-400 dark:border-white/5 dark:text-slate-500">
-                              <Users className="h-4 w-4" />
-                              <span>Datang ber-{rsvp.guest_count}</span>
-                            </div>
-                          )}
+                        ))}
+                      </div>
+
+                      {/* Pagination Controls */}
+                      {totalPages > 1 && (
+                        <div className="mt-4 flex items-center justify-center gap-2">
+                          <button
+                            onClick={() => paginate(Math.max(1, currentPage - 1))}
+                            disabled={currentPage === 1}
+                            className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 text-slate-400 transition-all hover:bg-slate-50 disabled:opacity-30 dark:border-white/10 dark:hover:bg-white/5"
+                          >
+                            <ChevronLeft className="h-4 w-4" />
+                          </button>
+                          <div className="flex gap-1">
+                            {getPageNumbers().map((pageNum) => (
+                              <button
+                                key={pageNum}
+                                onClick={() => paginate(pageNum)}
+                                className={`h-8 w-8 rounded-full text-xs transition-all ${currentPage === pageNum
+                                  ? "bg-primary text-white shadow-md dark:bg-white dark:text-slate-900"
+                                  : "text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                                  }`}
+                              >
+                                {pageNum}
+                              </button>
+                            ))}
+                          </div>
+                          <button
+                            onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
+                            disabled={currentPage === totalPages}
+                            className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 text-slate-400 transition-all hover:bg-slate-50 disabled:opacity-30 dark:border-white/10 dark:hover:bg-white/5"
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                          </button>
                         </div>
-                      ))}
+                      )}
                     </div>
                   )}
                 </div>

@@ -14,7 +14,7 @@ import {
 const Wishes: React.FC = () => {
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const wishesPerPage = 6;
+  const wishesPerPage = 10;
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
