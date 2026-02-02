@@ -715,10 +715,16 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ initialSettings }: Se
                                                     const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
                                                     const options: Intl.DateTimeFormatOptions = { day: "numeric", month: "long", year: "numeric" };
                                                     const displayDate = dateObj.toLocaleDateString("id-ID", options);
-                                                    updateEvent(event.id, "day", days[dateObj.getDay()]);
-                                                    updateEvent(event.id, "date", displayDate);
-                                                    updateEvent(event.id, "isoStart", `${dateValue}T${event.startTime || "08:00"}:00+07:00`);
-                                                    updateEvent(event.id, "isoEnd", `${dateValue}T${event.endTime || "10:00"}:00+07:00`);
+
+                                                    // Unified update to avoid staggered state issues
+                                                    const events = getEvents();
+                                                    updateEvents(events.map(ev => ev.id === event.id ? {
+                                                        ...ev,
+                                                        day: days[dateObj.getDay()],
+                                                        date: displayDate,
+                                                        isoStart: `${dateValue}T${event.startTime || "08:00"}:00+07:00`,
+                                                        isoEnd: `${dateValue}T${event.endTime || "10:00"}:00+07:00`
+                                                    } : ev));
                                                 }}
                                                 min="2020-01-01"
                                                 max="2099-12-31"
@@ -731,11 +737,13 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ initialSettings }: Se
                                                 type="time"
                                                 defaultValue={event.startTime}
                                                 onBlur={(e) => {
-                                                    updateEvent(event.id, "startTime", e.target.value);
-                                                    if (event.isoStart) {
-                                                        const dateValue = event.isoStart.split("T")[0];
-                                                        updateEvent(event.id, "isoStart", `${dateValue}T${e.target.value}:00+07:00`);
-                                                    }
+                                                    const timeValue = e.target.value;
+                                                    const events = getEvents();
+                                                    updateEvents(events.map(ev => ev.id === event.id ? {
+                                                        ...ev,
+                                                        startTime: timeValue,
+                                                        isoStart: ev.isoStart ? `${ev.isoStart.split("T")[0]}T${timeValue}:00+07:00` : ""
+                                                    } : ev));
                                                 }}
                                                 className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
                                             />
@@ -746,11 +754,13 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ initialSettings }: Se
                                                 type="time"
                                                 defaultValue={event.endTime}
                                                 onBlur={(e) => {
-                                                    updateEvent(event.id, "endTime", e.target.value);
-                                                    if (event.isoEnd) {
-                                                        const dateValue = event.isoEnd.split("T")[0];
-                                                        updateEvent(event.id, "isoEnd", `${dateValue}T${e.target.value}:00+07:00`);
-                                                    }
+                                                    const timeValue = e.target.value;
+                                                    const events = getEvents();
+                                                    updateEvents(events.map(ev => ev.id === event.id ? {
+                                                        ...ev,
+                                                        endTime: timeValue,
+                                                        isoEnd: ev.isoEnd ? `${ev.isoEnd.split("T")[0]}T${timeValue}:00+07:00` : ""
+                                                    } : ev));
                                                 }}
                                                 className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
                                             />

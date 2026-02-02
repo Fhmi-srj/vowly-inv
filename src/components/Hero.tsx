@@ -22,11 +22,25 @@ const Hero: React.FC = () => {
     if (sideParam === "wanita") setSide("wanita");
 
     const timer = setInterval(() => {
-      const firstEvent = config.events[0];
-      if (!firstEvent) return;
-      const distance =
-        firstEvent.startDateTime.getTime() -
-        new Date().getTime();
+      // Use heroDateRaw for countdown
+      const targetDateStr = config.hero.heroDateRaw;
+      if (!targetDateStr) {
+        // Fallback to first event if hero date not set
+        const firstEvent = config.events[0];
+        if (!firstEvent) return;
+        const distance = firstEvent.startDateTime.getTime() - new Date().getTime();
+        updateTimeLeft(distance);
+        return;
+      }
+
+      // Parse heroDateRaw (YYYY-MM-DD)
+      // We assume the wedding starts at 08:00 AM local time if not specified
+      const targetDate = new Date(`${targetDateStr}T08:00:00+07:00`);
+      const distance = targetDate.getTime() - new Date().getTime();
+      updateTimeLeft(distance);
+    }, 1000);
+
+    const updateTimeLeft = (distance: number) => {
       if (distance > 0) {
         setTimeLeft({
           days: Math.floor(distance / (1000 * 60 * 60 * 24)),
@@ -36,10 +50,13 @@ const Hero: React.FC = () => {
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000),
         });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
-    }, 1000);
+    };
+
     return () => clearInterval(timer);
-  }, [config.events]);
+  }, [config.hero.heroDateRaw, config.events]);
 
   // Determine couple order based on side
   const firstName = side === "wanita" ? config.couple.bride.name : config.couple.groom.name;

@@ -92,6 +92,7 @@ export interface AppConfig {
         image: string;
         city: string;
         date: string;
+        heroDateRaw: string;
     };
     musicUrl: string;
     maxGuests: number;
@@ -140,6 +141,7 @@ const defaultConfig: AppConfig = {
     hero: {
         ...WEDDING_CONFIG.hero,
         date: WEDDING_CONFIG.events.akad.date,
+        heroDateRaw: "",
     },
     musicUrl: MUSIC_URL,
     maxGuests: MAX_GUESTS,
@@ -334,6 +336,7 @@ const settingsToConfig = (settings: Partial<DynamicSettings>): AppConfig => {
             image: settings.hero_image || WEDDING_CONFIG.hero.image,
             city: settings.hero_city || WEDDING_CONFIG.hero.city,
             date: heroDisplayDate,
+            heroDateRaw: settings.hero_date || "",
         },
         musicUrl: settings.music_url || MUSIC_URL,
         maxGuests: parseInt(settings.max_guests || String(MAX_GUESTS), 10),
