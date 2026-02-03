@@ -449,7 +449,7 @@ const AdminDashboard = ({
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-sm font-bold tracking-widest text-slate-400 uppercase">Total Kunjungan</p>
-                  <h4 className="mt-2 text-4xl font-bold dark:text-white">{invitation.views_count || 0}</h4>
+                  <h4 className="mt-2 text-4xl font-bold dark:text-white">{invitation?.views_count || 0}</h4>
                 </div>
                 <div className="rounded-2xl bg-blue-50 p-3 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
                   <Activity className="h-6 w-6" />
@@ -465,14 +465,14 @@ const AdminDashboard = ({
                 <div>
                   <p className="text-sm font-bold tracking-widest text-slate-400 uppercase">Tanggal Dibuat</p>
                   <h4 className="mt-2 text-lg font-bold dark:text-white">
-                    {new Date(invitation.created_at).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}
+                    {invitation?.created_at ? new Date(invitation.created_at).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }) : "-"}
                   </h4>
                 </div>
                 <div className="rounded-2xl bg-purple-50 p-3 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400">
                   <CalendarIcon className="h-6 w-6" />
                 </div>
               </div>
-              <p className="mt-6 text-xs text-slate-400">Pembeli: {invitation.buyer_name || "Guest"}</p>
+              <p className="mt-6 text-xs text-slate-400">Pembeli: {invitation?.buyer_name || "Guest"}</p>
             </div>
 
             <div className="relative overflow-hidden rounded-3xl border border-primary/20 bg-primary/5 p-8 shadow-sm dark:bg-primary/10">
@@ -529,16 +529,16 @@ const AdminDashboard = ({
                   <p className="text-xs font-bold tracking-widest text-slate-400 uppercase">Tamu Pria</p>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 truncate rounded-2xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 dark:bg-slate-900 dark:text-slate-400">
-                      {`${siteUrl}/${invitation.slug}`}
+                      {`${siteUrl}/${invitation?.slug || ""}`}
                     </div>
                     <button
-                      onClick={() => copyToClipboard(`${siteUrl}/${invitation.slug}`)}
+                      onClick={() => copyToClipboard(`${siteUrl}/${invitation?.slug || ""}`)}
                       className="rounded-2xl bg-slate-100 p-3.5 text-slate-600 hover:bg-primary hover:text-white transition-all dark:bg-slate-700 dark:text-slate-300"
                     >
                       <Copy className="h-5 w-5" />
                     </button>
                     <a
-                      href={`/${invitation.slug}`}
+                      href={`/${invitation?.slug || ""}`}
                       target="_blank"
                       className="rounded-2xl bg-blue-50 p-3.5 text-blue-600 hover:bg-blue-600 hover:text-white transition-all dark:bg-blue-900/20"
                     >
@@ -551,16 +551,16 @@ const AdminDashboard = ({
                   <p className="text-xs font-bold tracking-widest text-slate-400 uppercase">Tamu Wanita</p>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 truncate rounded-2xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 dark:bg-slate-900 dark:text-slate-400">
-                      {`${siteUrl}/${invitation.slug}`}
+                      {`${siteUrl}/${invitation?.slug || ""}`}
                     </div>
                     <button
-                      onClick={() => copyToClipboard(`${siteUrl}/${invitation.slug}`)}
+                      onClick={() => copyToClipboard(`${siteUrl}/${invitation?.slug || ""}`)}
                       className="rounded-2xl bg-slate-100 p-3.5 text-slate-600 hover:bg-primary hover:text-white transition-all dark:bg-slate-700 dark:text-slate-300"
                     >
                       <Copy className="h-5 w-5" />
                     </button>
                     <a
-                      href={`/${invitation.slug}`}
+                      href={`/${invitation?.slug || ""}`}
                       target="_blank"
                       className="rounded-2xl bg-blue-50 p-3.5 text-blue-600 hover:bg-blue-600 hover:text-white transition-all dark:bg-blue-900/20"
                     >
