@@ -1,17 +1,34 @@
 ---
 import "../styles/global.css";
-import { LogOut, LayoutDashboard, Settings, Users, MessageCircle, Heart, User } from "lucide-react";
+import { LogOut, LayoutDashboard, Settings, Users, MessageCircle, Heart, User, QrCode, Printer } from "lucide-react";
 
 interface Props {
   title?: string;
+  invitationId?: number;
+  activeTab?: string;
+  userName?: string;
+  userPhone?: string;
 }
 
-const { title = "Dashboard - Vowly" } = Astro.props;
+const { 
+  title = "Dashboard - Vowly",
+  invitationId,
+  activeTab = "overview",
+  userName,
+  userPhone
+} = Astro.props;
 
-// Mock user data for the layout - will be replaced with real auth logic later
+// Use real user data if provided, fallback to default for dev
 const userData = {
-  name: "Buyer Name",
-  phone: "08123456789"
+  name: userName || "Buyer Name",
+  phone: userPhone || "08123456789"
+};
+
+const getLink = (tab: string) => {
+  if (invitationId) {
+    return `/dashboard/manage/${invitationId}?tab=${tab}`;
+  }
+  return `/dashboard?tab=${tab}`;
 };
 ---
 
@@ -38,18 +55,79 @@ const userData = {
             <span class="text-2xl font-serif italic font-bold">Vowly</span>
           </div>
 
-          <nav class="flex-1 space-y-2">
-            <a href="/dashboard" class="flex items-center gap-4 px-6 py-4 bg-slate-50 dark:bg-white/5 rounded-2xl text-primary font-bold transition-all">
-              <LayoutDashboard size={20} />
-              <span>Ringkasan</span>
+          <nav class="flex-1 space-y-1.5 overflow-y-auto pr-2 custom-scrollbar">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-6 mb-2 mt-4">Menu Utama</p>
+            
+            <a 
+                href={getLink("overview")} 
+                class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "overview" 
+                    ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                    : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
+            >
+              <LayoutDashboard size={18} />
+              <span class="text-sm">Ringkasan</span>
             </a>
-            <a href="/dashboard/manage" class="flex items-center gap-4 px-6 py-4 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5 rounded-2xl transition-all">
-              <Settings size={20} />
-              <span>Pengaturan</span>
+
+            {invitationId && (
+              <>
+                <a 
+                    href={getLink("rsvp")} 
+                    class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "rsvp" 
+                        ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                        : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
+                >
+                  <Users size={18} />
+                  <span class="text-sm">Data RSVP</span>
+                </a>
+                <a 
+                    href={getLink("wishes")} 
+                    class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "wishes" 
+                        ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                        : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
+                >
+                  <MessageCircle size={18} />
+                  <span class="text-sm">Ucapan & Doa</span>
+                </a>
+                <a 
+                    href={getLink("qr")} 
+                    class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "qr" 
+                        ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                        : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
+                >
+                  <QrCode size={18} />
+                  <span class="text-sm">QR Generator</span>
+                </a>
+                <a 
+                    href={getLink("pdf")} 
+                    class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "pdf" 
+                        ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                        : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
+                >
+                  <Printer size={18} />
+                  <span class="text-sm">Design PDF</span>
+                </a>
+              </>
+            )}
+
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-6 mb-2 mt-8">Akun & Sistem</p>
+
+            <a 
+                href={getLink("settings")} 
+                class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "settings" 
+                    ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                    : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
+            >
+              <Settings size={18} />
+              <span class="text-sm">Pengaturan</span>
             </a>
-            <a href="/dashboard/profile" class="flex items-center gap-4 px-6 py-4 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5 rounded-2xl transition-all">
-              <User size={20} />
-              <span>Profil Saya</span>
+            <a 
+                href={getLink("profile")} 
+                class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "profile" 
+                    ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                    : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
+            >
+              <User size={18} />
+              <span class="text-sm">Profil Saya</span>
             </a>
           </nav>
 
