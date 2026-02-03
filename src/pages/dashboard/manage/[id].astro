@@ -24,6 +24,7 @@ let wishes: any[] = [];
 let settings: Record<string, string> = defaultSettings;
 let stats = { total: 0, hadir: 0, ragu: 0, tidak: 0, guestCount: 0 };
 let invitationSlug = "";
+let invitationData: any = null;
 
 try {
   // Fetch Invitation info
@@ -34,8 +35,9 @@ try {
     WHERE i.id = ${invitationId}
   `;
   if (invRows.length === 0) return Astro.redirect("/404");
-  invitationSlug = invRows[0].slug;
-  const invitation = invRows[0];
+  
+  invitationData = invRows[0];
+  invitationSlug = invitationData.slug;
 
   // Fetch RSVPs
   const rsvpRows = await sql`SELECT * FROM rsvps WHERE invitation_id = ${invitationId} ORDER BY created_at DESC`;
@@ -87,7 +89,7 @@ try {
   <AdminDashboard
     client:load
     invitationId={invitationId}
-    invitation={invRows[0] as any}
+    invitation={invitationData}
     initialRsvps={rsvps}
     initialWishes={wishes}
     initialSettings={settings as any}
