@@ -1,32 +1,26 @@
 import * as React from "react";
 import { useEffect } from "react";
-import Hero from "../components/Invitation/Hero";
-import CoupleProfile from "../components/Invitation/CoupleProfile";
-import EventDetails from "../components/Invitation/EventDetails";
-import Gallery from "../components/Invitation/Gallery";
-import LoveStory from "../components/Invitation/LoveStory";
-import RSVPForm from "../components/Invitation/RSVPForm";
-import Wishes from "../components/Invitation/Wishes";
-import GiftInfo from "../components/Invitation/GiftInfo";
-import MusicPlayer from "../components/Invitation/MusicPlayer";
-import MusicController from "../components/Invitation/MusicController";
-import AutoScrollController from "../components/Invitation/AutoScrollController";
-import Navbar from "../components/Invitation/Navbar";
-import FloatingPetals from "../components/Invitation/FloatingPetals";
-import Envelope from "../components/Invitation/Envelope";
+import Hero from "../components/Invitation/Luxury/Hero";
+import CoupleProfile from "../components/Invitation/Luxury/CoupleProfile";
+import EventDetails from "../components/Invitation/Luxury/EventDetails";
+import Gallery from "../components/Invitation/Luxury/Gallery";
+import LoveStory from "../components/Invitation/Luxury/LoveStory";
+import RSVPForm from "../components/Invitation/Luxury/RSVPForm";
+import Wishes from "../components/Invitation/Luxury/Wishes";
+import GiftInfo from "../components/Invitation/Luxury/GiftInfo";
+import MusicPlayer from "../components/Invitation/Shared/MusicPlayer";
+import MusicController from "../components/Invitation/Shared/MusicController";
+import AutoScrollController from "../components/Invitation/Shared/AutoScrollController";
+import Navbar from "../components/Invitation/Luxury/Navbar";
+import FloatingPetals from "../components/Invitation/Shared/FloatingPetals";
+import Envelope from "../components/Invitation/Luxury/Envelope";
 import { Heart, Quote, ChevronUp } from "lucide-react";
 import { useSettings } from "../contexts/SettingsContext";
-import InstallPrompt from "../components/Invitation/InstallPrompt";
+import InstallPrompt from "../components/Invitation/Shared/InstallPrompt";
 import type { ThemeProps } from "./types";
 
 const LuxuryTheme: React.FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) => {
     const { config, text } = useSettings();
-    const [side, setSide] = React.useState<"pria" | "wanita">("pria");
-
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        if (params.get("side") === "wanita") setSide("wanita");
-    }, []);
 
     useEffect(() => {
         if (!isOpened) {
@@ -100,16 +94,8 @@ const LuxuryTheme: React.FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpe
 
             <MusicPlayer />
 
+            {/* Standardized Floating Utilities */}
             <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4">
-                {isOpened && (
-                    <button
-                        onClick={scrollToTop}
-                        className="group flex h-14 w-12 flex-col items-center justify-center gap-1 rounded-tl-2xl rounded-tr-sm rounded-bl-sm rounded-br-2xl border border-white/20 bg-white/80 shadow-xl backdrop-blur-md transition-all duration-300 hover:bg-white dark:bg-slate-900/80 dark:hover:bg-slate-900"
-                    >
-                        <ChevronUp className="h-5 w-5 text-slate-700 dark:text-white transition-transform group-hover:-translate-y-1" />
-                    </button>
-                )}
-
                 <MusicController />
                 <AutoScrollController isOpened={isOpened} />
             </div>
@@ -137,9 +123,9 @@ const LuxuryTheme: React.FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpe
                     <div className="space-y-8 text-center md:space-y-12">
                         <Heart className="text-accent/60 mx-auto h-8 w-8 animate-pulse fill-current md:h-12 md:w-12" />
                         <h2 className="font-serif text-6xl leading-[0.85] tracking-tighter text-slate-900 italic drop-shadow-xl sm:text-8xl md:text-[12rem] dark:text-white">
-                            {side === "wanita" ? config.couple.bride.name : config.couple.groom.name}{" "}
+                            {config.couple.groom.name}{" "}
                             <span className="text-accent/30">&</span>{" "}
-                            {side === "wanita" ? config.couple.groom.name : config.couple.bride.name}
+                            {config.couple.bride.name}
                         </h2>
                         <div className="flex items-center justify-center gap-4 md:gap-6">
                             <div className="bg-accent/30 h-[1px] w-10 md:w-20"></div>
@@ -169,8 +155,7 @@ const LuxuryTheme: React.FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpe
                                 {text.closing.signature}
                             </p>
                             <p className="font-serif text-lg italic">
-                                {side === "wanita" ? config.couple.bride.name : config.couple.groom.name} &{" "}
-                                {side === "wanita" ? config.couple.groom.name : config.couple.bride.name}
+                                {config.couple.groom.name} & {config.couple.bride.name}
                             </p>
                             <p className="mt-2 text-[10px]">{config.closingFamily}</p>
                         </div>

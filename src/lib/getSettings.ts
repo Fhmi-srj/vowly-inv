@@ -188,7 +188,6 @@ export function settingsToConfig(settings: WeddingSettings) {
                     endTime: e.endTime,
                     startDateTime: e.isoStart ? new Date(e.isoStart) : new Date(),
                     endDateTime: e.isoEnd ? new Date(e.isoEnd) : new Date(),
-                    side: e.side || "both",
                     venue: {
                         name: e.venueName,
                         address: e.venueAddress,
@@ -211,7 +210,6 @@ export function settingsToConfig(settings: WeddingSettings) {
                 endTime: settings.akad_end || WEDDING_CONFIG.events.akad.endTime,
                 startDateTime: syncWithHeroDate(settings.akad_iso_start ? new Date(settings.akad_iso_start) : WEDDING_CONFIG.events.akad.startDateTime, heroDate),
                 endDateTime: syncWithHeroDate(settings.akad_iso_end ? new Date(settings.akad_iso_end) : WEDDING_CONFIG.events.akad.endDateTime, heroDate),
-                side: "both",
                 venue: {
                     name: settings.akad_venue_name || WEDDING_CONFIG.events.akad.venue.name,
                     address: settings.akad_venue_address || WEDDING_CONFIG.events.akad.venue.address,
@@ -230,7 +228,6 @@ export function settingsToConfig(settings: WeddingSettings) {
                 endTime: settings.resepsi_end || WEDDING_CONFIG.events.resepsi.endTime,
                 startDateTime: syncWithHeroDate(settings.resepsi_iso_start ? new Date(settings.resepsi_iso_start) : WEDDING_CONFIG.events.resepsi.startDateTime, heroDate),
                 endDateTime: syncWithHeroDate(settings.resepsi_iso_end ? new Date(settings.resepsi_iso_end) : WEDDING_CONFIG.events.resepsi.endDateTime, heroDate),
-                side: "both",
                 venue: {
                     name: settings.resepsi_venue_name || WEDDING_CONFIG.events.resepsi.venue.name,
                     address: settings.resepsi_venue_address || WEDDING_CONFIG.events.resepsi.venue.address,
@@ -251,7 +248,6 @@ export function settingsToConfig(settings: WeddingSettings) {
             endTime: WEDDING_CONFIG.events.akad.endTime,
             startDateTime: WEDDING_CONFIG.events.akad.startDateTime,
             endDateTime: WEDDING_CONFIG.events.akad.endDateTime,
-            side: "both",
             venue: WEDDING_CONFIG.events.akad.venue,
         });
     }

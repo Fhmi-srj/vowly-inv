@@ -15,8 +15,14 @@ let invitationId = null;
 let config = null;
 
 // Handle Demo Routes
-if (slug === "demo-luxury" || slug === "demo-minimalist") {
+if (slug.startsWith("demo-")) {
   const themeId = slug.replace("demo-", "");
+  
+  // Verify if theme exists
+  if (!ThemeRegistry[themeId as any]) {
+    return Astro.redirect("/404");
+  }
+
   config = settingsToConfig({
     ...defaultSettings,
     theme_id: themeId,

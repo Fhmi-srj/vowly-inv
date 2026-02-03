@@ -53,7 +53,6 @@ interface EventItem {
     venueName: string;
     venueAddress: string;
     venueMaps: string;
-    side: "pria" | "wanita" | "both";
 }
 
 interface SectionHeaderProps {
@@ -82,12 +81,11 @@ interface InputFieldProps {
     settingKey: string;
     type?: string;
     placeholder?: string;
-    activeSide: string;
     value: string;
     onUpdate: (key: string, value: string) => void;
 }
 
-const InputField = ({ label, settingKey, type = "text", placeholder, activeSide, value, onUpdate }: InputFieldProps) => {
+const InputField = ({ label, settingKey, type = "text", placeholder, value, onUpdate }: InputFieldProps) => {
     const inputRef = React.useRef<HTMLInputElement>(null);
     const handleBlur = () => {
         if (inputRef.current) {
@@ -100,7 +98,7 @@ const InputField = ({ label, settingKey, type = "text", placeholder, activeSide,
             <label className="mb-1 block text-sm font-medium text-slate-600 dark:text-slate-400">{label}</label>
             <input
                 ref={inputRef}
-                key={`${activeSide}_${settingKey}`}
+                key={settingKey}
                 type={type}
                 defaultValue={value}
                 onBlur={handleBlur}
@@ -344,19 +342,6 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ invitationId, initial
     const [settings, setSettings] = useState(initialSettings);
     const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
 
-    // Persist active side in localStorage
-    const [activeSide, setActiveSide] = useState<"pria" | "wanita">(() => {
-        if (typeof window !== "undefined") {
-            const saved = localStorage.getItem("admin_active_side");
-            return (saved === "wanita" ? "wanita" : "pria") as "pria" | "wanita";
-        }
-        return "pria";
-    });
-
-    useEffect(() => {
-        localStorage.setItem("admin_active_side", activeSide);
-    }, [activeSide]);
-
     const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
         bride: true,
         groom: false,
@@ -369,40 +354,22 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ invitationId, initial
         theme: false,
     });
 
-    const isEventKey = (key: string) =>
-        key === "events_data" ||
-        key.startsWith("akad_") ||
-        key.startsWith("resepsi_");
-
-    const getKey = (key: string) => {
-        // Shared settings always use "pria" as the master prefix in the database
-        // Only events are truly separate for each side
-        if (activeSide === "wanita" && !isEventKey(key)) {
-            return `pria_${key}`;
-        }
-        return `${activeSide}_${key}`;
-    };
-
-    const getSetting = (key: string): string => settings[getKey(key)] ?? settings[key] ?? "";
+    const getSetting = (key: string): string => settings[key] ?? "";
 
     const updateSetting = (key: string, value: string) => {
-        const prefixedKey = getKey(key);
         setSettings((prev: Record<string, string>) => {
-            const newSettings = { ...prev, [prefixedKey]: value };
+            const newSettings = { ...prev, [key]: value };
 
             // Auto-sync hero_date if it's the first time setting an event date 
-            // OR if hero_date is currently the default 11 Oktober 2025
             if (key === "events_data") {
                 try {
                     const events = JSON.parse(value);
                     if (events.length > 0 && events[0].isoStart) {
                         const dateOnly = events[0].isoStart.split("T")[0];
-                        const heroKey = activeSide === "wanita" ? "pria_hero_date" : "pria_hero_date";
-                        const currentHeroDate = prev[heroKey] || prev["hero_date"];
+                        const currentHeroDate = prev["hero_date"];
 
-                        // Only sync if hero date is empty or looks like the default
                         if (!currentHeroDate || currentHeroDate === "2025-10-11") {
-                            newSettings[heroKey] = dateOnly;
+                            newSettings["hero_date"] = dateOnly;
                         }
                     }
                 } catch (e) { }
@@ -496,7 +463,6 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ invitationId, initial
                     venueName: settings.akad_venue_name || "",
                     venueAddress: settings.akad_venue_address || "",
                     venueMaps: settings.akad_venue_maps || "",
-                    side: "both",
                 });
             }
             if (settings.resepsi_title || settings.resepsi_date) {
@@ -512,7 +478,6 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ invitationId, initial
                     venueName: settings.resepsi_venue_name || "",
                     venueAddress: settings.resepsi_venue_address || "",
                     venueMaps: settings.resepsi_venue_maps || "",
-                    side: "both",
                 });
             }
             return legacyEvents.length > 0 ? legacyEvents : [];
@@ -539,7 +504,6 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ invitationId, initial
             venueName: "",
             venueAddress: "",
             venueMaps: "",
-            side: "both",
         };
         updateEvents([...events, newEvent]);
     };
@@ -589,38 +553,15 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ invitationId, initial
                 </div>
             </div>
 
-            {/* Side Tabs */}
-            <div className="flex gap-2 rounded-lg bg-white p-2 shadow dark:bg-slate-800">
-                <button
-                    onClick={() => setActiveSide("pria")}
-                    className={`flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium transition-all ${activeSide === "pria"
-                        ? "bg-blue-600 text-white shadow-lg"
-                        : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
-                        }`}
-                >
-                    <User className="h-4 w-4" />
-                    Tamu Pria
-                </button>
-                <button
-                    onClick={() => setActiveSide("wanita")}
-                    className={`flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium transition-all ${activeSide === "wanita"
-                        ? "bg-pink-600 text-white shadow-lg"
-                        : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
-                        }`}
-                >
-                    <Users className="h-4 w-4" />
-                    Tamu Wanita
-                </button>
-            </div>
 
             {/* Mempelai Wanita */}
             <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700">
                 <SectionHeader title="Mempelai Wanita" section="bride" icon={User} expanded={expandedSections.bride} onToggle={() => toggleSection("bride")} />
                 {expandedSections.bride && (
                     <div className="grid gap-4 bg-white p-4 dark:bg-slate-800 md:grid-cols-2">
-                        <InputField label="Nama Panggilan" settingKey="bride_nickname" placeholder="Fey" activeSide={activeSide} value={getSetting("bride_nickname")} onUpdate={updateSetting} />
-                        <InputField label="Nama Lengkap" settingKey="bride_fullname" placeholder="Fera Oktapia" activeSide={activeSide} value={getSetting("bride_fullname")} onUpdate={updateSetting} />
-                        <InputField label="Info Orang Tua" settingKey="bride_parents" placeholder="Putri dari Bpk. ... & Ibu ..." activeSide={activeSide} value={getSetting("bride_parents")} onUpdate={updateSetting} />
+                        <InputField label="Nama Panggilan" settingKey="bride_nickname" placeholder="Fey" value={getSetting("bride_nickname")} onUpdate={updateSetting} />
+                        <InputField label="Nama Lengkap" settingKey="bride_fullname" placeholder="Fera Oktapia" value={getSetting("bride_fullname")} onUpdate={updateSetting} />
+                        <InputField label="Info Orang Tua" settingKey="bride_parents" placeholder="Putri dari Bpk. ... & Ibu ..." value={getSetting("bride_parents")} onUpdate={updateSetting} />
                         <div className="md:col-span-2">
                             <ImageUpload label="Foto Mempelai Wanita" settingKey="bride_image" value={getSetting("bride_image")} onUpdate={updateSetting} />
                         </div>
@@ -633,9 +574,9 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ invitationId, initial
                 <SectionHeader title="Mempelai Pria" section="groom" icon={Users} expanded={expandedSections.groom} onToggle={() => toggleSection("groom")} />
                 {expandedSections.groom && (
                     <div className="grid gap-4 bg-white p-4 dark:bg-slate-800 md:grid-cols-2">
-                        <InputField label="Nama Panggilan" settingKey="groom_nickname" placeholder="Yaya" activeSide={activeSide} value={getSetting("groom_nickname")} onUpdate={updateSetting} />
-                        <InputField label="Nama Lengkap" settingKey="groom_fullname" placeholder="Yahya Zulfikri" activeSide={activeSide} value={getSetting("groom_fullname")} onUpdate={updateSetting} />
-                        <InputField label="Info Orang Tua" settingKey="groom_parents" placeholder="Putra dari Bpk. ... & Ibu ..." activeSide={activeSide} value={getSetting("groom_parents")} onUpdate={updateSetting} />
+                        <InputField label="Nama Panggilan" settingKey="groom_nickname" placeholder="Yaya" value={getSetting("groom_nickname")} onUpdate={updateSetting} />
+                        <InputField label="Nama Lengkap" settingKey="groom_fullname" placeholder="Yahya Zulfikri" value={getSetting("groom_fullname")} onUpdate={updateSetting} />
+                        <InputField label="Info Orang Tua" settingKey="groom_parents" placeholder="Putra dari Bpk. ... & Ibu ..." value={getSetting("groom_parents")} onUpdate={updateSetting} />
                         <div className="md:col-span-2">
                             <ImageUpload label="Foto Mempelai Pria" settingKey="groom_image" value={getSetting("groom_image")} onUpdate={updateSetting} />
                         </div>
@@ -692,18 +633,6 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ invitationId, initial
                                                 placeholder="Akad Nikah"
                                                 className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
                                             />
-                                        </div>
-                                        <div>
-                                            <label className="mb-1 block text-sm font-medium text-slate-600 dark:text-slate-400">Tampilkan Untuk</label>
-                                            <select
-                                                value={event.side || "both"}
-                                                onChange={(e) => updateEvent(event.id, "side", e.target.value)}
-                                                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
-                                            >
-                                                <option value="both">Semua Tamu</option>
-                                                <option value="pria">Tamu Pria Saja</option>
-                                                <option value="wanita">Tamu Wanita Saja</option>
-                                            </select>
                                         </div>
                                     </div>
                                     <div className="grid gap-3 md:grid-cols-3">
@@ -876,17 +805,17 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ invitationId, initial
                         <div className="md:col-span-2">
                             <ImageUpload label="Gambar Hero" settingKey="hero_image" value={getSetting("hero_image")} onUpdate={updateSetting} />
                         </div>
-                        <InputField label="Kota / Lokasi" settingKey="hero_city" placeholder="Kab. Pandeglang, Banten" activeSide={activeSide} value={getSetting("hero_city")} onUpdate={updateSetting} />
-                        <InputField label="Tanggal Tampilan Hero" settingKey="hero_date" type="date" activeSide={activeSide} value={getSetting("hero_date")} onUpdate={updateSetting} />
-                        <InputField label="Max Guests per RSVP" settingKey="max_guests" type="number" placeholder="20" activeSide={activeSide} value={getSetting("max_guests")} onUpdate={updateSetting} />
+                        <InputField label="Kota / Lokasi" settingKey="hero_city" placeholder="Kab. Pandeglang, Banten" value={getSetting("hero_city")} onUpdate={updateSetting} />
+                        <InputField label="Tanggal Tampilan Hero" settingKey="hero_date" type="date" value={getSetting("hero_date")} onUpdate={updateSetting} />
+                        <InputField label="Max Guests per RSVP" settingKey="max_guests" type="number" placeholder="20" value={getSetting("max_guests")} onUpdate={updateSetting} />
                         <div className="md:col-span-2">
                             <AudioUpload label="Background Music (MP3)" settingKey="music_url" value={getSetting("music_url")} onUpdate={updateSetting} />
                         </div>
                         <div className="md:col-span-2">
-                            <InputField label="Alamat Kirim Kado Fisik" settingKey="gift_address" placeholder="Jl. ..." activeSide={activeSide} value={getSetting("gift_address")} onUpdate={updateSetting} />
+                            <InputField label="Alamat Kirim Kado Fisik" settingKey="gift_address" placeholder="Jl. ..." value={getSetting("gift_address")} onUpdate={updateSetting} />
                         </div>
                         <div className="md:col-span-2">
-                            <InputField label="Tanda Tangan Keluarga (Footer)" settingKey="closing_family" placeholder="Kel. Bpk ... & Kel. Bpk ..." activeSide={activeSide} value={getSetting("closing_family")} onUpdate={updateSetting} />
+                            <InputField label="Tanda Tangan Keluarga (Footer)" settingKey="closing_family" placeholder="Kel. Bpk ... & Kel. Bpk ..." value={getSetting("closing_family")} onUpdate={updateSetting} />
                         </div>
                     </div>
                 )}

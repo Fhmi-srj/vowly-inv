@@ -106,7 +106,7 @@ export async function initializeTables() {
     await sql`
             CREATE TABLE IF NOT EXISTS invitations (
                 id SERIAL PRIMARY KEY,
-                user_id VARCHAR(255),
+                user_id INTEGER REFERENCES users(id),
                 slug VARCHAR(100) UNIQUE NOT NULL,
                 theme_id VARCHAR(50) DEFAULT 'luxury',
                 is_active BOOLEAN DEFAULT TRUE,
@@ -142,6 +142,9 @@ export async function initializeTables() {
       DO $$ BEGIN
         IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='invitations' AND column_name='user_id') THEN
           ALTER TABLE invitations ADD COLUMN user_id INTEGER REFERENCES users(id);
+        ELSE
+          -- Ensure it's INTEGER even if it existed as VARCHAR
+          ALTER TABLE invitations ALTER COLUMN user_id TYPE INTEGER USING user_id::INTEGER;
         END IF;
       END $$;
     `;

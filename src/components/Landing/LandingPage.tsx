@@ -20,6 +20,12 @@ const LandingPage: React.FC = () => {
     const [isRegisterOpen, setIsRegisterOpen] = React.useState(false);
     const [selectedTheme, setSelectedTheme] = React.useState<string | undefined>();
 
+    // Force Light Theme for Landing Page
+    React.useEffect(() => {
+        document.documentElement.classList.remove("dark");
+        // We keep localStorage as is so invitation demos can still use the stored preference
+    }, []);
+
     const openRegister = (themeId?: string) => {
         setSelectedTheme(themeId);
         setIsRegisterOpen(true);
@@ -66,7 +72,7 @@ const LandingPage: React.FC = () => {
                         <span className="text-primary italic">Cinta</span> Selamanya
                     </h1>
 
-                    <p className="max-w-2xl mx-auto text-slate-500 dark:text-slate-400 text-lg md:text-xl animate-reveal leading-relaxed" style={{ animationDelay: "400ms" }}>
+                    <p className="max-w-2xl mx-auto text-slate-500 dark:text-slate-300 text-lg md:text-xl animate-reveal leading-relaxed" style={{ animationDelay: "400ms" }}>
                         Buat undangan pernikahan digital yang elegan, mewah, dan interaktif hanya dalam hitungan menit. Bagikan kebahagiaan Anda dengan cara yang lebih berkesan.
                     </p>
 
@@ -91,7 +97,7 @@ const LandingPage: React.FC = () => {
                         <h2 className="font-serif text-4xl md:text-6xl text-slate-900 dark:text-white italic mb-6">
                             Fitur Premium Untuk <br /> Hari Bahagia Anda
                         </h2>
-                        <p className="text-slate-500 dark:text-slate-400 text-lg">
+                        <p className="text-slate-500 dark:text-slate-300 text-lg">
                             Kami menyediakan segala yang Anda butuhkan untuk membuat undangan digital yang sempurna dan fungsional.
                         </p>
                     </div>
@@ -105,12 +111,12 @@ const LandingPage: React.FC = () => {
                             { icon: Calendar, title: "Add to Calendar", desc: "Tamu dapat menyimpan jadwal pernikahan Anda langsung ke Google Calendar atau iCal." },
                             { icon: ShieldCheck, title: "Digital Greeting", desc: "Fitur nama tamu khusus (personalized) untuk setiap link yang Anda bagikan." },
                         ].map((feature, idx) => (
-                            <div key={idx} className="bg-white dark:bg-slate-900 p-10 rounded-[2.5rem] border border-slate-100 dark:border-white/5 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
-                                <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                            <div key={idx} className="bg-white dark:bg-slate-800/40 p-10 rounded-[2.5rem] border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group backdrop-blur-sm">
+                                <div className="w-16 h-16 bg-primary/5 dark:bg-primary/20 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
                                     <feature.icon className="h-8 w-8" />
                                 </div>
                                 <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-                                <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{feature.desc}</p>
+                                <p className="text-slate-500 dark:text-slate-300 leading-relaxed">{feature.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -122,7 +128,7 @@ const LandingPage: React.FC = () => {
                 <div className="container mx-auto px-6">
                     <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
                         <h2 className="font-serif text-4xl md:text-7xl italic mb-6">Pilih Desain Impian Anda</h2>
-                        <p className="text-slate-500 dark:text-slate-400 text-lg">
+                        <p className="text-slate-500 dark:text-slate-300 text-lg">
                             Berbagai pilihan tema premium yang dirancang khusus untuk membuat undangan pernikahan Anda terlihat unik dan personal.
                         </p>
                     </div>
@@ -156,7 +162,7 @@ const LandingPage: React.FC = () => {
                                 </div>
                                 <div className="mt-8 space-y-2 text-center">
                                     <h3 className="text-2xl font-serif italic font-bold">{theme.name}</h3>
-                                    <p className="text-slate-500 dark:text-slate-400">{theme.description}</p>
+                                    <p className="text-slate-500 dark:text-slate-300">{theme.description}</p>
                                 </div>
                             </div>
                         ))}
@@ -171,18 +177,18 @@ const LandingPage: React.FC = () => {
 
                     <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-stretch pt-1">
                         {/* Basic Plan */}
-                        <div className="bg-white dark:bg-slate-900 p-12 rounded-[3.5rem] border border-slate-100 dark:border-white/5 flex flex-col items-center">
-                            <span className="px-4 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full text-[10px] font-bold tracking-widest uppercase mb-8">Basic</span>
-                            <div className="text-5xl font-bold mb-4">Gratis</div>
-                            <p className="text-slate-400 mb-10">Cocok untuk mencoba fitur dasar</p>
+                        <div className="bg-white dark:bg-slate-800/40 p-12 rounded-[3.5rem] border border-slate-100 dark:border-white/10 flex flex-col items-center backdrop-blur-sm shadow-xl">
+                            <span className="px-4 py-1.5 bg-slate-100 dark:bg-white/10 rounded-full text-[10px] font-bold tracking-widest uppercase mb-8">Basic</span>
+                            <div className="text-5xl font-bold mb-4 text-slate-900 dark:text-white">Gratis</div>
+                            <p className="text-slate-500 dark:text-slate-300 mb-10">Cocok untuk mencoba fitur dasar</p>
                             <ul className="space-y-4 text-left w-full mb-12">
-                                <li className="flex items-center gap-3 text-sm opacity-60"><Zap className="h-4 w-4 text-primary" /> Desain Standar</li>
-                                <li className="flex items-center gap-3 text-sm opacity-60"><Zap className="h-4 w-4 text-primary" /> RSVP Management</li>
-                                <li className="flex items-center gap-3 text-sm opacity-60"><Zap className="h-4 w-4 text-primary" /> Masa Aktif 7 Hari</li>
-                                <li className="flex items-center gap-3 text-sm opacity-30 line-through"><Zap className="h-4 w-4 text-slate-300" /> Background Music</li>
-                                <li className="flex items-center gap-3 text-sm opacity-30 line-through"><Zap className="h-4 w-4 text-slate-300" /> Gallery Tanpa Batas</li>
+                                <li className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-200"><Zap className="h-4 w-4 text-primary" /> Desain Standar</li>
+                                <li className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-200"><Zap className="h-4 w-4 text-primary" /> RSVP Management</li>
+                                <li className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-200"><Zap className="h-4 w-4 text-primary" /> Masa Aktif 7 Hari</li>
+                                <li className="flex items-center gap-3 text-sm opacity-20 dark:opacity-40 line-through grayscale"><Zap className="h-4 w-4 text-slate-300" /> Background Music</li>
+                                <li className="flex items-center gap-3 text-sm opacity-20 dark:opacity-40 line-through grayscale"><Zap className="h-4 w-4 text-slate-300" /> Gallery Tanpa Batas</li>
                             </ul>
-                            <a href="/admin" className="w-full py-4 rounded-2xl border border-slate-200 dark:border-white/10 font-bold hover:bg-slate-50 dark:hover:bg-white/5 transition-all mt-auto">Pilih Paket</a>
+                            <a href="/admin" className="w-full py-4 rounded-2xl border border-slate-200 dark:border-white/10 font-bold hover:bg-slate-50 dark:hover:bg-white/10 transition-all mt-auto text-slate-900 dark:text-slate-200">Pilih Paket</a>
                         </div>
 
                         {/* Premium Plan */}
@@ -224,9 +230,9 @@ const LandingPage: React.FC = () => {
                                 <Heart className="h-5 w-5 text-primary" />
                                 <span className="font-serif text-xl italic font-bold">Vowly</span>
                             </div>
-                            <p className="text-slate-400 text-sm max-w-xs">Mewujudkan undangan impian Anda menjadi kenyataan digital.</p>
+                            <p className="text-slate-400 dark:text-slate-300 text-sm max-w-xs">Mewujudkan undangan impian Anda menjadi kenyataan digital.</p>
                         </div>
-                        <div className="flex gap-10 text-[10px] font-bold tracking-widest uppercase text-slate-400">
+                        <div className="flex gap-10 text-[10px] font-bold tracking-widest uppercase text-slate-400 dark:text-slate-300">
                             <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
                             <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
                             <a href="#" className="hover:text-primary transition-colors">Contact Us</a>

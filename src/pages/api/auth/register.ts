@@ -23,10 +23,13 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         // Create User
+        const adminPhone = (import.meta as any).env?.ADMIN_PHONE || process.env.ADMIN_PHONE;
+        const role = (phone === adminPhone?.trim()) ? 'admin' : 'user';
+
         const hashedPassword = await hashPassword(password);
         const [user] = await sql`
-      INSERT INTO users (full_name, phone, password_hash)
-      VALUES (${fullName}, ${phone}, ${hashedPassword})
+      INSERT INTO users (full_name, phone, password_hash, role)
+      VALUES (${fullName}, ${phone}, ${hashedPassword}, ${role})
       RETURNING id, role
     `;
 
@@ -41,7 +44,7 @@ export const POST: APIRoute = async ({ request }) => {
         // Typically you'd insert default keys here, but getSettings handles defaults if missing.
         // However, to be safe:
         await sql`
-      INSERT INTO invitation_settings (invitation_id, key, value)
+      INSERT INTO invitation_settings (invitation_id, setting_key, setting_value)
       VALUES 
         (${invitation.id}, 'hero_date', '2026-12-12'),
         (${invitation.id}, 'groom_name', 'Nama Pria'),

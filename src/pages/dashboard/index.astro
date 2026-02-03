@@ -26,7 +26,11 @@ if (invitations.length === 0) {
 const invitation = invitations[0];
 ---
 
-<UserLayout title="Selamat Datang!">
+<UserLayout 
+  title="Selamat Datang!" 
+  userName={invitation?.buyer_name} 
+  userPhone={invitation?.buyer_phone}
+>
   <div class="max-w-4xl">
     <div class="mb-12">
       <h2 class="text-4xl font-serif italic mb-4">Halo, {invitation?.buyer_name || "User"}</h2>

@@ -6,12 +6,14 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  forceLight?: boolean;
 }
 
 const {
   title = `The Wedding of ${WEDDING_CONFIG.couple.bride.name} & ${WEDDING_CONFIG.couple.groom.name}`,
   description = `Kami mengundang Anda untuk hadir di pernikahan kami pada ${WEDDING_CONFIG.events.akad.date}.`,
   image = "/thumbnail.png",
+  forceLight = false,
 } = Astro.props;
 
 const canonicalURL = new URL(
@@ -49,7 +51,7 @@ const canonicalURL = new URL(
     <meta property="twitter:image" content={image} />
 
     <!-- PWA Theme Color (Sama dengan bg di manifest) -->
-    <meta name="theme-color" content="#020617" />
+    <meta name="theme-color" content={forceLight ? "#ffffff" : "#020617"} />
 
     <!-- PWA Link Manifest (Otomatis digenerate plugin, tapi baiknya didefinisikan untuk fallback) -->
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -58,7 +60,7 @@ const canonicalURL = new URL(
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
+      content={forceLight ? "default" : "black-translucent"}
     />
 
     <!-- Fonts -->
@@ -70,26 +72,33 @@ const canonicalURL = new URL(
     />
   </head>
   <body>
-    <script is:inline>
-      const theme = (() => {
-        if (
-          typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
-        ) {
-          return localStorage.getItem("theme");
-        }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark";
-        }
-        return "light";
-      })();
+    {!forceLight && (
+      <script is:inline>
+        const theme = (() => {
+          if (
+            typeof localStorage !== "undefined" &&
+            localStorage.getItem("theme")
+          ) {
+            return localStorage.getItem("theme");
+          }
+          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            return "dark";
+          }
+          return "light";
+        })();
 
-      if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    </script>
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      </script>
+    )}
+    {forceLight && (
+       <script is:inline>
+         document.documentElement.classList.remove("dark");
+       </script>
+    )}
 
     <slot />
   </body>

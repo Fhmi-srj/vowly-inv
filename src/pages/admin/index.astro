@@ -1,35 +1,35 @@
 ---
 import AdminLayout from "../../layouts/AdminLayout.astro";
+import Layout from "../../layouts/Layout.astro";
 import PlatformOverview from "../../components/Dashboard/Admin/PlatformOverview";
+import AdminGate from "../../components/Dashboard/Admin/AdminGate";
 import sql from "../../lib/db";
 
 const SESSION_COOKIE = "vowly_session";
 const sessionId = Astro.cookies.get(SESSION_COOKIE)?.value;
 
-// 1. Check if logged in
-if (!sessionId) {
-  return Astro.redirect("/"); // Redirect to landing to login
-}
+let isAdmin = false;
 
-// 2. Verify admin role
-const userId = parseInt(sessionId);
-const users = await sql`SELECT role FROM users WHERE id = ${userId}`;
-
-if (users.length === 0) {
-    return Astro.redirect("/");
-}
-
-if (users[0].role !== "admin") {
-    // If buyer tries to access admin, send to buyer dashboard
-    return Astro.redirect("/dashboard");
+if (sessionId) {
+    const userId = parseInt(sessionId);
+    const users = await sql`SELECT role FROM users WHERE id = ${userId}`;
+    if (users.length > 0 && users[0].role === "admin") {
+        isAdmin = true;
+    }
 }
 ---
 
-<AdminLayout title="Platform Overview">
-    <div class="mb-12">
-        <h2 class="text-3xl font-serif italic text-white mb-2">Pusat Kendali</h2>
-        <p class="text-slate-500">Pantau pertumbuhan dan performa platform Vowly Anda secara real-time.</p>
-    </div>
+{isAdmin ? (
+    <AdminLayout title="Platform Overview">
+        <div class="mb-12">
+            <h2 class="text-3xl font-serif italic text-white mb-2">Pusat Kendali</h2>
+            <p class="text-slate-500">Pantau pertumbuhan dan performa platform Vowly Anda secara real-time.</p>
+        </div>
 
-    <PlatformOverview client:load />
-</AdminLayout>
+        <PlatformOverview client:load />
+    </AdminLayout>
+) : (
+    <Layout title="Admin Otorisasi - Vowly">
+        <AdminGate client:load />
+    </Layout>
+)}

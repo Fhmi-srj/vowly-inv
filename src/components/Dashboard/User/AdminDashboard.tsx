@@ -28,6 +28,9 @@ import {
 import QRCodeManager from "./QRCodeManager";
 import InvitationManager from "./InvitationManager";
 import SettingsManager from "./SettingsManager";
+import { useStore } from "@nanostores/react";
+import { activeTabStore, setActiveTab } from '../../../store/dashboardStore';
+import type { DashboardTab } from '../../../store/dashboardStore';
 
 // --- TYPES ---
 interface RSVP {
@@ -312,23 +315,10 @@ const AdminDashboard = ({
   initialSettings: Record<string, string>;
   siteUrl: string;
 }) => {
-  const [activeTab, setActiveTab] = useState<
-    "overview" | "rsvp" | "wishes" | "qr" | "pdf" | "settings" | "profile"
-  >("overview");
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const tabFromUrl = params.get("tab");
-    if (tabFromUrl && tabs.some(t => t.id === tabFromUrl)) {
-      setActiveTab(tabFromUrl as any);
-    }
-  }, []);
+  const $activeTab = useStore(activeTabStore);
 
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId as any);
-    const url = new URL(window.location.href);
-    url.searchParams.set("tab", tabId);
-    window.history.pushState({}, "", url.toString());
   };
 
   // Data States
@@ -443,7 +433,7 @@ const AdminDashboard = ({
       {/* TABS CONTENT REMOVED - NAVIGATION IS NOW SIDEBAR ONLY */}
 
       {/* --- TAB: OVERVIEW --- */}
-      {activeTab === "overview" && (
+      {$activeTab === "overview" && (
         <div className="animate-reveal space-y-8">
           {/* STATS CARDS */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -524,11 +514,11 @@ const AdminDashboard = ({
             {/* INVITATION LINKS */}
             <div className="rounded-[2.5rem] border border-slate-200 bg-white p-10 shadow-sm dark:border-slate-700 dark:bg-slate-800">
               <h5 className="mb-6 flex items-center gap-2 text-xl font-bold dark:text-white">
-                <Link className="h-5 w-5 text-primary" /> Link Undangan
+                <Link className="h-5 w-5 text-primary" /> Link Undangan Utama
               </h5>
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <p className="text-xs font-bold tracking-widest text-slate-400 uppercase">Tamu Pria</p>
+                  <p className="text-xs font-bold tracking-widest text-slate-400 uppercase">Link Untuk Tamu</p>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 truncate rounded-2xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 dark:bg-slate-900 dark:text-slate-400">
                       {`${siteUrl}/${invitation?.slug || ""}`}
@@ -547,28 +537,9 @@ const AdminDashboard = ({
                       <ExternalLink className="h-5 w-5" />
                     </a>
                   </div>
-                </div>
-
-                <div className="space-y-3">
-                  <p className="text-xs font-bold tracking-widest text-slate-400 uppercase">Tamu Wanita</p>
-                  <div className="flex items-center gap-2">
-                    <div className="flex-1 truncate rounded-2xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 dark:bg-slate-900 dark:text-slate-400">
-                      {`${siteUrl}/${invitation?.slug || ""}`}
-                    </div>
-                    <button
-                      onClick={() => copyToClipboard(`${siteUrl}/${invitation?.slug || ""}`)}
-                      className="rounded-2xl bg-slate-100 p-3.5 text-slate-600 hover:bg-primary hover:text-white transition-all dark:bg-slate-700 dark:text-slate-300"
-                    >
-                      <Copy className="h-5 w-5" />
-                    </button>
-                    <a
-                      href={`/${invitation?.slug || ""}`}
-                      target="_blank"
-                      className="rounded-2xl bg-blue-50 p-3.5 text-blue-600 hover:bg-blue-600 hover:text-white transition-all dark:bg-blue-900/20"
-                    >
-                      <ExternalLink className="h-5 w-5" />
-                    </a>
-                  </div>
+                  <p className="text-[10px] text-slate-400 italic font-medium mt-2">
+                    * Bagikan link ini kepada seluruh tamu undangan Anda.
+                  </p>
                 </div>
               </div>
             </div>
@@ -576,7 +547,7 @@ const AdminDashboard = ({
             {/* QUICK PREVIEW / HELP */}
             <div className="rounded-[2.5rem] bg-gradient-to-br from-slate-900 to-slate-800 p-10 text-white shadow-xl dark:from-slate-800 dark:to-slate-950">
               <h5 className="mb-4 text-2xl font-serif italic font-bold">Butuh Bantuan?</h5>
-              <p className="mb-8 text-slate-400">Undangan Anda sudah siap dibagikan. Jika ingin mengubah desain atau informasi acara, buka tab **Pengaturan**.</p>
+              <p className="mb-8 text-slate-400">Undangan Anda sudah siap dibagikan. Jika ingin mengubah desain atau informasi acara, buka tab Pengaturan.</p>
 
               <div className="space-y-4">
                 <a href="https://wa.me/6281234567890" className="flex w-full items-center justify-between rounded-2xl bg-white/5 p-5 transition-all hover:bg-white/10">
@@ -604,7 +575,7 @@ const AdminDashboard = ({
       )}
 
       {/* --- TAB: RSVP --- */}
-      {activeTab === "rsvp" && (
+      {$activeTab === "rsvp" && (
         <div className="animate-reveal space-y-6">
           <div className="flex justify-end">
             <a
@@ -664,7 +635,7 @@ const AdminDashboard = ({
       )}
 
       {/* --- TAB: WISHES --- */}
-      {activeTab === "wishes" && (
+      {$activeTab === "wishes" && (
         <div className="animate-reveal space-y-6">
           <div className="flex justify-end">
             <a
@@ -708,21 +679,21 @@ const AdminDashboard = ({
       )}
 
       {/* --- TAB: QR --- */}
-      {activeTab === "qr" && (
+      {$activeTab === "qr" && (
         <div className="animate-reveal rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-800">
           <QRCodeManager siteUrl={siteUrl} />
         </div>
       )}
 
       {/* --- TAB: PDF --- */}
-      {activeTab === "pdf" && (
+      {$activeTab === "pdf" && (
         <div className="animate-reveal rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-800">
           <InvitationManager />
         </div>
       )}
 
       {/* --- TAB: SETTINGS --- */}
-      {activeTab === "settings" && (
+      {$activeTab === "settings" && (
         <div className="animate-reveal">
           <SettingsManager
             invitationId={invitationId}
@@ -732,7 +703,7 @@ const AdminDashboard = ({
       )}
 
       {/* --- TAB: PROFILE --- */}
-      {activeTab === "profile" && (
+      {$activeTab === "profile" && (
         <div className="animate-reveal max-w-2xl mx-auto">
           <div className="rounded-[2.5rem] border border-slate-200 bg-white p-10 shadow-sm dark:border-slate-700 dark:bg-slate-800">
             <div className="flex flex-col items-center text-center mb-10">
@@ -784,14 +755,14 @@ const AdminDashboard = ({
                 const formData = new FormData(e.currentTarget);
                 const data = Object.fromEntries(formData.entries());
                 handleUpdate(
-                  activeTab === "rsvp" ? "rsvp" : "wish",
+                  $activeTab === "rsvp" ? "rsvp" : "wish",
                   editingItem.id,
                   data
                 );
               }}
               className="space-y-4"
             >
-              {activeTab === "rsvp" ? (
+              {$activeTab === "rsvp" ? (
                 <>
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-slate-500 uppercase">

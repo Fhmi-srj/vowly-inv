@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { SettingsProvider, useSettings } from "./contexts/SettingsContext";
-import InstallPrompt from "./components/Invitation/InstallPrompt";
+import InstallPrompt from "./components/Invitation/Shared/InstallPrompt";
 import { getThemeComponent } from "./themes";
 
 // Inner component that uses the settings context
@@ -39,7 +39,13 @@ const AppContent: React.FC = () => {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    const apply = () => setTheme((prev) => (prev === "light" ? "dark" : "light"));
+
+    if ((document as any).startViewTransition) {
+      (document as any).startViewTransition(apply);
+    } else {
+      apply();
+    }
   };
 
   const handleOpenInvitation = () => {

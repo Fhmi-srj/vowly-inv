@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Sidebar from "../components/Dashboard/Sidebar";
 import { LogOut, LayoutDashboard, Settings, Users, MessageCircle, Heart, User, QrCode, Printer, Menu, X } from "lucide-react";
 
 interface Props {
@@ -45,108 +46,8 @@ const getLink = (tab: string) => {
   </head>
   <body class="bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100">
     <div class="flex min-h-screen">
-      <!-- Mobile Overlay -->
-      <div id="sidebar-overlay" class="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm hidden lg:hidden"></div>
-
-      <!-- Sidebar -->
-      <aside id="sidebar-container" class="fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-white/5 -translate-x-full lg:translate-x-0 transition-transform duration-300 lg:block">
-        <div class="flex flex-col h-full p-8">
-          <div class="flex items-center justify-between mb-12">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
-                <Heart className="h-6 w-6" />
-              </div>
-              <span class="text-2xl font-serif italic font-bold">Vowly</span>
-            </div>
-            <button id="close-sidebar" class="lg:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg">
-              <X size={24} />
-            </button>
-          </div>
-
-          <nav class="flex-1 space-y-1.5 overflow-y-auto pr-2 custom-scrollbar">
-            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-6 mb-2 mt-4">Menu Utama</p>
-            
-            <a 
-                href={getLink("overview")} 
-                class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "overview" 
-                    ? "bg-primary text-white shadow-lg shadow-primary/20" 
-                    : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
-            >
-              <LayoutDashboard size={18} />
-              <span class="text-sm">Ringkasan</span>
-            </a>
-
-            {invitationId && (
-              <>
-                <a 
-                    href={getLink("rsvp")} 
-                    class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "rsvp" 
-                        ? "bg-primary text-white shadow-lg shadow-primary/20" 
-                        : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
-                >
-                  <Users size={18} />
-                  <span class="text-sm">Data RSVP</span>
-                </a>
-                <a 
-                    href={getLink("wishes")} 
-                    class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "wishes" 
-                        ? "bg-primary text-white shadow-lg shadow-primary/20" 
-                        : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
-                >
-                  <MessageCircle size={18} />
-                  <span class="text-sm">Ucapan & Doa</span>
-                </a>
-                <a 
-                    href={getLink("qr")} 
-                    class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "qr" 
-                        ? "bg-primary text-white shadow-lg shadow-primary/20" 
-                        : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
-                >
-                  <QrCode size={18} />
-                  <span class="text-sm">QR Generator</span>
-                </a>
-                <a 
-                    href={getLink("pdf")} 
-                    class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "pdf" 
-                        ? "bg-primary text-white shadow-lg shadow-primary/20" 
-                        : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
-                >
-                  <Printer size={18} />
-                  <span class="text-sm">Design PDF</span>
-                </a>
-              </>
-            )}
-
-            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-6 mb-2 mt-8">Akun & Sistem</p>
-
-            <a 
-                href={getLink("settings")} 
-                class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "settings" 
-                    ? "bg-primary text-white shadow-lg shadow-primary/20" 
-                    : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
-            >
-              <Settings size={18} />
-              <span class="text-sm">Pengaturan</span>
-            </a>
-            <a 
-                href={getLink("profile")} 
-                class={`flex items-center gap-4 px-6 py-3.5 rounded-2xl font-bold transition-all ${activeTab === "profile" 
-                    ? "bg-primary text-white shadow-lg shadow-primary/20" 
-                    : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"}`}
-            >
-              <User size={18} />
-              <span class="text-sm">Profil Saya</span>
-            </a>
-          </nav>
-
-          <form action="/api/auth/logout" method="POST" class="mt-auto">
-            <button type="submit" class="w-full flex items-center gap-4 px-6 py-4 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-2xl font-bold transition-all">
-              <LogOut size={20} />
-              <span>Log Out</span>
-            </button>
-          </form>
-        </div>
-      </aside>
+      <!-- SPA Sidebar -->
+      <Sidebar client:load invitationId={invitationId} userName={userData.name} initialTab={activeTab as any} />
 
       <!-- Main Content -->
       <main class="flex-1 lg:ml-72 min-h-screen">
@@ -177,19 +78,12 @@ const getLink = (tab: string) => {
 
     <script>
       const openBtn = document.getElementById('open-sidebar');
-      const closeBtn = document.getElementById('close-sidebar');
-      const sidebar = document.getElementById('sidebar-container');
-      const overlay = document.getElementById('sidebar-overlay');
-
-      const toggleSidebar = () => {
-        sidebar?.classList.toggle('-translate-x-full');
-        overlay?.classList.toggle('hidden');
-        document.body.classList.toggle('overflow-hidden');
-      };
-
-      openBtn?.addEventListener('click', toggleSidebar);
-      closeBtn?.addEventListener('click', toggleSidebar);
-      overlay?.addEventListener('click', toggleSidebar);
+      openBtn?.addEventListener('click', () => {
+        // Trigger React Sidebar toggle via custom window function defined in Sidebar.tsx
+        if ((window as any).toggleSidebar) {
+          (window as any).toggleSidebar();
+        }
+      });
     </script>
   </body>
 </html>
