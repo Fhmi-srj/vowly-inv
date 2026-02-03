@@ -52,6 +52,7 @@ export interface DynamicSettings {
     gallery_images: string;
     closing_family: string;
     events_data: string;
+    theme_id: string;
 }
 
 // Merged config type that components use
@@ -101,12 +102,14 @@ export interface AppConfig {
     loveStory: Array<{ date: string; title: string; desc: string }>;
     galleryImages: string[];
     closingFamily: string;
+    themeId: string;
 }
 
 interface SettingsContextType {
     config: AppConfig;
     isLoading: boolean;
     text: typeof WEDDING_TEXT;
+    invitationId: number | null;
 }
 
 // Default config from constants.tsx (fallback)
@@ -150,12 +153,14 @@ const defaultConfig: AppConfig = {
     loveStory: LOVE_STORY,
     galleryImages: GALLERY_IMAGES,
     closingFamily: WEDDING_TEXT.closing.family,
+    themeId: "luxury",
 };
 
 const SettingsContext = createContext<SettingsContextType>({
     config: defaultConfig,
     isLoading: true,
     text: WEDDING_TEXT,
+    invitationId: null,
 });
 
 export const useSettings = () => useContext(SettingsContext);
@@ -345,25 +350,30 @@ const settingsToConfig = (settings: Partial<DynamicSettings>): AppConfig => {
         loveStory: parseJson(settings.love_story, LOVE_STORY),
         galleryImages: parseJson(settings.gallery_images, GALLERY_IMAGES),
         closingFamily: settings.closing_family || WEDDING_TEXT.closing.family,
+        themeId: settings.theme_id || "luxury",
     };
 };
 
 interface SettingsProviderProps {
     children: ReactNode;
+    invitationId?: number;
+    initialConfig?: AppConfig;
 }
 
-export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) => {
-    const [config, setConfig] = useState<AppConfig>(defaultConfig);
-    const [isLoading, setIsLoading] = useState(true);
+export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, invitationId = null, initialConfig }) => {
+    const [config, setConfig] = useState<AppConfig>(initialConfig || defaultConfig);
+    const [isLoading, setIsLoading] = useState(!initialConfig);
 
     useEffect(() => {
+        if (!invitationId) return;
+
         const fetchSettings = async () => {
             try {
                 // Detect side from URL
                 const params = new URLSearchParams(window.location.search);
                 const side = params.get("side") === "wanita" ? "wanita" : "pria";
 
-                const res = await fetch("/api/settings");
+                const res = await fetch(`/api/settings?invitationId=${invitationId}`);
                 if (res.ok) {
                     const allSettings = await res.json();
 
@@ -405,6 +415,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
                         gallery_images: getSetting("gallery_images"),
                         closing_family: getSetting("closing_family"),
                         events_data: getSetting("events_data"),
+                        theme_id: getSetting("theme_id"),
                     };
 
                     setConfig(settingsToConfig(sideSettings));
@@ -417,10 +428,10 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
         };
 
         fetchSettings();
-    }, []);
+    }, [invitationId]);
 
     return (
-        <SettingsContext.Provider value={{ config, isLoading, text: WEDDING_TEXT }}>
+        <SettingsContext.Provider value={{ config, isLoading, text: WEDDING_TEXT, invitationId: invitationId as any }}>
             {children}
         </SettingsContext.Provider>
     );

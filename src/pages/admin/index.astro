@@ -1,0 +1,35 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import PlatformOverview from "../../components/Dashboard/Admin/PlatformOverview";
+import sql from "../../lib/db";
+
+const SESSION_COOKIE = "vowly_session";
+const sessionId = Astro.cookies.get(SESSION_COOKIE)?.value;
+
+// 1. Check if logged in
+if (!sessionId) {
+  return Astro.redirect("/"); // Redirect to landing to login
+}
+
+// 2. Verify admin role
+const userId = parseInt(sessionId);
+const users = await sql`SELECT role FROM users WHERE id = ${userId}`;
+
+if (users.length === 0) {
+    return Astro.redirect("/");
+}
+
+if (users[0].role !== "admin") {
+    // If buyer tries to access admin, send to buyer dashboard
+    return Astro.redirect("/dashboard");
+}
+---
+
+<AdminLayout title="Platform Overview">
+    <div class="mb-12">
+        <h2 class="text-3xl font-serif italic text-white mb-2">Pusat Kendali</h2>
+        <p class="text-slate-500">Pantau pertumbuhan dan performa platform Vowly Anda secara real-time.</p>
+    </div>
+
+    <PlatformOverview client:load />
+</AdminLayout>

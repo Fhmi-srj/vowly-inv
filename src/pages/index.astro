@@ -1,8 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import App from "../App";
+import LandingPage from "../components/Landing/LandingPage";
 ---
 
-<Layout title="Undangan Pernikahan Digital">
-  <App client:only="react" />
+<Layout 
+  title="Vowly - Buat Undangan Digital Pernikahan Mewah & Terjangkau"
+  description="Platform pembuatan undangan pernikahan digital dengan desain premium, fitur lengkap, dan aktivasi otomatis."
+>
+  <LandingPage client:load />
 </Layout>

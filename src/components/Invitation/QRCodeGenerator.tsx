@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useRef, useMemo } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import { Download, Link as LinkIcon } from "lucide-react";
-import { WEDDING_CONFIG } from "../constants"; // Import Config
+import { WEDDING_CONFIG } from "../../constants"; // Import Config
 
 const QRCodeGenerator: React.FC<{ siteUrl: string }> = ({ siteUrl }) => {
   const [guestName, setGuestName] = useState("");

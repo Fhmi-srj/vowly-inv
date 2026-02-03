@@ -1,0 +1,96 @@
+---
+import UserLayout from "../../../layouts/UserLayout.astro";
+import sql from "../../../lib/db";
+import { getSettings, defaultSettings } from "../../../lib/getSettings";
+import AdminDashboard from "../../../components/Dashboard/User/AdminDashboard";
+import { ChevronLeft, CheckCircle } from "lucide-react";
+
+const { id } = Astro.params;
+const invitationId = parseInt(id || "");
+
+if (isNaN(invitationId)) {
+  return Astro.redirect("/dashboard");
+}
+
+const SESSION_COOKIE = "vowly_session";
+const isAuthenticated = !!Astro.cookies.get(SESSION_COOKIE)?.value;
+
+if (!isAuthenticated) {
+  return Astro.redirect("/admin");
+}
+
+let rsvps: any[] = [];
+let wishes: any[] = [];
+let settings: Record<string, string> = defaultSettings;
+let stats = { total: 0, hadir: 0, ragu: 0, tidak: 0, guestCount: 0 };
+let invitationSlug = "";
+
+try {
+  // Fetch Invitation info
+  const invRows = await sql`
+    SELECT i.*, u.full_name as buyer_name 
+    FROM invitations i 
+    LEFT JOIN users u ON i.user_id = u.id 
+    WHERE i.id = ${invitationId}
+  `;
+  if (invRows.length === 0) return Astro.redirect("/404");
+  invitationSlug = invRows[0].slug;
+  const invitation = invRows[0];
+
+  // Fetch RSVPs
+  const rsvpRows = await sql`SELECT * FROM rsvps WHERE invitation_id = ${invitationId} ORDER BY created_at DESC`;
+  rsvps = rsvpRows as any[];
+  
+  // Fetch Wishes
+  const wishRows = await sql`SELECT * FROM wishes WHERE invitation_id = ${invitationId} ORDER BY created_at DESC`;
+  wishes = wishRows as any[];
+  
+  // Fetch Settings
+  settings = await getSettings(invitationId);
+  
+  // Calculate Stats
+  stats.total = rsvps.length;
+  stats.hadir = rsvps.filter((r: any) => r.attendance === "hadir").length;
+  stats.ragu = rsvps.filter((r: any) => r.attendance === "ragu").length;
+  stats.tidak = rsvps.filter((r: any) => r.attendance === "tidak_hadir").length;
+  stats.guestCount = rsvps
+    .filter((r: any) => r.attendance === "hadir")
+    .reduce((sum: number, r: any) => sum + (r.guest_count || 1), 0);
+} catch (error) {
+  console.error("Error fetching data:", error);
+}
+---
+
+<UserLayout title={`Kelola /${invitationSlug}`}>
+  <div class="mb-10 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-4">
+      <a href="/dashboard" class="p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-white/10 hover:bg-slate-50 transition-all">
+        <ChevronLeft className="h-5 w-5" />
+      </a>
+      <div>
+        <h2 class="text-2xl font-bold tracking-tight">/{invitationSlug}</h2>
+        <p class="text-xs text-slate-500">Edit data dan pantau tamu undangan Anda</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 px-4 py-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-full border border-emerald-100 dark:border-emerald-900/30">
+          <CheckCircle className="h-4 w-4" />
+          <span class="text-[10px] font-black tracking-widest uppercase">AKTIF</span>
+        </div>
+
+        <a href={`/${invitationSlug}`} target="_blank" class="px-6 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-full text-xs font-bold hover:bg-slate-50 transition-all active:scale-95 shadow-sm">
+          PRATINJAU
+        </a>
+    </div>
+  </div>
+
+  <AdminDashboard
+    client:load
+    invitationId={invitationId}
+    invitation={invRows[0] as any}
+    initialRsvps={rsvps}
+    initialWishes={wishes}
+    initialSettings={settings as any}
+    siteUrl={new URL(Astro.url).origin}
+  />
+</UserLayout>

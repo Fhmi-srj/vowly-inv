@@ -13,11 +13,19 @@ const sanitize = (str: string) => {
     .replace(/'/g, "&#039;");
 };
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request }) => {
+  const url = new URL(request.url);
+  const invitationId = url.searchParams.get("invitationId");
+
+  if (!invitationId) {
+    return new Response(JSON.stringify({ error: "invitationId is required" }), { status: 400 });
+  }
+
   try {
     const rows = await sql`
       SELECT id, guest_name, attendance, guest_count, message, created_at 
       FROM rsvps 
+      WHERE invitation_id = ${parseInt(invitationId)}
       ORDER BY created_at DESC
     `;
     return new Response(JSON.stringify(rows), {
@@ -44,6 +52,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   try {
     const rawData = await request.json();
+    const { invitationId } = rawData;
+
+    if (!invitationId) {
+      return new Response(JSON.stringify({ error: "invitationId is required" }), { status: 400 });
+    }
 
     // Sanitasi
     const guest_name = sanitize(rawData.guest_name);
@@ -52,9 +65,9 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     const attendance = rawData.attendance;
     const guest_count = rawData.guest_count;
 
-    // Cek Data Lama
+    // Cek Data Lama dalam undangan yang sama
     const existingRows = await sql`
-      SELECT id FROM rsvps WHERE guest_name = ${guest_name}
+      SELECT id FROM rsvps WHERE guest_name = ${guest_name} AND invitation_id = ${parseInt(invitationId)}
     `;
     const existingGuest = existingRows[0] as { id: number } | undefined;
 
@@ -77,8 +90,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     } else {
       // INSERT
       const result = await sql`
-        INSERT INTO rsvps (guest_name, phone, attendance, guest_count, message, created_at)
-        VALUES (${guest_name}, ${phone}, ${attendance}, ${guest_count}, ${message || ""}, NOW())
+        INSERT INTO rsvps (invitation_id, guest_name, phone, attendance, guest_count, message, created_at)
+        VALUES (${parseInt(invitationId)}, ${guest_name}, ${phone}, ${attendance}, ${guest_count}, ${message || ""}, NOW())
         RETURNING id
       `;
       actionType = "created";
@@ -86,18 +99,15 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     }
 
     // --- LOGIC NOTIFIKASI TELEGRAM ---
-
-    // 1. Tentukan Judul Berdasarkan Aksi
+    // (Pesan Telegram bisa diupdate untuk menyertakan nama undangan jika perlu)
     const title =
       actionType === "created"
         ? "💌 <b>RSVP BARU MASUK!</b>"
         : "♻️ <b>PEMBARUAN DATA RSVP!</b>";
 
-    // 2. Tentukan Emoji Status
     const statusEmoji =
       attendance === "hadir" ? "✅" : attendance === "ragu" ? "🤔" : "❌";
 
-    // 3. Susun Pesan
     const notifMsg = `
 ${title}
 
@@ -110,7 +120,6 @@ ${statusEmoji} <b>Status:</b> ${attendance.toUpperCase()}
 <i>"${message || "-"}"</i>
     `.trim();
 
-    // 4. Kirim
     sendTelegramNotification(notifMsg);
 
     return new Response(

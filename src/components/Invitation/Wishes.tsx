@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect, useMemo } from "react";
-import { dbService } from "../services/dbService";
-import type { Wish } from "../types";
+import { dbService } from "../../services/dbService";
+import type { Wish } from "../../types";
 import {
   Quote,
   Heart,
@@ -11,7 +11,10 @@ import {
   Sparkles,
   Check,
 } from "lucide-react";
+import { useSettings } from "../../contexts/SettingsContext";
+
 const Wishes: React.FC = () => {
+  const { invitationId } = useSettings();
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const wishesPerPage = 10;
@@ -20,7 +23,10 @@ const Wishes: React.FC = () => {
   const [isSending, setIsSending] = useState(false);
   const [isNameLocked, setIsNameLocked] = useState(false);
   const [postSuccess, setPostSuccess] = useState(false);
+
   useEffect(() => {
+    if (!invitationId) return;
+
     loadWishes();
     const params = new URLSearchParams(window.location.search);
     const to = params.get("to");
@@ -28,17 +34,20 @@ const Wishes: React.FC = () => {
       setName(to);
       setIsNameLocked(true);
     }
-  }, []);
+  }, [invitationId]);
+
   const loadWishes = async () => {
-    const data = await dbService.getWishes();
+    if (!invitationId) return;
+    const data = await dbService.getWishes(invitationId);
     setWishes(data);
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !message.trim()) return;
+    if (!name.trim() || !message.trim() || !invitationId) return;
     setIsSending(true);
     try {
-      await dbService.saveWish({ name, message });
+      await dbService.saveWish(invitationId, { name, message });
       setMessage("");
       if (!isNameLocked) setName("");
       await loadWishes();

@@ -14,12 +14,14 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { dbService } from "../services/dbService";
-import { AttendanceStatus, type RSVP } from "../types";
-import { MAX_GUESTS } from "../constants";
+import { dbService } from "../../services/dbService";
+import { AttendanceStatus, type RSVP } from "../../types";
+import { MAX_GUESTS } from "../../constants";
 import StickerPicker from "./StickerPicker";
+import { useSettings } from "../../contexts/SettingsContext";
 
 const RSVPForm: React.FC = () => {
+  const { invitationId } = useSettings();
   const [formData, setFormData] = useState({
     guest_name: "",
     phone: "",
@@ -37,11 +39,14 @@ const RSVPForm: React.FC = () => {
   const [showStickerPicker, setShowStickerPicker] = useState(false);
 
   const loadRSVPs = async () => {
-    const data = await dbService.getRSVPs();
+    if (!invitationId) return;
+    const data = await dbService.getRSVPs(invitationId);
     setRsvps(data);
   };
 
   useEffect(() => {
+    if (!invitationId) return;
+
     const params = new URLSearchParams(window.location.search);
     const to = params.get("to");
     if (to) {
@@ -49,15 +54,15 @@ const RSVPForm: React.FC = () => {
       setIsNameLocked(true);
     }
     loadRSVPs();
-  }, []);
+  }, [invitationId]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.guest_name) return;
+    if (!formData.guest_name || !invitationId) return;
 
     setIsSubmitting(true);
     try {
-      await dbService.saveRSVP({
+      await dbService.saveRSVP(invitationId, {
         ...formData,
         sticker: formData.sticker?.id || undefined,
       });

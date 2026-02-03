@@ -13,10 +13,19 @@ const sanitize = (str: string) => {
     .replace(/'/g, "&#039;");
 };
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request }) => {
+  const url = new URL(request.url);
+  const invitationId = url.searchParams.get("invitationId");
+
+  if (!invitationId) {
+    return new Response(JSON.stringify({ error: "invitationId is required" }), { status: 400 });
+  }
+
   try {
     const rows = await sql`
-      SELECT * FROM wishes ORDER BY created_at DESC
+      SELECT * FROM wishes 
+      WHERE invitation_id = ${parseInt(invitationId)}
+      ORDER BY created_at DESC
     `;
     return new Response(JSON.stringify(rows), {
       status: 200,
@@ -42,11 +51,17 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   try {
     const rawData = await request.json();
+    const { invitationId } = rawData;
+
+    if (!invitationId) {
+      return new Response(JSON.stringify({ error: "invitationId is required" }), { status: 400 });
+    }
+
     const name = sanitize(rawData.name);
     const message = sanitize(rawData.message);
 
     const existingRows = await sql`
-      SELECT id FROM wishes WHERE name = ${name}
+      SELECT id FROM wishes WHERE name = ${name} AND invitation_id = ${parseInt(invitationId)}
     `;
     const existingWish = existingRows[0] as { id: number } | undefined;
 
@@ -65,8 +80,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     } else {
       // INSERT
       const result = await sql`
-        INSERT INTO wishes (name, message, created_at) 
-        VALUES (${name}, ${message}, NOW())
+        INSERT INTO wishes (invitation_id, name, message, created_at) 
+        VALUES (${parseInt(invitationId)}, ${name}, ${message}, NOW())
         RETURNING id
       `;
       actionType = "created";

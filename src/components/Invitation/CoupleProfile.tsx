@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
-import { useSettings } from "../contexts/SettingsContext";
+import { useSettings } from "../../contexts/SettingsContext";
 
 const CoupleProfile: React.FC = () => {
   const { config, text } = useSettings();

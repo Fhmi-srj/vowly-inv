@@ -20,9 +20,12 @@ import {
     Upload,
     X,
     Music,
+    Palette
 } from "lucide-react";
+import { AVAILABLE_THEMES } from "../../../themes";
 
 interface SettingsManagerProps {
+    invitationId: number;
     initialSettings: Record<string, string>;
 }
 
@@ -337,7 +340,7 @@ const AudioUpload = ({ label, settingKey, value, onUpdate }: ImageUploadProps) =
     );
 };
 
-const SettingsManager: React.FC<SettingsManagerProps> = ({ initialSettings }: SettingsManagerProps) => {
+const SettingsManager: React.FC<SettingsManagerProps> = ({ invitationId, initialSettings }: SettingsManagerProps) => {
     const [settings, setSettings] = useState(initialSettings);
     const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
 
@@ -363,6 +366,7 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ initialSettings }: Se
         bank: false,
         story: false,
         gallery: false,
+        theme: false,
     });
 
     const isEventKey = (key: string) =>
@@ -418,7 +422,7 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ initialSettings }: Se
             const res = await fetch("/api/settings", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(settings),
+                body: JSON.stringify({ invitationId, settings }),
             });
             if (res.ok) {
                 setSaveStatus("saved");
@@ -817,6 +821,49 @@ const SettingsManager: React.FC<SettingsManagerProps> = ({ initialSettings }: Se
                                 <p className="mt-2 text-sm text-slate-400 dark:text-slate-500">Belum ada acara. Klik tombol di atas untuk menambahkan.</p>
                             </div>
                         )}
+                    </div>
+                )}
+            </div>
+
+            {/* Template Selection */}
+            <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700">
+                <SectionHeader title="Template Desain" section="theme" icon={Palette} expanded={expandedSections.theme} onToggle={() => toggleSection("theme")} />
+                {expandedSections.theme && (
+                    <div className="bg-white p-6 dark:bg-slate-800">
+                        <div className="grid grid-cols-2 gap-6">
+                            {AVAILABLE_THEMES.map((theme) => (
+                                <label key={theme.id} className="relative cursor-pointer group">
+                                    <input
+                                        type="radio"
+                                        name="theme_id"
+                                        value={theme.id}
+                                        className="peer sr-only"
+                                        checked={getSetting("theme_id") === theme.id}
+                                        onChange={() => updateSetting("theme_id", theme.id)}
+                                    />
+                                    <div className="overflow-hidden rounded-2xl border-4 border-transparent peer-checked:border-primary transition-all shadow-md group-hover:shadow-xl">
+                                        <div className="aspect-video overflow-hidden">
+                                            <img
+                                                src={theme.preview}
+                                                alt={theme.name}
+                                                className="w-full h-full object-cover transition-transform group-hover:scale-110"
+                                            />
+                                        </div>
+                                        <div className="p-4 bg-slate-50 dark:bg-slate-700/50 flex items-center justify-between">
+                                            <div>
+                                                <p className="text-sm font-bold">{theme.name}</p>
+                                                <p className="text-[10px] text-slate-500">{theme.description}</p>
+                                            </div>
+                                            {getSetting("theme_id") === theme.id && (
+                                                <div className="bg-primary text-white p-1 rounded-full">
+                                                    <Save className="h-3 w-3" />
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </label>
+                            ))}
+                        </div>
                     </div>
                 )}
             </div>

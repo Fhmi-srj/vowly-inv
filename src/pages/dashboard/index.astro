@@ -1,0 +1,78 @@
+---
+import UserLayout from "../../layouts/UserLayout.astro";
+import sql from "../../lib/db";
+import { Layout, Eye, Calendar, ArrowRight } from "lucide-react";
+
+const SESSION_COOKIE = "vowly_session";
+const sessionId = Astro.cookies.get(SESSION_COOKIE)?.value;
+
+if (!sessionId) {
+  return Astro.redirect("/admin");
+}
+
+const userId = parseInt(sessionId);
+const invitations = await sql`
+  SELECT i.*, u.full_name as buyer_name 
+  FROM invitations i 
+  JOIN users u ON i.user_id = u.id 
+  WHERE i.user_id = ${userId}
+`;
+
+if (invitations.length === 0) {
+    // Optionally create one or show an empty state. 
+    // For now, let's assume they have one from registration.
+}
+
+const invitation = invitations[0];
+---
+
+<UserLayout title="Selamat Datang!">
+  <div class="max-w-4xl">
+    <div class="mb-12">
+      <h2 class="text-4xl font-serif italic mb-4">Halo, {invitation?.buyer_name || "User"}</h2>
+      <p class="text-slate-500 max-w-lg">Senang melihat Anda kembali. Berikut adalah ringkasan undangan pernikahan Anda yang sedang aktif.</p>
+    </div>
+
+    {invitation ? (
+      <div class="grid gap-8">
+        <div class="group relative overflow-hidden bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-white/5 p-10 shadow-sm hover:shadow-xl transition-all">
+          <div class="absolute top-0 right-0 p-12 opacity-5 group-hover:opacity-10 transition-opacity">
+            <Layout size={200} />
+          </div>
+
+          <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div class="space-y-4">
+              <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-full border border-emerald-100 dark:border-emerald-900/30 text-[10px] font-black tracking-widest uppercase">
+                AKTIF
+              </div>
+              <h3 class="text-3xl font-bold italic font-serif">/{invitation.slug}</h3>
+              <div class="flex items-center gap-6 text-sm text-slate-400">
+                <div class="flex items-center gap-2">
+                  <Eye size={16} />
+                  <span>{invitation.views_count} Kunjungan</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <Calendar size={16} />
+                  <span>Dibuat {new Date(invitation.created_at).toLocaleDateString("id-ID")}</span>
+                </div>
+              </div>
+            </div>
+
+            <a 
+              href={`/dashboard/manage/${invitation.id}`} 
+              class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-white rounded-2xl font-bold tracking-widest uppercase hover:shadow-luxury hover:-translate-y-1 transition-all active:scale-95"
+            >
+              KELOLA UNDANGAN
+              <ArrowRight size={18} />
+            </a>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div class="text-center py-20 bg-white dark:bg-slate-900 rounded-[2.5rem] border-2 border-dashed border-slate-200 dark:border-white/10">
+        <Layout size={48} className="mx-auto text-slate-200 mb-6" />
+        <p class="text-slate-400">Anda belum memiliki undangan yang aktif.</p>
+      </div>
+    )}
+  </div>
+</UserLayout>

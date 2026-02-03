@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Heart, Sparkles } from "lucide-react";
-import { useSettings } from "../contexts/SettingsContext";
+import { useSettings } from "../../contexts/SettingsContext";
 
 const LoveStory: React.FC = () => {
   const { config } = useSettings();

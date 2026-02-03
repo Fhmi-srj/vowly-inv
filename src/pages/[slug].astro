@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import App from "../App";
+import { getInvitationBySlug, incrementInvitationViews } from "../lib/invitation";
+import { getSettings, settingsToConfig, defaultSettings } from "../lib/getSettings";
+import { ThemeRegistry } from "../themes";
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect("/404");
+}
+
+let invitationId = null;
+let config = null;
+
+// Handle Demo Routes
+if (slug === "demo-luxury" || slug === "demo-minimalist") {
+  const themeId = slug.replace("demo-", "");
+  config = settingsToConfig({
+    ...defaultSettings,
+    theme_id: themeId,
+    bride_nickname: "Putri",
+    groom_nickname: "Putra",
+  });
+} else {
+  const invitation = await getInvitationBySlug(slug);
+
+  if (!invitation) {
+    return Astro.redirect("/404");
+  }
+
+  // Track view
+  await incrementInvitationViews(invitation.id);
+
+  // Load settings for this invitation
+  const settings = await getSettings(invitation.id);
+  config = settingsToConfig(settings);
+  invitationId = invitation.id;
+}
+---
+
+<Layout title={config ? `The Wedding of ${config.couple.groom.name} & ${config.couple.bride.name}` : "Wedding Invitation"}>
+  <App client:only="react" invitationId={invitationId} initialConfig={config} />
+</Layout>

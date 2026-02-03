@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { MailOpen, Sparkles } from "lucide-react";
-import { useSettings } from "../contexts/SettingsContext";
+import { useSettings } from "../../contexts/SettingsContext";
 
 interface EnvelopeProps {
   onOpen: () => void;

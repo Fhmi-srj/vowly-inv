@@ -8,7 +8,7 @@ import {
   Sparkles,
   Image as ImageIcon,
 } from "lucide-react";
-import { useSettings } from "../contexts/SettingsContext";
+import { useSettings } from "../../contexts/SettingsContext";
 
 const Gallery: React.FC = () => {
   const { config } = useSettings();

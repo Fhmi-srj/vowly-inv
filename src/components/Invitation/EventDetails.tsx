@@ -12,8 +12,8 @@ import {
   Sparkles,
   Heart,
 } from "lucide-react";
-import { useSettings } from "../contexts/SettingsContext";
-import { generateGoogleCalendarUrl, downloadICS } from "../utils/calendarUtils";
+import { useSettings } from "../../contexts/SettingsContext";
+import { generateGoogleCalendarUrl, downloadICS } from "../../utils/calendarUtils";
 
 const EventDetails: React.FC = () => {
   const { config, text } = useSettings();

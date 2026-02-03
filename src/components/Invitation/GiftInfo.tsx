@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Gift, Copy, Check, MapPin, CreditCard, Sparkles } from "lucide-react";
-import { useSettings } from "../contexts/SettingsContext";
+import { useSettings } from "../../contexts/SettingsContext";
 
 const GiftInfo: React.FC = () => {
   const { config, text } = useSettings();

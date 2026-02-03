@@ -15,9 +15,17 @@ import {
   Loader2,
   X,
   Settings,
+  LayoutDashboard,
+  Link,
+  Copy,
+  Activity,
+  Calendar as CalendarIcon,
+  CreditCard,
+  ExternalLink,
+  Check,
 } from "lucide-react";
-import QRCodeManager from "../QRCodeManager";
-import InvitationManager from "../InvitationManager";
+import QRCodeManager from "./QRCodeManager";
+import InvitationManager from "./InvitationManager";
 import SettingsManager from "./SettingsManager";
 
 // --- TYPES ---
@@ -289,18 +297,22 @@ const DataTable = <T extends { id: number }>({
 
 // --- MAIN DASHBOARD COMPONENT ---
 const AdminDashboard = ({
+  invitationId,
+  invitation,
   initialRsvps,
   initialWishes,
   initialSettings,
   siteUrl,
 }: {
+  invitationId: number;
+  invitation: { slug: string; status: string; created_at: string; buyer_name?: string; views_count?: number };
   initialRsvps: RSVP[];
   initialWishes: Wish[];
   initialSettings: Record<string, string>;
   siteUrl: string;
 }) => {
-  const [activeTab, setActiveTab] = useState<"rsvp" | "wishes" | "qr" | "pdf" | "settings">(
-    "rsvp"
+  const [activeTab, setActiveTab] = useState<"overview" | "rsvp" | "wishes" | "qr" | "pdf" | "settings">(
+    "overview"
   );
 
   // Data States
@@ -326,7 +338,7 @@ const AdminDashboard = ({
       const res = await fetch("/api/admin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: actionKey, ids }),
+        body: JSON.stringify({ action: actionKey, ids, invitationId }),
       });
 
       const json = await res.json();
@@ -357,6 +369,7 @@ const AdminDashboard = ({
           action: type === "rsvp" ? "update_rsvp" : "update_wish",
           id,
           data,
+          invitationId,
         }),
       });
 
@@ -383,12 +396,18 @@ const AdminDashboard = ({
 
   // --- TABS CONFIG ---
   const tabs = [
+    { id: "overview", label: "Ringkasan", icon: LayoutDashboard },
     { id: "rsvp", label: "Data RSVP", icon: Users },
     { id: "wishes", label: "Ucapan & Doa", icon: MessageCircle },
     { id: "qr", label: "QR Generator", icon: QrCode },
     { id: "pdf", label: "Design PDF", icon: Printer },
     { id: "settings", label: "Pengaturan", icon: Settings },
   ];
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    alert("Berhasil disalin ke clipboard!");
+  };
 
   return (
     <div>
@@ -420,6 +439,167 @@ const AdminDashboard = ({
           </button>
         ))}
       </div>
+
+      {/* --- TAB: OVERVIEW --- */}
+      {activeTab === "overview" && (
+        <div className="animate-reveal space-y-8">
+          {/* STATS CARDS */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm font-bold tracking-widest text-slate-400 uppercase">Total Kunjungan</p>
+                  <h4 className="mt-2 text-4xl font-bold dark:text-white">{invitation.views_count || 0}</h4>
+                </div>
+                <div className="rounded-2xl bg-blue-50 p-3 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
+                  <Activity className="h-6 w-6" />
+                </div>
+              </div>
+              <div className="mt-6 flex items-center gap-2 text-xs font-medium text-emerald-600">
+                <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span> Live Monitoring
+              </div>
+            </div>
+
+            <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm font-bold tracking-widest text-slate-400 uppercase">Tanggal Dibuat</p>
+                  <h4 className="mt-2 text-lg font-bold dark:text-white">
+                    {new Date(invitation.created_at).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}
+                  </h4>
+                </div>
+                <div className="rounded-2xl bg-purple-50 p-3 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400">
+                  <CalendarIcon className="h-6 w-6" />
+                </div>
+              </div>
+              <p className="mt-6 text-xs text-slate-400">Pembeli: {invitation.buyer_name || "Guest"}</p>
+            </div>
+
+            <div className="relative overflow-hidden rounded-3xl border border-primary/20 bg-primary/5 p-8 shadow-sm dark:bg-primary/10">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm font-bold tracking-widest text-primary uppercase">Status Paket</p>
+                  <h4 className="mt-2 text-xl font-bold text-primary dark:text-primary-light">Vowly Premium</h4>
+                </div>
+                <div className="rounded-2xl bg-primary/10 p-3 text-primary">
+                  <CreditCard className="h-6 w-6" />
+                </div>
+              </div>
+              <div className="mt-6">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-white uppercase">
+                  <Check className="h-3 w-3" /> Aktif Selamanya
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="rounded-3xl border border-slate-100 bg-slate-50/50 p-6 dark:border-white/5 dark:bg-white/5">
+              <div className="flex items-center gap-4">
+                <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-500">
+                  <Users className="h-6 w-6" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Total RSVP</p>
+                  <p className="text-xl font-bold dark:text-white">{initialRsvps.length} Orang</p>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-3xl border border-slate-100 bg-slate-50/50 p-6 dark:border-white/5 dark:bg-white/5">
+              <div className="flex items-center gap-4">
+                <div className="rounded-2xl bg-amber-500/10 p-3 text-amber-500">
+                  <MessageCircle className="h-6 w-6" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Ucapan</p>
+                  <p className="text-xl font-bold dark:text-white">{initialWishes.length} Pesan</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {/* INVITATION LINKS */}
+            <div className="rounded-[2.5rem] border border-slate-200 bg-white p-10 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+              <h5 className="mb-6 flex items-center gap-2 text-xl font-bold dark:text-white">
+                <Link className="h-5 w-5 text-primary" /> Link Undangan
+              </h5>
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <p className="text-xs font-bold tracking-widest text-slate-400 uppercase">Tamu Pria</p>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 truncate rounded-2xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 dark:bg-slate-900 dark:text-slate-400">
+                      {`${siteUrl}/${invitation.slug}`}
+                    </div>
+                    <button
+                      onClick={() => copyToClipboard(`${siteUrl}/${invitation.slug}`)}
+                      className="rounded-2xl bg-slate-100 p-3.5 text-slate-600 hover:bg-primary hover:text-white transition-all dark:bg-slate-700 dark:text-slate-300"
+                    >
+                      <Copy className="h-5 w-5" />
+                    </button>
+                    <a
+                      href={`/${invitation.slug}`}
+                      target="_blank"
+                      className="rounded-2xl bg-blue-50 p-3.5 text-blue-600 hover:bg-blue-600 hover:text-white transition-all dark:bg-blue-900/20"
+                    >
+                      <ExternalLink className="h-5 w-5" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <p className="text-xs font-bold tracking-widest text-slate-400 uppercase">Tamu Wanita</p>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 truncate rounded-2xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 dark:bg-slate-900 dark:text-slate-400">
+                      {`${siteUrl}/${invitation.slug}`}
+                    </div>
+                    <button
+                      onClick={() => copyToClipboard(`${siteUrl}/${invitation.slug}`)}
+                      className="rounded-2xl bg-slate-100 p-3.5 text-slate-600 hover:bg-primary hover:text-white transition-all dark:bg-slate-700 dark:text-slate-300"
+                    >
+                      <Copy className="h-5 w-5" />
+                    </button>
+                    <a
+                      href={`/${invitation.slug}`}
+                      target="_blank"
+                      className="rounded-2xl bg-blue-50 p-3.5 text-blue-600 hover:bg-blue-600 hover:text-white transition-all dark:bg-blue-900/20"
+                    >
+                      <ExternalLink className="h-5 w-5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* QUICK PREVIEW / HELP */}
+            <div className="rounded-[2.5rem] bg-gradient-to-br from-slate-900 to-slate-800 p-10 text-white shadow-xl dark:from-slate-800 dark:to-slate-950">
+              <h5 className="mb-4 text-2xl font-serif italic font-bold">Butuh Bantuan?</h5>
+              <p className="mb-8 text-slate-400">Undangan Anda sudah siap dibagikan. Jika ingin mengubah desain atau informasi acara, buka tab **Pengaturan**.</p>
+
+              <div className="space-y-4">
+                <a href="https://wa.me/6281234567890" className="flex w-full items-center justify-between rounded-2xl bg-white/5 p-5 transition-all hover:bg-white/10">
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-xl bg-emerald-500/20 p-2 text-emerald-500">
+                      <MessageCircle className="h-6 w-6" />
+                    </div>
+                    <span className="font-bold">WhatsApp Support</span>
+                  </div>
+                  <ChevronRight className="h-5 w-5 text-slate-500" />
+                </a>
+                <div className="flex w-full items-center justify-between rounded-2xl bg-white/5 p-5">
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-xl bg-primary/20 p-2 text-primary">
+                      <CreditCard className="h-6 w-6" />
+                    </div>
+                    <span className="font-bold">Upgrade Ke Platinum</span>
+                  </div>
+                  <button className="rounded-xl bg-primary px-4 py-2 text-xs font-bold uppercase tracking-widest whitespace-nowrap">Upgrade</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* --- TAB: RSVP --- */}
       {activeTab === "rsvp" && (
@@ -542,7 +722,10 @@ const AdminDashboard = ({
       {/* --- TAB: SETTINGS --- */}
       {activeTab === "settings" && (
         <div className="animate-reveal">
-          <SettingsManager initialSettings={initialSettings} />
+          <SettingsManager
+            invitationId={invitationId}
+            initialSettings={initialSettings}
+          />
         </div>
       )}
 
