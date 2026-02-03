@@ -23,6 +23,7 @@ import {
   CreditCard,
   ExternalLink,
   Check,
+  User,
 } from "lucide-react";
 import QRCodeManager from "./QRCodeManager";
 import InvitationManager from "./InvitationManager";
@@ -305,15 +306,30 @@ const AdminDashboard = ({
   siteUrl,
 }: {
   invitationId: number;
-  invitation: { slug: string; status: string; created_at: string; buyer_name?: string; views_count?: number };
+  invitation: { id: number; slug: string; status: string; created_at: string; buyer_name?: string; buyer_phone?: string; views_count?: number };
   initialRsvps: RSVP[];
   initialWishes: Wish[];
   initialSettings: Record<string, string>;
   siteUrl: string;
 }) => {
-  const [activeTab, setActiveTab] = useState<"overview" | "rsvp" | "wishes" | "qr" | "pdf" | "settings">(
-    "overview"
-  );
+  const [activeTab, setActiveTab] = useState<
+    "overview" | "rsvp" | "wishes" | "qr" | "pdf" | "settings" | "profile"
+  >("overview");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tabFromUrl = params.get("tab");
+    if (tabFromUrl && tabs.some(t => t.id === tabFromUrl)) {
+      setActiveTab(tabFromUrl as any);
+    }
+  }, []);
+
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId as any);
+    const url = new URL(window.location.href);
+    url.searchParams.set("tab", tabId);
+    window.history.pushState({}, "", url.toString());
+  };
 
   // Data States
   const [rsvps, setRsvps] = useState(initialRsvps);
@@ -402,6 +418,7 @@ const AdminDashboard = ({
     { id: "qr", label: "QR Generator", icon: QrCode },
     { id: "pdf", label: "Design PDF", icon: Printer },
     { id: "settings", label: "Pengaturan", icon: Settings },
+    { id: "profile", label: "Profil Saya", icon: User },
   ];
 
   const copyToClipboard = (text: string) => {
@@ -423,22 +440,7 @@ const AdminDashboard = ({
         </div>
       )}
 
-      {/* NAVIGATION */}
-      <div className="mb-8 flex gap-2 overflow-x-auto border-b border-slate-200 pb-1 dark:border-slate-700">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id as any)}
-            className={`flex items-center gap-2 border-b-2 px-6 py-3 text-sm font-bold whitespace-nowrap transition-colors ${activeTab === tab.id
-              ? "border-blue-600 text-blue-600"
-              : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-              }`}
-          >
-            <tab.icon className="h-4 w-4" />
-            {tab.label}
-          </button>
-        ))}
-      </div>
+      {/* TABS CONTENT REMOVED - NAVIGATION IS NOW SIDEBAR ONLY */}
 
       {/* --- TAB: OVERVIEW --- */}
       {activeTab === "overview" && (
@@ -726,6 +728,42 @@ const AdminDashboard = ({
             invitationId={invitationId}
             initialSettings={initialSettings}
           />
+        </div>
+      )}
+
+      {/* --- TAB: PROFILE --- */}
+      {activeTab === "profile" && (
+        <div className="animate-reveal max-w-2xl mx-auto">
+          <div className="rounded-[2.5rem] border border-slate-200 bg-white p-10 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+            <div className="flex flex-col items-center text-center mb-10">
+              <div className="w-24 h-24 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden border-4 border-primary/20 mb-6">
+                <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${invitation?.buyer_name || "User"}`} alt="avatar" />
+              </div>
+              <h3 className="text-2xl font-bold dark:text-white">{invitation?.buyer_name || "User"}</h3>
+              <p className="text-slate-500 text-sm uppercase tracking-widest font-bold mt-1">Status: Akun Pembeli</p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Nama Lengkap</label>
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl text-slate-700 dark:text-slate-200 font-medium">
+                  {invitation?.buyer_name || "Belum diatur"}
+                </div>
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Nomor Handheld</label>
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl text-slate-700 dark:text-slate-200 font-medium">
+                  {invitation?.buyer_phone || "Belum diatur"}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 pt-8 border-t border-slate-100 dark:border-white/5">
+              <button className="w-full py-4 px-8 bg-slate-100 dark:bg-white/5 rounded-2xl text-slate-400 font-bold cursor-not-allowed">
+                Ubah Password (Coming Soon)
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
