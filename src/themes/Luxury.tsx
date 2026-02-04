@@ -598,7 +598,7 @@ const EventDetails: FC = () => {
         >
             <div className="container mx-auto max-w-6xl">
                 <Reveal>
-                    <div className="mb-16 space-y-4 text-center md:mb-24 md:space-y-6">
+                    <div className="mb-12 space-y-3 text-center md:mb-24 md:space-y-6">
                         <div className="flex items-center justify-center gap-4">
                             <div className="bg-accentDark/20 dark:bg-accent/20 h-[1px] w-8 md:w-12"></div>
                             <Sparkles className="text-accentDark dark:text-accent h-5 w-5 animate-pulse md:h-6 md:w-6" />
@@ -614,128 +614,134 @@ const EventDetails: FC = () => {
                     </div>
                 </Reveal>
 
-                <div className={`grid gap-8 md:gap-10 ${filteredEvents.length === 1 ? 'max-w-lg mx-auto' : 'md:grid-cols-2'}`}>
+                {/* LAYOUT 2 KOLOM HORIZONTAL untuk semua ukuran layar */}
+                <div className={`grid gap-3 sm:gap-6 md:gap-10 ${filteredEvents.length === 1 ? 'max-w-lg mx-auto' : 'grid-cols-2'}`}>
                     {filteredEvents.map((ev, index) => {
                         const mapUrl = ev.venue.mapsEmbedUrl;
 
                         return (
                             <Reveal key={ev.id} delay={index * 0.2}>
                                 <div
-                                    className="editorial-card dark:bg-darkSurface group relative flex flex-col overflow-visible rounded-[2.5rem] bg-white md:rounded-[4rem]"
+                                    className="editorial-card dark:bg-darkSurface group relative flex flex-col overflow-visible rounded-2xl bg-white sm:rounded-[2.5rem] md:rounded-[4rem]"
                                 >
-                                    <div className="bg-accentDark/10 dark:bg-accent/10 text-accentDark dark:text-accent animate-float absolute -top-4 -right-4 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 backdrop-blur-md md:-top-6 md:-right-6 md:h-16 md:w-16 dark:border-white/5">
+                                    {/* Icon Badge - Lebih kecil di mobile */}
+                                    <div className="bg-accentDark/10 dark:bg-accent/10 text-accentDark dark:text-accent animate-float absolute -top-2 -right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 backdrop-blur-md sm:-top-4 sm:-right-4 sm:h-12 sm:w-12 md:-top-6 md:-right-6 md:h-16 md:w-16 dark:border-white/5">
                                         {index === 0 ? (
-                                            <Heart className="h-5 w-5 fill-current md:h-7 md:w-7" />
+                                            <Heart className="h-3 w-3 fill-current sm:h-5 sm:w-5 md:h-7 md:w-7" />
                                         ) : (
-                                            <Sparkles className="h-5 w-5 md:h-7 md:w-7" />
+                                            <Sparkles className="h-3 w-3 sm:h-5 sm:w-5 md:h-7 md:w-7" />
                                         )}
                                     </div>
 
-                                    <div className="space-y-8 p-8 text-center md:space-y-12 md:p-12">
-                                        <div className="space-y-2 md:space-y-4">
-                                            <span className="tracking-luxury text-accentDark dark:text-accent text-[9px] font-bold uppercase md:text-[10px]">
-                                                Our Sacred Day
+                                    {/* Header Section - Compact */}
+                                    <div className="space-y-3 p-3 text-center sm:space-y-4 sm:p-6 md:space-y-6 md:p-8">
+                                        <span className="tracking-luxury text-accentDark dark:text-accent block text-[7px] font-bold uppercase sm:text-[9px] md:text-[10px]">
+                                            Our Sacred Day
+                                        </span>
+                                        <h3 className="font-serif text-base leading-tight text-slate-900 italic sm:text-xl md:text-3xl dark:text-white">
+                                            {ev.title}
+                                        </h3>
+                                    </div>
+
+                                    {/* Date & Time - Layout Horizontal di Mobile */}
+                                    <div className="space-y-2 border-y border-slate-100 px-3 py-3 sm:space-y-3 sm:px-6 sm:py-4 md:space-y-4 md:px-8 md:py-6 dark:border-white/5">
+                                        {/* Date */}
+                                        <div className="flex items-center justify-center gap-2">
+                                            <Calendar className="text-accentDark dark:text-accent h-3 w-3 flex-shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" />
+                                            <span className="font-serif text-[10px] text-slate-700 italic sm:text-xs md:text-base dark:text-slate-100">
+                                                {ev.day}, {ev.date}
                                             </span>
-                                            <h3 className="font-serif text-3xl leading-tight text-slate-900 italic md:text-5xl dark:text-white">
-                                                {ev.title}
-                                            </h3>
                                         </div>
-
-                                        <div className="w-full space-y-6 border-y border-slate-100 py-8 md:space-y-8 md:py-10 dark:border-white/5">
-                                            <div className="flex flex-col items-center justify-center gap-3 font-serif text-xl text-slate-700 italic md:text-2xl dark:text-slate-100">
-                                                <div className="flex items-center gap-3 md:gap-4">
-                                                    <Calendar className="text-accentDark dark:text-accent h-5 w-5 md:h-6 md:w-6" />
-                                                    <span>
-                                                        {ev.day}, {ev.date}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className="tracking-editorial flex items-center justify-center gap-3 text-[11px] font-bold text-slate-400 uppercase md:gap-4 md:text-[12px] dark:text-slate-500">
-                                                <Clock className="text-accentDark dark:text-accent h-4 w-4 md:h-5 md:w-5" />
-                                                <span>
-                                                    {ev.startTime} — {ev.endTime} WIB
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div className="relative w-full">
-                                            <button
-                                                onClick={() =>
-                                                    setActiveDropdown(activeDropdown === ev.id ? null : ev.id)
-                                                }
-                                                className="bg-primary dark:bg-accentDark tracking-editorial flex w-full items-center justify-center gap-3 rounded-2xl py-4 text-[10px] font-bold text-white uppercase transition-all hover:shadow-2xl active:scale-95 md:gap-5 md:rounded-3xl md:py-5 md:text-[11px]"
-                                            >
-                                                <CalendarPlus className="h-4 w-4 md:h-5 md:w-5" />
-                                                Save The Date
-                                                <ChevronDown
-                                                    className={`h-3 w-3 transition-transform duration-500 md:h-4 md:w-4 ${activeDropdown === ev.id ? "rotate-180" : ""
-                                                        }`}
-                                                />
-                                            </button>
-                                            {activeDropdown === ev.id && (
-                                                <div className="frosted-glass animate-reveal absolute top-full right-0 left-0 z-[50] mt-3 overflow-hidden rounded-[1.5rem] border border-slate-200 p-2 shadow-2xl md:mt-4 md:rounded-[2rem] md:p-3 dark:border-white/10">
-                                                    <button
-                                                        onClick={() => handleCalendarAction("google", ev)}
-                                                        className="flex w-full items-center gap-4 rounded-xl px-6 py-4 text-left text-slate-800 transition-colors hover:bg-slate-50 md:gap-5 md:rounded-2xl md:px-8 md:py-5 dark:text-white dark:hover:bg-white/5"
-                                                    >
-                                                        <div className="bg-accentDark dark:bg-accent h-2 w-2 animate-pulse rounded-full md:h-3 md:w-3"></div>
-                                                        <span className="tracking-luxury text-[10px] font-bold uppercase md:text-[11px]">
-                                                            Google Calendar
-                                                        </span>
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleCalendarAction("ics", ev)}
-                                                        className="flex w-full items-center gap-4 rounded-xl px-6 py-4 text-left text-slate-800 transition-colors hover:bg-slate-50 md:gap-5 md:rounded-2xl md:px-8 md:py-5 dark:text-white dark:hover:bg-white/5"
-                                                    >
-                                                        <div className="h-2 w-2 rounded-full bg-slate-300 md:h-3 md:w-3 dark:bg-slate-600"></div>
-                                                        <span className="tracking-luxury text-[10px] font-bold uppercase md:text-[11px]">
-                                                            Apple / Outlook
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                            )}
+                                        {/* Time */}
+                                        <div className="flex items-center justify-center gap-2">
+                                            <Clock className="text-accentDark dark:text-accent h-3 w-3 flex-shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" />
+                                            <span className="tracking-editorial text-[9px] font-bold text-slate-400 uppercase sm:text-[10px] md:text-[11px] dark:text-slate-500">
+                                                {ev.startTime} — {ev.endTime}
+                                            </span>
                                         </div>
                                     </div>
 
-                                    <div className="space-y-6 border-t border-slate-100 p-8 md:space-y-8 md:p-12 dark:border-white/5">
-                                        <div className="flex items-start gap-4 md:items-center md:gap-6">
-                                            <div className="text-accentDark dark:text-accent flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-100 bg-slate-50 shadow-lg md:h-14 md:w-14 dark:border-white/10 dark:bg-white/5">
-                                                <MapPin className="h-6 w-6 md:h-7 md:w-7" />
+                                    {/* Save The Date Button - Compact */}
+                                    <div className="relative px-3 pt-3 sm:px-6 sm:pt-4 md:px-8 md:pt-6">
+                                        <button
+                                            onClick={() =>
+                                                setActiveDropdown(activeDropdown === ev.id ? null : ev.id)
+                                            }
+                                            className="bg-primary dark:bg-accentDark tracking-editorial flex w-full items-center justify-center gap-1.5 rounded-xl py-2 text-[8px] font-bold text-white uppercase transition-all hover:shadow-2xl active:scale-95 sm:gap-2 sm:rounded-2xl sm:py-3 sm:text-[9px] md:gap-3 md:rounded-3xl md:py-4 md:text-[10px]"
+                                        >
+                                            <CalendarPlus className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
+                                            Save Date
+                                            <ChevronDown
+                                                className={`h-2 w-2 transition-transform duration-500 sm:h-2.5 sm:w-2.5 md:h-3 md:w-3 ${activeDropdown === ev.id ? "rotate-180" : ""
+                                                    }`}
+                                            />
+                                        </button>
+                                        {activeDropdown === ev.id && (
+                                            <div className="frosted-glass animate-reveal absolute top-full right-0 left-0 z-[50] mt-2 overflow-hidden rounded-xl border border-slate-200 p-1.5 shadow-2xl sm:mt-3 sm:rounded-[1.5rem] sm:p-2 md:mt-4 md:rounded-[2rem] md:p-3 dark:border-white/10">
+                                                <button
+                                                    onClick={() => handleCalendarAction("google", ev)}
+                                                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-slate-800 transition-colors hover:bg-slate-50 sm:gap-3 sm:rounded-xl sm:px-4 sm:py-3 md:gap-4 md:rounded-2xl md:px-6 md:py-4 dark:text-white dark:hover:bg-white/5"
+                                                >
+                                                    <div className="bg-accentDark dark:bg-accent h-1.5 w-1.5 animate-pulse rounded-full sm:h-2 sm:w-2 md:h-2.5 md:w-2.5"></div>
+                                                    <span className="tracking-luxury text-[8px] font-bold uppercase sm:text-[9px] md:text-[10px]">
+                                                        Google Calendar
+                                                    </span>
+                                                </button>
+                                                <button
+                                                    onClick={() => handleCalendarAction("ics", ev)}
+                                                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-slate-800 transition-colors hover:bg-slate-50 sm:gap-3 sm:rounded-xl sm:px-4 sm:py-3 md:gap-4 md:rounded-2xl md:px-6 md:py-4 dark:text-white dark:hover:bg-white/5"
+                                                >
+                                                    <div className="h-1.5 w-1.5 rounded-full bg-slate-300 sm:h-2 sm:w-2 md:h-2.5 md:w-2.5 dark:bg-slate-600"></div>
+                                                    <span className="tracking-luxury text-[8px] font-bold uppercase sm:text-[9px] md:text-[10px]">
+                                                        Apple / Outlook
+                                                    </span>
+                                                </button>
                                             </div>
-                                            <div className="min-w-0 flex-1 space-y-1">
-                                                <h4 className="font-serif text-xl leading-tight tracking-tight text-slate-900 italic md:text-2xl dark:text-white">
+                                        )}
+                                    </div>
+
+                                    {/* Venue Section - Layout Horizontal */}
+                                    <div className="space-y-2 border-t border-slate-100 p-3 sm:space-y-3 sm:p-6 md:space-y-4 md:p-8 dark:border-white/5">
+                                        <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
+                                            <div className="text-accentDark dark:text-accent flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 shadow-lg sm:h-10 sm:w-10 md:h-12 md:w-12 md:rounded-2xl dark:border-white/10 dark:bg-white/5">
+                                                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                                            </div>
+                                            <div className="min-w-0 flex-1">
+                                                <h4 className="font-serif text-xs leading-tight tracking-tight text-slate-900 italic sm:text-sm md:text-lg dark:text-white">
                                                     {ev.venue.name}
                                                 </h4>
-                                                <p className="text-sm leading-snug font-light text-slate-500 italic md:text-base dark:text-slate-400">
+                                                <p className="mt-0.5 text-[9px] leading-snug font-light text-slate-500 italic sm:text-[10px] md:text-sm dark:text-slate-400">
                                                     {ev.venue.address}
                                                 </p>
                                             </div>
                                         </div>
 
-                                        <div className="flex gap-3">
+                                        {/* Buttons - Horizontal Layout */}
+                                        <div className="flex gap-1.5 sm:gap-2 md:gap-3">
                                             <button
                                                 onClick={() => copyToClipboard(ev.venue.address, ev.id)}
-                                                className="tracking-editorial flex flex-1 items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-[9px] font-bold text-slate-700 uppercase transition-all hover:bg-slate-50 md:rounded-2xl md:py-4 md:text-[10px] dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/5"
+                                                className="tracking-editorial flex flex-1 items-center justify-center gap-1 rounded-lg border border-slate-200 px-2 py-1.5 text-[7px] font-bold text-slate-700 uppercase transition-all hover:bg-slate-50 sm:gap-1.5 sm:rounded-xl sm:px-3 sm:py-2 sm:text-[8px] md:gap-2 md:rounded-2xl md:py-3 md:text-[9px] dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/5"
                                             >
                                                 {copiedEvent === ev.id ? (
-                                                    <Check className="h-4 w-4 text-green-500" />
+                                                    <Check className="h-3 w-3 text-green-500 sm:h-3.5 sm:w-3.5" />
                                                 ) : (
-                                                    <Copy className="text-accentDark dark:text-accent h-4 w-4" />
+                                                    <Copy className="text-accentDark dark:text-accent h-3 w-3 sm:h-3.5 sm:w-3.5" />
                                                 )}
-                                                {copiedEvent === ev.id ? "Copied" : "Copy"}
+                                                {copiedEvent === ev.id ? "OK" : "Copy"}
                                             </button>
                                             <a
                                                 href={ev.venue.mapsEmbedUrl.replace('&output=embed', '')}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="bg-primary dark:text-primary tracking-editorial flex flex-1 items-center justify-center gap-2 rounded-xl px-4 py-3 text-[9px] font-bold text-white uppercase transition-all hover:shadow-2xl md:rounded-2xl md:py-4 md:text-[10px] dark:bg-white"
+                                                className="bg-primary dark:text-primary tracking-editorial flex flex-1 items-center justify-center gap-1 rounded-lg px-2 py-1.5 text-[7px] font-bold text-white uppercase transition-all hover:shadow-2xl sm:gap-1.5 sm:rounded-xl sm:px-3 sm:py-2 sm:text-[8px] md:gap-2 md:rounded-2xl md:py-3 md:text-[9px] dark:bg-white"
                                             >
-                                                <ExternalLink className="h-4 w-4" />
+                                                <ExternalLink className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                                                 Maps
                                             </a>
                                         </div>
 
-                                        <div className="relative h-[200px] overflow-hidden rounded-2xl border border-slate-100 shadow-lg md:h-[250px] md:rounded-3xl dark:border-white/10">
+                                        {/* Map - Compact */}
+                                        <div className="relative h-[120px] overflow-hidden rounded-xl border border-slate-100 shadow-lg sm:h-[160px] sm:rounded-2xl md:h-[200px] md:rounded-3xl dark:border-white/10">
                                             <iframe
                                                 src={mapUrl}
                                                 width="100%"
@@ -746,7 +752,7 @@ const EventDetails: FC = () => {
                                                 loading="lazy"
                                                 referrerPolicy="no-referrer-when-downgrade"
                                             ></iframe>
-                                            <div className="dark:border-darkSurface/5 pointer-events-none absolute inset-0 border-[4px] border-white/5 md:border-[6px]"></div>
+                                            <div className="dark:border-darkSurface/5 pointer-events-none absolute inset-0 border-[2px] border-white/5 sm:border-[3px] md:border-[4px]"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -765,6 +771,7 @@ const Gallery: FC = () => {
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
     const [side, setSide] = useState<"pria" | "wanita">("pria");
+    const [isTransitioning, setIsTransitioning] = useState(false);
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -775,11 +782,15 @@ const Gallery: FC = () => {
     const firstName = side === "wanita" ? config.couple.bride.name : config.couple.groom.name;
     const secondName = side === "wanita" ? config.couple.groom.name : config.couple.bride.name;
 
-    // Auto-play logic: berganti setiap 3 detik
+    // Auto-play logic: berganti setiap 5 detik dengan crossfade
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveIndex((current) => (current + 1) % config.galleryImages.length);
-        }, 3000);
+            setIsTransitioning(true);
+            setTimeout(() => {
+                setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+                setIsTransitioning(false);
+            }, 400);
+        }, 5000);
         return () => clearInterval(interval);
     }, [config.galleryImages.length]);
 
@@ -807,11 +818,15 @@ const Gallery: FC = () => {
                 setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
             }
         } else {
-            if (direction === "prev") {
-                setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
-            } else {
-                setActiveIndex((activeIndex + 1) % config.galleryImages.length);
-            }
+            setIsTransitioning(true);
+            setTimeout(() => {
+                if (direction === "prev") {
+                    setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+                } else {
+                    setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+                }
+                setIsTransitioning(false);
+            }, 400);
         }
     };
 
@@ -847,23 +862,29 @@ const Gallery: FC = () => {
                     </div>
                 </Reveal>
 
-                {/* Thumbnail Strip with Navigation */}
+                {/* Thumbnail Strip with Navigation - MADE SMALLER */}
                 <Reveal delay={0.2}>
-                    <div className="flex items-center gap-3 sm:gap-6 justify-center px-4">
+                    <div className="flex items-center gap-2 sm:gap-4 justify-center px-4">
                         <button
                             onClick={() => navigate("prev")}
-                            className="w-10 h-10 rounded-full bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-900 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-all shadow-lg active:scale-95 flex-shrink-0"
+                            className="w-8 h-8 rounded-full bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-900 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-all shadow-lg active:scale-95 flex-shrink-0"
                         >
-                            <ChevronLeft size={20} />
+                            <ChevronLeft size={16} />
                         </button>
 
-                        <div className="flex gap-3 sm:gap-4 overflow-x-auto no-scrollbar py-4 px-2">
+                        <div className="flex gap-2 overflow-x-auto no-scrollbar py-2 px-1">
                             {config.galleryImages.map((img, idx) => (
                                 <button
                                     key={idx}
-                                    onClick={() => setActiveIndex(idx)}
-                                    className={`relative flex-shrink-0 w-20 h-14 sm:w-28 sm:h-20 rounded-2xl overflow-hidden border-2 transition-all duration-500 ${activeIndex === idx
-                                        ? "border-accent scale-110 shadow-xl z-20"
+                                    onClick={() => {
+                                        setIsTransitioning(true);
+                                        setTimeout(() => {
+                                            setActiveIndex(idx);
+                                            setIsTransitioning(false);
+                                        }, 400);
+                                    }}
+                                    className={`relative flex-shrink-0 w-12 h-10 sm:w-16 sm:h-12 rounded-xl overflow-hidden border-2 transition-all duration-500 ${activeIndex === idx
+                                        ? "border-accent scale-105 shadow-xl z-20"
                                         : "border-transparent opacity-40 grayscale hover:opacity-80 hover:scale-105"
                                         }`}
                                 >
@@ -874,35 +895,36 @@ const Gallery: FC = () => {
 
                         <button
                             onClick={() => navigate("next")}
-                            className="w-10 h-10 rounded-full bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-900 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-all shadow-lg active:scale-95 flex-shrink-0"
+                            className="w-8 h-8 rounded-full bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-900 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-all shadow-lg active:scale-95 flex-shrink-0"
                         >
-                            <ChevronRight size={20} />
+                            <ChevronRight size={16} />
                         </button>
                     </div>
                 </Reveal>
 
-                {/* Featured Image Area */}
+                {/* Featured Image Area - WITH CROSSFADE ANIMATION */}
                 <Reveal delay={0.4}>
                     <div className="relative aspect-[9/16] w-full max-w-[500px] mx-auto rounded-[3rem] sm:rounded-[4.5rem] overflow-hidden border border-slate-200 dark:border-white/5 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] group">
-                        <AnimatePresence mode="wait">
-                            <motion.img
-                                key={activeIndex}
-                                initial={{ opacity: 0, scale: 1.1 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.95 }}
-                                transition={{ duration: 1.2, ease: "easeInOut" }}
-                                src={config.galleryImages[activeIndex]}
-                                className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-                                alt="Featured Gallery"
+                        {/* Multiple images for crossfade effect */}
+                        {config.galleryImages.map((img, idx) => (
+                            <img
+                                key={idx}
+                                src={img}
+                                className={`absolute inset-0 w-full h-full object-cover cursor-pointer transition-opacity duration-[800ms] ease-in-out ${idx === activeIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                                    }`}
+                                alt={`Gallery ${idx}`}
                                 onClick={() => openLightbox(activeIndex)}
+                                style={{
+                                    transitionDelay: idx === activeIndex ? '0ms' : '0ms'
+                                }}
                             />
-                        </AnimatePresence>
+                        ))}
 
                         {/* Overlays */}
-                        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20"></div>
 
                         {/* Action Button */}
-                        <div className="absolute bottom-10 right-10 z-20">
+                        <div className="absolute bottom-10 right-10 z-30">
                             <button
                                 onClick={() => openLightbox(activeIndex)}
                                 className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-700 hover:scale-110 hover:bg-white/20"
@@ -1895,9 +1917,10 @@ const Navbar: FC<NavbarProps> = ({ theme, toggleTheme }) => {
 
     return (
         <nav
-            className={`fixed bottom-8 left-1/2 z-[1100] -translate-x-1/2 transition-all duration-700 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+            className={`fixed bottom-6 left-1/2 z-[1100] -translate-x-1/2 transition-all duration-700 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
         >
-            <div className="bg-white/80 dark:bg-slate-900/95 backdrop-blur-md px-3 py-3 rounded-full border border-slate-200 dark:border-white/10 shadow-2xl flex items-center gap-1 md:gap-8 md:px-6 md:py-4">
+            {/* NAVBAR LEBIH KECIL - padding & gap dikurangi */}
+            <div className="bg-white/80 dark:bg-slate-900/95 backdrop-blur-md px-3 py-2 rounded-full border border-slate-200 dark:border-white/10 shadow-2xl flex items-center gap-2 sm:px-4 sm:py-2.5 sm:gap-3 md:px-5 md:py-3 md:gap-4">
                 {navItems.map((item) => {
                     const Icon = item.icon;
                     const isActive = activeSection === item.id;
@@ -1909,29 +1932,39 @@ const Navbar: FC<NavbarProps> = ({ theme, toggleTheme }) => {
                                 e.preventDefault();
                                 scrollToSection(item.id);
                             }}
-                            className={`group relative flex flex-col items-center gap-1 px-2 py-1 transition-all duration-300 ${isActive ? 'text-accentDark dark:text-accent scale-110' : 'text-slate-400 dark:text-white/60 hover:text-slate-900 dark:hover:text-white'}`}
+                            className={`group relative flex flex-col items-center gap-0.5 px-1.5 py-1 transition-all duration-300 sm:px-2 md:gap-1 ${isActive ? 'text-accentDark dark:text-accent scale-110' : 'text-slate-400 dark:text-white/60 hover:text-slate-900 dark:hover:text-white'}`}
                         >
-                            <Icon size={18} className={`transition-transform duration-300 ${isActive ? '' : 'group-hover:-translate-y-1'}`} />
-                            <span className="text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-10 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-full whitespace-nowrap text-slate-900 dark:text-white border border-slate-100 dark:border-white/10 shadow-xl pointer-events-none">
+                            {/* Icon lebih kecil */}
+                            <Icon size={16} className={`transition-transform duration-300 sm:size-[18px] md:size-[20px] ${isActive ? '' : 'group-hover:-translate-y-1'}`} />
+                            
+                            {/* Tooltip */}
+                            <span className="text-[7px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-8 bg-white dark:bg-slate-900 px-2 py-1 rounded-full whitespace-nowrap text-slate-900 dark:text-white border border-slate-100 dark:border-white/10 shadow-xl pointer-events-none sm:-top-9 sm:text-[8px] sm:px-2.5 sm:py-1.5">
                                 {item.label}
                             </span>
+                            
+                            {/* Active indicator */}
                             {isActive && (
-                                <div className="bg-accentDark dark:bg-accent absolute -bottom-1 h-1 w-1 rounded-full md:h-1.5 md:w-1.5"></div>
+                                <div className="bg-accentDark dark:bg-accent absolute -bottom-0.5 h-0.5 w-0.5 rounded-full sm:h-1 sm:w-1"></div>
                             )}
                         </a>
                     );
                 })}
 
-                <div className="mx-1 h-6 w-[1px] bg-slate-200 dark:bg-white/10 md:mx-2"></div>
+                {/* Divider lebih kecil */}
+                <div className="mx-0.5 h-4 w-[1px] bg-slate-200 dark:bg-white/10 sm:mx-1 sm:h-5 md:h-6"></div>
 
+                {/* Theme toggle */}
                 <button
                     onClick={toggleTheme}
-                    className="group relative flex flex-col items-center gap-1 px-2 py-1 text-slate-400 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-all duration-300"
+                    className="group relative flex flex-col items-center gap-0.5 px-1.5 py-1 text-slate-400 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-all duration-300 sm:px-2 md:gap-1"
                     aria-label="Toggle theme"
                 >
-                    {theme === "light" ? <Moon size={18} className="transition-transform duration-500 group-hover:rotate-12" /> : <Sun size={18} className="transition-transform duration-500 group-hover:rotate-90" />}
-                    <span className="text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-10 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-full whitespace-nowrap text-slate-900 dark:text-white border border-slate-100 dark:border-white/10 shadow-xl pointer-events-none">
-                        {theme === "light" ? "Dark Mode" : "Light Mode"}
+                    {theme === "light" ? 
+                        <Moon size={16} className="transition-transform duration-500 group-hover:rotate-12 sm:size-[18px] md:size-[20px]" /> : 
+                        <Sun size={16} className="transition-transform duration-500 group-hover:rotate-90 sm:size-[18px] md:size-[20px]" />
+                    }
+                    <span className="text-[7px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-8 bg-white dark:bg-slate-900 px-2 py-1 rounded-full whitespace-nowrap text-slate-900 dark:text-white border border-slate-100 dark:border-white/10 shadow-xl pointer-events-none sm:-top-9 sm:text-[8px] sm:px-2.5 sm:py-1.5">
+                        {theme === "light" ? "Dark" : "Light"}
                     </span>
                 </button>
             </div>
@@ -1985,7 +2018,7 @@ const LuxuryTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) =
             <MusicPlayer />
 
             <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4">
-                <MusicController />
+                <MusicController isOpened={isOpened} />
                 <AutoScrollController isOpened={isOpened} />
             </div>
 

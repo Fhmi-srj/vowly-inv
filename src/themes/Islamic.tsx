@@ -651,9 +651,9 @@ const Navbar: FC<{ theme: "light" | "dark"; toggleTheme: () => void }> = ({ them
     const navItems = [{ icon: Home, label: "Awal", href: "#hero" }, { icon: Heart, label: "Mempelai", href: "#couple" }, { icon: Star, label: "Kisah", href: "#story" }, { icon: Calendar, label: "Agenda", href: "#event" }, { icon: Camera, label: "Galeri", href: "#gallery" }, { icon: Gift, label: "Kado", href: "#gift" }, { icon: MessageCircle, label: "RSVP", href: "#rsvp" }];
     return (
         <nav className={`fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-32 scale-75 pointer-events-none'}`}>
-            <div className="bg-white/80 backdrop-blur-2xl border border-[#2d4a3e]/5 px-10 py-6 rounded-full shadow-2xl flex items-center gap-8 md:gap-12">
-                {navItems.map((item, idx) => (<a key={idx} href={item.href} className="group relative text-[#2d4a3e]/40 hover:text-[#c5a059] transition-all"><item.icon size={20} /><span className="absolute -top-16 opacity-0 group-hover:opacity-100 transition-all bg-[#2d4a3e] text-white text-[9px] font-black px-5 py-3 rounded-full hidden group-hover:block whitespace-nowrap">{item.label}</span></a>))}
-                <button onClick={toggleTheme} className="text-[#2d4a3e]/40 hover:text-[#c5a059] transition-all">{theme === "light" ? <Moon size={20} /> : <Sun size={20} />}</button>
+            <div className="bg-white/80 backdrop-blur-2xl border border-[#2d4a3e]/5 px-8 py-5 rounded-full shadow-2xl flex items-center gap-6 sm:gap-10">
+                {navItems.map((item, idx) => (<a key={idx} href={item.href} className="group relative text-[#2d4a3e]/40 hover:text-[#c5a059] transition-all"><item.icon size={22} /><span className="absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-[#2d4a3e] text-white text-[9px] font-black px-5 py-3 rounded-full hidden group-hover:block whitespace-nowrap">{item.label}</span></a>))}
+                <button onClick={toggleTheme} className="text-[#2d4a3e]/40 hover:text-[#c5a059] transition-all">{theme === "light" ? <Moon size={22} /> : <Sun size={22} />}</button>
             </div>
         </nav>
     );
@@ -667,7 +667,7 @@ const IslamicTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) 
             <main className={`transition-all duration-1000 ${isOpened ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20 pointer-events-none"}`}>
                 <Hero /><CoupleProfile /><LoveStory /><EventDetails /><Gallery /><GiftInfo /><RSVPForm /><Wishes />
             </main>
-            <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4"><MusicController /><AutoScrollController isOpened={isOpened} /></div>
+            <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4"><MusicController isOpened={isOpened} /><AutoScrollController isOpened={isOpened} /></div>
             <Navbar theme={theme} toggleTheme={toggleTheme} /><MusicPlayer /><InstallPrompt />
         </div>
     );

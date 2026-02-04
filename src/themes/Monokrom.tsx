@@ -706,52 +706,13 @@ const GiftInfo: FC = () => {
 
 const Navbar: FC<{ theme: "light" | "dark"; toggleTheme: () => void }> = ({ theme, toggleTheme }) => {
     const [isVisible, setIsVisible] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsVisible(window.scrollY > 400);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    const navItems = [
-        { icon: Home, label: "Intro", href: "#hero" },
-        { icon: Heart, label: "Couple", href: "#couple" },
-        { icon: Calendar, label: "Time", href: "#event" },
-        { icon: Camera, label: "Frames", href: "#gallery" },
-        { icon: Gift, label: "Token", href: "#gift" },
-        { icon: MessageCircle, label: "RSVP", href: "#rsvp" },
-    ];
-
+    useEffect(() => { const handleScroll = () => setIsVisible(window.scrollY > 400); window.addEventListener("scroll", handleScroll); return () => window.removeEventListener("scroll", handleScroll); }, []);
+    const navItems = [{ icon: Home, label: "Intro", href: "#hero" }, { icon: Heart, label: "Couple", href: "#couple" }, { icon: Calendar, label: "Time", href: "#event" }, { icon: Camera, label: "Frames", href: "#gallery" }, { icon: Gift, label: "Token", href: "#gift" }, { icon: MessageCircle, label: "RSVP", href: "#rsvp" }];
     return (
-        <nav className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-90 pointer-events-none'}`}>
-            <div className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 px-6 py-4 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.4)] flex items-center gap-6 md:gap-10 transition-colors duration-1000">
-                {navItems.map((item, idx) => (
-                    <a
-                        key={idx}
-                        href={item.href}
-                        className="group relative flex flex-col items-center gap-1 text-zinc-400 hover:text-black dark:hover:text-white transition-all duration-300"
-                    >
-                        <item.icon size={20} className="transition-transform group-hover:-translate-y-1" />
-                        <span className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap bg-black dark:bg-white text-white dark:text-black text-[9px] font-black tracking-widest uppercase px-3 py-1.5 rounded transition-transform group-hover:translate-y-0 translate-y-2">
-                            {item.label}
-                        </span>
-                    </a>
-                ))}
-
-                <div className="w-[1px] h-6 bg-zinc-200 dark:bg-zinc-800 mx-1"></div>
-
-                <button
-                    onClick={toggleTheme}
-                    className="group relative flex flex-col items-center gap-1 text-zinc-400 hover:text-black dark:hover:text-white transition-all duration-300"
-                    aria-label="Toggle theme"
-                >
-                    {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-                    <span className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap bg-black dark:bg-white text-white dark:text-black text-[9px] font-black tracking-widest uppercase px-3 py-1.5 rounded transition-transform group-hover:translate-y-0 translate-y-2">
-                        {theme === "light" ? "Dark Mode" : "Light Mode"}
-                    </span>
-                </button>
+        <nav className={`fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-[1s] ease-in-out ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95 pointer-events-none'}`}>
+            <div className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-zinc-200 dark:border-white/10 px-8 py-5 rounded-full shadow-2xl flex items-center gap-6 sm:gap-10">
+                {navItems.map((item, idx) => (<a key={idx} href={item.href} className="group relative text-zinc-400 hover:text-black dark:hover:text-white transition-all"><item.icon size={22} /><span className="absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-black dark:bg-white text-white dark:text-black text-[9px] font-black tracking-widest px-5 py-3 rounded-full hidden group-hover:block whitespace-nowrap">{item.label}</span></a>))}
+                <button onClick={toggleTheme} className="text-zinc-400 hover:text-black dark:hover:text-white transition-all">{theme === "light" ? <Moon size={22} /> : <Sun size={22} />}</button>
             </div>
         </nav>
     );
@@ -1231,7 +1192,7 @@ const MonokromTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen })
 
             {/* Standardized Floating Utilities */}
             <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4">
-                <MusicController />
+                <MusicController isOpened={isOpened} />
                 <AutoScrollController isOpened={isOpened} />
             </div>
 

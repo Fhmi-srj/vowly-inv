@@ -96,31 +96,21 @@ const Envelope: FC<{ onOpen: () => void }> = ({ onOpen }) => {
 };
 
 const Navbar: FC<{ theme: "light" | "dark"; toggleTheme: () => void }> = ({ theme, toggleTheme }) => {
-    const [scrolled, setScrolled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
+    const [isVisible, setIsVisible] = useState(false);
+    useEffect(() => { const handleScroll = () => setIsVisible(window.scrollY > 400); window.addEventListener("scroll", handleScroll); return () => window.removeEventListener("scroll", handleScroll); }, []);
+    const navItems = [{ icon: Home, label: "Awal", href: "#hero" }, { icon: Heart, label: "Mempelai", href: "#couple" }, { icon: Calendar, label: "Agenda", href: "#event" }, { icon: ImageIcon, label: "Galeri", href: "#gallery" }];
     return (
-        <nav className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-[1100] transition-all duration-500`}>
-            <div className="flex items-center gap-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-6 py-3 rounded-full border border-slate-100 dark:border-slate-800 shadow-xl">
-                <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-                >
-                    <Home className="w-5 h-5" />
-                </button>
-                <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-800"></div>
-                <button
-                    onClick={toggleTheme}
-                    className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-                >
-                    {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+        <nav className={`fixed bottom-10 left-1/2 -translate-x-1/2 z-[1100] transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-32 scale-75 pointer-events-none'}`}>
+            <div className="flex items-center gap-6 sm:gap-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-8 py-5 rounded-full border border-slate-100 dark:border-slate-800 shadow-xl">
+                {navItems.map((item, idx) => (
+                    <a key={idx} href={item.href} className="group relative text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+                        <item.icon size={22} />
+                        <span className="absolute -top-14 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-slate-900 text-white text-[9px] font-medium tracking-widest px-4 py-2 rounded-sm hidden group-hover:block whitespace-nowrap uppercase">{item.label}</span>
+                    </a>
+                ))}
+                <div className="w-[1px] h-6 bg-slate-200 dark:bg-slate-800"></div>
+                <button onClick={toggleTheme} className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+                    {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
                 </button>
             </div>
         </nav>
@@ -397,7 +387,7 @@ const MinimalistTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen 
 
             {/* Standardized Floating Utilities */}
             <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4">
-                <MusicController />
+                <MusicController isOpened={isOpened} />
                 <AutoScrollController isOpened={isOpened} />
             </div>
 

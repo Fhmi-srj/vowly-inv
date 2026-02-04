@@ -503,87 +503,88 @@ const EventDetails: FC = () => {
                     </div>
                 </Reveal>
 
-                <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 md:gap-20">
+                {/* LAYOUT 2 KOLOM HORIZONTAL untuk semua ukuran layar */}
+                <div className={`grid gap-3 sm:gap-8 md:gap-12 lg:gap-20 ${config.events.length === 1 ? 'max-w-2xl mx-auto' : 'grid-cols-2'}`}>
                     {config.events.map((ev) => (
                         <Reveal key={ev.id} delay={0.2}>
-                            <div className="bg-white dark:bg-slate-950 rounded-[1.5rem] sm:rounded-[3rem] overflow-hidden border border-[#d9c5b2] dark:border-white/5 shadow-2xl transition-all duration-1000 group">
-                                <div className="p-6 sm:p-10 md:p-14 space-y-8 sm:space-y-12">
-                                    <div className="text-center space-y-4 sm:space-y-6">
-                                        <div className="inline-block px-4 sm:px-8 py-2 sm:py-3 bg-[#4a3f35] dark:bg-stone-200 rounded-full shadow-lg transition-colors">
-                                            <p className="text-[9px] sm:text-[10px] font-black tracking-widest text-[#f4ebe1] dark:text-slate-900 uppercase">{ev.title}</p>
+                            <div className="bg-white dark:bg-slate-950 rounded-[1rem] sm:rounded-[3rem] overflow-hidden border border-[#d9c5b2] dark:border-white/5 shadow-2xl transition-all duration-1000 group">
+                                <div className="p-3 sm:p-10 md:p-14 space-y-4 sm:space-y-12">
+                                    <div className="text-center space-y-2 sm:space-y-6">
+                                        <div className="inline-block px-3 sm:px-8 py-1 sm:py-3 bg-[#4a3f35] dark:bg-stone-200 rounded-full shadow-lg transition-colors">
+                                            <p className="text-[7px] sm:text-[10px] font-black tracking-widest text-[#f4ebe1] dark:text-slate-900 uppercase">{ev.title}</p>
                                         </div>
-                                        <div className="space-y-1 sm:space-y-2">
-                                            <h3 className="font-serif text-2xl sm:text-4xl md:text-5xl text-[#4a3f35] dark:text-stone-200 italic transition-colors leading-[0.8]">{ev.day}</h3>
-                                            <p className="font-serif text-lg sm:text-2xl text-[#c5a386] italic tracking-wide">{ev.date}</p>
+                                        <div className="space-y-0.5 sm:space-y-2">
+                                            <h3 className="font-serif text-base sm:text-4xl md:text-5xl text-[#4a3f35] dark:text-stone-200 italic transition-colors leading-tight">{ev.day}</h3>
+                                            <p className="font-serif text-[10px] sm:text-2xl text-[#c5a386] italic tracking-wide">{ev.date}</p>
                                         </div>
-                                        <div className="flex items-center justify-center gap-2 sm:gap-4 text-[#8c7851] dark:text-[#c5a386] transition-colors">
-                                            <Clock size={14} className="sm:size-4" />
-                                            <p className="text-xs sm:text-sm font-black tracking-widest uppercase">{ev.startTime} — {ev.endTime} WIB</p>
+                                        <div className="flex items-center justify-center gap-1 sm:gap-4 text-[#8c7851] dark:text-[#c5a386] transition-colors">
+                                            <Clock size={12} className="sm:size-4" />
+                                            <p className="text-[8px] sm:text-sm font-black tracking-widest uppercase">{ev.startTime} — {ev.endTime}</p>
                                         </div>
                                     </div>
 
                                     <div className="relative">
                                         <button
                                             onClick={() => setActiveDropdown(activeDropdown === ev.id ? null : ev.id)}
-                                            className="w-full py-3 sm:py-5 bg-[#4a3f35] dark:bg-white text-white dark:text-slate-900 rounded-full text-[9px] sm:text-[10px] font-black tracking-widest uppercase shadow-xl transition-all hover:bg-[#8c7851] flex items-center justify-center gap-2 sm:gap-3 active:scale-95"
+                                            className="w-full py-2 sm:py-5 bg-[#4a3f35] dark:bg-white text-white dark:text-slate-900 rounded-full text-[7px] sm:text-[10px] font-black tracking-widest uppercase shadow-xl transition-all hover:bg-[#8c7851] flex items-center justify-center gap-1 sm:gap-3 active:scale-95"
                                         >
-                                            <CalendarPlus size={14} className="sm:size-4" />
-                                            Ingatkan Saya
-                                            <ChevronDown size={12} className={`sm:size-4 transition-transform duration-500 ${activeDropdown === ev.id ? 'rotate-180' : ''}`} />
+                                            <CalendarPlus size={12} className="sm:size-4" />
+                                            Simpan
+                                            <ChevronDown size={10} className={`sm:size-4 transition-transform duration-500 ${activeDropdown === ev.id ? 'rotate-180' : ''}`} />
                                         </button>
 
                                         {activeDropdown === ev.id && (
-                                            <div className="absolute top-full left-0 right-0 mt-2 sm:mt-3 bg-white dark:bg-slate-900 border border-[#d9c5b2] dark:border-white/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl z-[50]">
+                                            <div className="absolute top-full left-0 right-0 mt-1 sm:mt-3 bg-white dark:bg-slate-900 border border-[#d9c5b2] dark:border-white/10 rounded-xl sm:rounded-3xl overflow-hidden shadow-2xl z-[50]">
                                                 <button
                                                     onClick={() => handleCalendarAction("google", ev)}
-                                                    className="w-full px-4 sm:px-8 py-3 sm:py-5 text-left flex items-center gap-2 sm:gap-4 hover:bg-[#f9f5f0] dark:hover:bg-white/5 transition-colors"
+                                                    className="w-full px-2 sm:px-8 py-2 sm:py-5 text-left flex items-center gap-1.5 sm:gap-4 hover:bg-[#f9f5f0] dark:hover:bg-white/5 transition-colors"
                                                 >
-                                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#c5a386] rounded-full animate-pulse"></div>
-                                                    <span className="text-[9px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300">Google Calendar</span>
+                                                    <div className="w-1 h-1 sm:w-2 sm:h-2 bg-[#c5a386] rounded-full animate-pulse"></div>
+                                                    <span className="text-[7px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300">Google Calendar</span>
                                                 </button>
                                                 <button
                                                     onClick={() => handleCalendarAction("ics", ev)}
-                                                    className="w-full px-4 sm:px-8 py-3 sm:py-5 text-left flex items-center gap-2 sm:gap-4 hover:bg-[#f9f5f0] dark:hover:bg-white/5 transition-colors"
+                                                    className="w-full px-2 sm:px-8 py-2 sm:py-5 text-left flex items-center gap-1.5 sm:gap-4 hover:bg-[#f9f5f0] dark:hover:bg-white/5 transition-colors"
                                                 >
-                                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-300 rounded-full"></div>
-                                                    <span className="text-[9px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300">Apple / Outlook</span>
+                                                    <div className="w-1 h-1 sm:w-2 sm:h-2 bg-slate-300 rounded-full"></div>
+                                                    <span className="text-[7px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300">Apple / Outlook</span>
                                                 </button>
                                             </div>
                                         )}
                                     </div>
                                 </div>
 
-                                <div className="border-t border-[#f9f5f0] dark:border-white/5 p-6 sm:p-10 md:p-14 space-y-6 sm:space-y-10">
-                                    <div className="flex items-start gap-4 sm:gap-6">
-                                        <div className="w-10 h-10 sm:w-14 sm:h-14 bg-[#f9f5f0] dark:bg-white/5 border border-[#d9c5b2]/40 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md flex-shrink-0">
-                                            <MapPin className="text-[#c5a386] w-5 h-5 sm:w-7 sm:h-7" />
+                                <div className="border-t border-[#f9f5f0] dark:border-white/5 p-3 sm:p-10 md:p-14 space-y-4 sm:space-y-10">
+                                    <div className="flex items-start gap-2 sm:gap-6">
+                                        <div className="w-8 h-8 sm:w-14 sm:h-14 bg-[#f9f5f0] dark:bg-white/5 border border-[#d9c5b2]/40 rounded-lg sm:rounded-2xl flex items-center justify-center shadow-md flex-shrink-0">
+                                            <MapPin className="text-[#c5a386] w-4 h-4 sm:w-7 sm:h-7" />
                                         </div>
-                                        <div className="space-y-1">
-                                            <h4 className="font-serif text-lg sm:text-2xl text-[#4a3f35] dark:text-stone-200 italic transition-colors leading-tight">{ev.venue.name}</h4>
-                                            <p className="font-serif text-sm sm:text-lg text-slate-500 dark:text-stone-400 italic transition-colors leading-snug">{ev.venue.address}</p>
+                                        <div className="space-y-0.5 min-w-0">
+                                            <h4 className="font-serif text-[10px] sm:text-2xl text-[#4a3f35] dark:text-stone-200 italic transition-colors leading-tight truncate">{ev.venue.name}</h4>
+                                            <p className="font-serif text-[8px] sm:text-lg text-slate-500 dark:text-stone-400 italic transition-colors leading-snug line-clamp-2">{ev.venue.address}</p>
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                                    <div className="flex gap-1.5 sm:gap-4">
                                         <button
                                             onClick={() => copyToClipboard(ev.venue.address, ev.id)}
-                                            className="flex-1 py-3 sm:py-4 border border-[#d9c5b2] dark:border-white/10 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300 transition-all hover:bg-[#f9f5f0] dark:hover:bg-white/5 flex items-center justify-center gap-2"
+                                            className="flex-1 py-1.5 sm:py-4 border border-[#d9c5b2] dark:border-white/10 rounded-lg sm:rounded-2xl text-[7px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300 transition-all hover:bg-[#f9f5f0] dark:hover:bg-white/5 flex items-center justify-center gap-1"
                                         >
-                                            {copiedEvent === ev.id ? <Check size={14} className="sm:size-4 text-green-500" /> : <Copy size={14} className="sm:size-4 text-[#c5a386]" />}
-                                            {copiedEvent === ev.id ? "Berhasil!" : "Salin Alamat"}
+                                            {copiedEvent === ev.id ? <Check size={10} className="sm:size-4 text-green-500" /> : <Copy size={10} className="sm:size-4 text-[#c5a386]" />}
+                                            {copiedEvent === ev.id ? "OK" : "Salin"}
                                         </button>
                                         <a
                                             href={ev.venue.mapsEmbedUrl.replace('&output=embed', '')}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex-1 py-3 sm:py-4 bg-[#c5a386] rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black tracking-widest uppercase text-white shadow-lg transition-all hover:bg-[#8c7851] flex items-center justify-center gap-2"
+                                            className="flex-1 py-1.5 sm:py-4 bg-[#c5a386] rounded-lg sm:rounded-2xl text-[7px] sm:text-[10px] font-black tracking-widest uppercase text-white shadow-lg transition-all hover:bg-[#8c7851] flex items-center justify-center gap-1"
                                         >
-                                            <ExternalLink size={14} className="sm:size-4" />
-                                            Petunjuk Jalan
+                                            <ExternalLink size={10} className="sm:size-4" />
+                                            Maps
                                         </a>
                                     </div>
 
-                                    <div className="relative h-48 sm:h-64 md:h-80 rounded-xl sm:rounded-3xl overflow-hidden border border-[#d9c5b2]/40 shadow-xl">
+                                    <div className="relative h-24 sm:h-64 md:h-80 rounded-lg sm:rounded-3xl overflow-hidden border border-[#d9c5b2]/40 shadow-xl">
                                         <iframe
                                             src={ev.venue.mapsEmbedUrl}
                                             width="100%"
@@ -609,12 +610,17 @@ const Gallery: FC = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
+    const [isTransitioning, setIsTransitioning] = useState(false);
 
-    // Auto-play logic as requested: "berganti setiap 3 detik"
+    // Auto-play logic: berganti setiap 5 detik dengan crossfade
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveIndex((current) => (current + 1) % config.galleryImages.length);
-        }, 3000);
+            setIsTransitioning(true);
+            setTimeout(() => {
+                setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+                setIsTransitioning(false);
+            }, 400);
+        }, 5000);
         return () => clearInterval(interval);
     }, [config.galleryImages.length]);
 
@@ -637,18 +643,26 @@ const Gallery: FC = () => {
         e?.stopPropagation();
         if (selectedImg !== null) {
             // Lightbox navigation
-            if (direction === "prev") {
-                setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
-            } else {
-                setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
-            }
+            setIsTransitioning(true);
+            setTimeout(() => {
+                if (direction === "prev") {
+                    setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
+                } else {
+                    setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
+                }
+                setIsTransitioning(false);
+            }, 400);
         } else {
             // Main gallery navigation
-            if (direction === "prev") {
-                setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
-            } else {
-                setActiveIndex((activeIndex + 1) % config.galleryImages.length);
-            }
+            setIsTransitioning(true);
+            setTimeout(() => {
+                if (direction === "prev") {
+                    setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+                } else {
+                    setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+                }
+                setIsTransitioning(false);
+            }, 400);
         }
     };
 
@@ -677,22 +691,22 @@ const Gallery: FC = () => {
                     </div>
                 </Reveal>
 
-                {/* Thumbnail Strip with Navigation */}
+                {/* Thumbnail Strip with Navigation - Compact */}
                 <Reveal delay={0.2}>
-                    <div className="flex items-center gap-2 sm:gap-4 justify-center px-4">
+                    <div className="flex items-center gap-1 sm:gap-4 justify-center px-2">
                         <button
                             onClick={() => navigate("prev")}
-                            className="w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[#d9c5b2] dark:border-white/10 flex items-center justify-center text-[#8c7851] hover:bg-[#c5a386] hover:text-white transition-all shadow-sm"
+                            className="w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[#d9c5b2] dark:border-white/10 flex items-center justify-center text-[#8c7851] hover:bg-[#c5a386] hover:text-white transition-all shadow-sm active:scale-90"
                         >
                             <ChevronLeft size={16} />
                         </button>
 
-                        <div className="flex gap-2 sm:gap-3 overflow-x-auto no-scrollbar py-2 px-1">
+                        <div className="flex gap-1.5 sm:gap-3 overflow-x-auto no-scrollbar py-2 px-1">
                             {config.galleryImages.map((img, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveIndex(idx)}
-                                    className={`relative flex-shrink-0 w-16 h-12 sm:w-24 sm:h-16 rounded-lg overflow-hidden border-2 transition-all duration-500 ${activeIndex === idx
+                                    className={`relative flex-shrink-0 w-12 h-10 sm:w-24 sm:h-16 rounded-xl overflow-hidden border-2 transition-all duration-500 ${activeIndex === idx
                                         ? "border-[#c5a386] scale-105 shadow-md"
                                         : "border-transparent opacity-50 grayscale hover:opacity-100"
                                         }`}
@@ -704,42 +718,38 @@ const Gallery: FC = () => {
 
                         <button
                             onClick={() => navigate("next")}
-                            className="w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[#d9c5b2] dark:border-white/10 flex items-center justify-center text-[#8c7851] hover:bg-[#c5a386] hover:text-white transition-all shadow-sm"
+                            className="w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[#d9c5b2] dark:border-white/10 flex items-center justify-center text-[#8c7851] hover:bg-[#c5a386] hover:text-white transition-all shadow-sm active:scale-90"
                         >
                             <ChevronRight size={16} />
                         </button>
                     </div>
                 </Reveal>
 
-                {/* Featured Image Area */}
+                {/* Featured Image Area - WITH CROSSFADE ANIMATION */}
                 <Reveal delay={0.4}>
-                    <div className="relative aspect-[9/16] w-full max-w-[450px] mx-auto rounded-[2rem] sm:rounded-[3rem] overflow-hidden border border-[#d9c5b2] dark:border-white/5 shadow-2xl group">
-                        <AnimatePresence>
-                            <motion.img
-                                key={activeIndex}
-                                initial={{ opacity: 0, scale: 1.1 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.95 }}
-                                transition={{ duration: 1.2, ease: "easeInOut" }}
-                                src={config.galleryImages[activeIndex]}
-                                className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-                                alt="Featured Gallery"
+                    <div className="relative aspect-[9/16] w-full max-w-[450px] mx-auto rounded-[2.5rem] sm:rounded-[4rem] overflow-hidden border border-[#d9c5b2] dark:border-white/5 shadow-2xl group transition-all duration-1000">
+                        {config.galleryImages.map((img, idx) => (
+                            <img
+                                key={idx}
+                                src={img}
+                                className={`absolute inset-0 w-full h-full object-cover cursor-pointer transition-opacity duration-[1000ms] ease-in-out ${idx === activeIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                                alt={`Featured ${idx}`}
                                 onClick={() => openLightbox(activeIndex)}
                             />
-                        </AnimatePresence>
+                        ))}
 
                         {/* Action Button */}
                         <div className="absolute bottom-6 right-6 z-20">
                             <button
                                 onClick={() => openLightbox(activeIndex)}
-                                className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110"
+                                className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110"
                             >
-                                <Maximize2 size={20} />
+                                <Maximize2 size={18} className="sm:size-6" />
                             </button>
                         </div>
 
                         {/* Side Decorations similar to the image's "ink" or "marble" feel */}
-                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/20 to-transparent"></div>
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                     </div>
                 </Reveal>
             </div>
@@ -895,48 +905,90 @@ const GiftInfo: FC = () => {
 };
 
 const Navbar: FC<{ theme: "light" | "dark"; toggleTheme: () => void }> = ({ theme, toggleTheme }) => {
-    const [isVisible, setIsVisible] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+    const [activeSection, setActiveSection] = useState("");
+
+    const navItems = [
+        { id: "hero", icon: Home, label: "Home" },
+        { id: "couple", icon: Heart, label: "Couple" },
+        { id: "event", icon: Calendar, label: "Event" },
+        { id: "gallery", icon: Camera, label: "Gallery" },
+        { id: "rsvp", icon: MessageCircle, label: "RSVP" },
+        { id: "gift", icon: Gift, label: "Gift" },
+    ];
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsVisible(window.scrollY > 500);
+            setScrolled(window.scrollY > 500);
+
+            const sections = navItems.map((item) => item.id);
+            for (const sectionId of sections.reverse()) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 200) {
+                        setActiveSection(sectionId);
+                        break;
+                    }
+                }
+            }
         };
+
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const navItems = [
-        { icon: Home, label: "Home", href: "#hero" },
-        { icon: Heart, label: "Couple", href: "#couple" },
-        { icon: Calendar, label: "Event", href: "#event" },
-        { icon: Camera, label: "Gallery", href: "#gallery" },
-        { icon: MessageCircle, label: "RSVP", href: "#rsvp" },
-        { icon: Gift, label: "Gift", href: "#gift" },
-    ];
+    const scrollToSection = (id: string) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+        }
+    };
 
     return (
-        <nav className={`fixed bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}>
-            <div className="bg-[#4a3f35]/95 backdrop-blur-md px-3 py-2 sm:px-6 sm:py-4 rounded-full border border-white/10 shadow-2xl flex items-center gap-3 sm:gap-6 md:gap-10">
-                {navItems.map((item, idx) => (
-                    <a
-                        key={idx}
-                        href={item.href}
-                        className="group relative flex flex-col items-center gap-0.5 sm:gap-1 text-[#d9c5b2] hover:text-white transition-colors"
-                    >
-                        <item.icon size={14} className="sm:size-5 transition-transform group-hover:-translate-y-0.5 sm:group-hover:-translate-y-1" />
-                        <span className="text-[7px] sm:text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity absolute -top-6 sm:-top-8 bg-[#4a3f35] px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md text-white whitespace-nowrap">
-                            {item.label}
-                        </span>
-                    </a>
-                ))}
+        <nav
+            className={`fixed bottom-6 left-1/2 z-[1100] -translate-x-1/2 transition-all duration-700 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+        >
+            <div className="bg-[#4a3f35]/95 backdrop-blur-md px-3 py-2 rounded-full border border-white/10 shadow-2xl flex items-center gap-2 sm:px-4 sm:py-2.5 sm:gap-3 md:px-5 md:py-3 md:gap-4">
+                {navItems.map((item) => {
+                    const Icon = item.icon;
+                    const isActive = activeSection === item.id;
+                    return (
+                        <a
+                            key={item.id}
+                            href={`#${item.id}`}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                scrollToSection(item.id);
+                            }}
+                            className={`group relative flex flex-col items-center gap-0.5 px-1.5 py-1 transition-all duration-300 sm:px-2 md:gap-1 ${isActive ? 'text-white scale-110' : 'text-[#d9c5b2]/60 hover:text-white'}`}
+                        >
+                            <Icon size={18} className={`transition-transform duration-300 sm:size-[20px] md:size-[22px] ${isActive ? '' : 'group-hover:-translate-y-1'}`} />
+
+                            <span className="text-[7px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-8 bg-[#4a3f35] px-2 py-1 rounded-full whitespace-nowrap text-white border border-white/10 shadow-xl pointer-events-none sm:-top-9 sm:text-[8px] sm:px-2.5 sm:py-1.5">
+                                {item.label}
+                            </span>
+
+                            {isActive && (
+                                <div className="bg-white absolute -bottom-0.5 h-0.5 w-0.5 rounded-full sm:h-1 sm:w-1"></div>
+                            )}
+                        </a>
+                    );
+                })}
+
+                <div className="mx-0.5 h-4 w-[1px] bg-white/10 sm:mx-1 sm:h-5 md:h-6"></div>
+
                 <button
                     onClick={toggleTheme}
-                    className="group relative flex flex-col items-center gap-0.5 sm:gap-1 text-[#d9c5b2] hover:text-white transition-colors"
+                    className="group relative flex flex-col items-center gap-0.5 px-1.5 py-1 text-[#d9c5b2]/60 hover:text-white transition-all duration-300 sm:px-2 md:gap-1"
                     aria-label="Toggle theme"
                 >
-                    {theme === "light" ? <Moon size={14} className="sm:size-5" /> : <Sun size={14} className="sm:size-5" />}
-                    <span className="text-[7px] sm:text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity absolute -top-6 sm:-top-8 bg-[#4a3f35] px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md whitespace-nowrap text-white">
-                        {theme === "light" ? "Dark Mode" : "Light Mode"}
+                    {theme === "light" ?
+                        <Moon size={18} className="transition-transform duration-500 group-hover:rotate-12 sm:size-[20px] md:size-[22px]" /> :
+                        <Sun size={18} className="transition-transform duration-500 group-hover:rotate-90 sm:size-[20px] md:size-[22px]" />
+                    }
+                    <span className="text-[7px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-8 bg-[#4a3f35] px-2 py-1 rounded-full whitespace-nowrap text-white border border-white/10 shadow-xl pointer-events-none sm:-top-9 sm:text-[8px] sm:px-2.5 sm:py-1.5">
+                        {theme === "light" ? "Dark" : "Light"}
                     </span>
                 </button>
             </div>
@@ -1625,7 +1677,7 @@ export default function Rustic({ theme, toggleTheme, isOpened, onOpen }: ThemePr
             <MusicPlayer />
             <div className="fixed inset-y-0 right-4 z-[1000] flex flex-col items-center justify-center gap-4 pointer-events-none">
                 <div className="pointer-events-auto flex flex-col items-center gap-4">
-                    <MusicController />
+                    <MusicController isOpened={isOpened} />
                     <AutoScrollController isOpened={isOpened} />
                 </div>
             </div>

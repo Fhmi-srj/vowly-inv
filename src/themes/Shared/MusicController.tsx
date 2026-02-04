@@ -2,21 +2,21 @@ import { useState, useEffect } from "react";
 import type { FC } from "react";
 import { Music, Play } from "lucide-react";
 
-const MusicController: FC = () => {
+const MusicController: FC<{ isOpened?: boolean }> = ({ isOpened }) => {
     const [isPlaying, setIsPlaying] = useState(false);
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(isOpened || false);
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsVisible(true), 1500);
-
-        const handlePlay = () => setIsPlaying(true);
+        const handlePlay = () => {
+            setIsPlaying(true);
+            setIsVisible(true);
+        };
         const handlePause = () => setIsPlaying(false);
 
         window.addEventListener("play-wedding-music", handlePlay);
         window.addEventListener("pause-wedding-music", handlePause);
 
         return () => {
-            clearTimeout(timer);
             window.removeEventListener("play-wedding-music", handlePlay);
             window.removeEventListener("pause-wedding-music", handlePause);
         };

@@ -672,9 +672,9 @@ const Navbar: FC<{ theme: "light" | "dark"; toggleTheme: () => void }> = ({ them
     const navItems = [{ icon: Home, label: "Rewind", href: "#hero" }, { icon: Heart, label: "Couples", href: "#couple" }, { icon: Star, label: "History", href: "#story" }, { icon: Calendar, label: "Dockets", href: "#event" }, { icon: Camera, label: "Archives", href: "#gallery" }, { icon: Gift, label: "Tokens", href: "#gift" }, { icon: MessageCircle, label: "Signals", href: "#rsvp" }];
     return (
         <nav className={`fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-32 scale-50 pointer-events-none'}`}>
-            <div className="bg-[#f4ecd8]/90 backdrop-blur-md border-x-4 border-[#5c4033]/20 px-8 py-5 shadow-2xl flex items-center gap-6 md:gap-10">
-                {navItems.map((item, idx) => (<a key={idx} href={item.href} className="group relative text-[#5c4033]/40 hover:text-[#5c4033] transition-all"><item.icon size={20} /><span className="absolute -top-16 opacity-0 group-hover:opacity-100 transition-all bg-[#5c4033] text-[#f4ecd8] text-[9px] font-mono px-5 py-3 hidden group-hover:block whitespace-nowrap">{item.label}</span></a>))}
-                <button onClick={toggleTheme} className="text-[#5c4033]/40 hover:text-[#5c4033] transition-all">{theme === "light" ? <Moon size={20} /> : <Sun size={20} />}</button>
+            <div className="bg-[#f4ecd8]/90 backdrop-blur-md border-x-4 border-[#5c4033]/20 px-8 py-5 shadow-2xl flex items-center gap-6 sm:gap-10">
+                {navItems.map((item, idx) => (<a key={idx} href={item.href} className="group relative text-[#5c4033]/40 hover:text-[#5c4033] transition-all"><item.icon size={22} /><span className="absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-[#5c4033] text-[#f4ecd8] text-[9px] font-mono px-5 py-3 hidden group-hover:block whitespace-nowrap">{item.label}</span></a>))}
+                <button onClick={toggleTheme} className="text-[#5c4033]/40 hover:text-[#5c4033] transition-all">{theme === "light" ? <Moon size={22} /> : <Sun size={22} />}</button>
             </div>
         </nav>
     );
@@ -688,7 +688,7 @@ const VintageTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) 
             <main className={`transition-all duration-[2.5s] ease-in-out ${isOpened ? "opacity-100 scale-100 grayscale-0 blur-0" : "opacity-0 scale-110 grayscale blur-xl pointer-events-none"}`}>
                 <Hero /><CoupleProfile /><LoveStory /><EventDetails /><Gallery /><GiftInfo /><RSVPForm /><Wishes />
             </main>
-            <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4"><MusicController /><AutoScrollController isOpened={isOpened} /></div>
+            <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4"><MusicController isOpened={isOpened} /><AutoScrollController isOpened={isOpened} /></div>
             <Navbar theme={theme} toggleTheme={toggleTheme} /><MusicPlayer /><InstallPrompt />
             <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-[9999] bg-[url('https://www.transparenttextures.com/patterns/felt.png')]"></div>
             <div className="fixed inset-0 pointer-events-none opacity-[0.05] z-[9999] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] animate-pulse"></div>

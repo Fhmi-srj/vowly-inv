@@ -1,0 +1,101 @@
+---
+import UserLayout from "../../../layouts/UserLayout.astro";
+import sql from "../../../lib/db";
+import { getSettings, defaultSettings } from "../../../lib/getSettings";
+import AdminDashboard from "../../../components/Dashboard/User/AdminDashboard";
+import { ChevronLeft, CheckCircle } from "lucide-react";
+
+const { id } = Astro.params;
+const invitationId = parseInt(id || "");
+
+if (isNaN(invitationId)) {
+  return Astro.redirect("/dashboard");
+}
+
+const SESSION_COOKIE = "vowly_session";
+const isAuthenticated = !!Astro.cookies.get(SESSION_COOKIE)?.value;
+
+if (!isAuthenticated) {
+  return Astro.redirect("/admin");
+}
+
+let rsvps: any[] = [];
+let wishes: any[] = [];
+let settings: Record<string, string> = defaultSettings;
+let stats = { total: 0, hadir: 0, ragu: 0, tidak: 0, guestCount: 0 };
+let invitationSlug = "";
+let invitationData: any = null;
+
+try {
+  // Fetch Invitation info
+  const invRows = await sql`
+    SELECT i.*, u.full_name as buyer_name, u.phone as buyer_phone
+    FROM invitations i 
+    LEFT JOIN users u ON i.user_id = u.id 
+    WHERE i.id = ${invitationId}
+  `;
+  
+  console.log(`[Manage] Attempting to load invitation ${invitationId}. Found: ${invRows.length}`);
+
+  if (invRows.length === 0) {
+    console.error(`[Manage] Invitation ${invitationId} not found in database.`);
+    return Astro.redirect("/404");
+  }
+  
+  invitationData = invRows[0];
+  invitationSlug = invitationData.slug;
+
+  // Fetch RSVPs
+  const rsvpRows = await sql`SELECT * FROM rsvps WHERE invitation_id = ${invitationId} ORDER BY created_at DESC`;
+  rsvps = rsvpRows as any[];
+  
+  // Fetch Wishes
+  const wishRows = await sql`SELECT * FROM wishes WHERE invitation_id = ${invitationId} ORDER BY created_at DESC`;
+  wishes = wishRows as any[];
+  
+  // Fetch Settings
+  settings = await getSettings(invitationId);
+  
+  // Calculate Stats
+  stats.total = rsvps.length;
+  stats.hadir = rsvps.filter((r: any) => r.attendance === "hadir").length;
+  stats.ragu = rsvps.filter((r: any) => r.attendance === "ragu").length;
+  stats.tidak = rsvps.filter((r: any) => r.attendance === "tidak_hadir").length;
+  stats.guestCount = rsvps
+    .filter((r: any) => r.attendance === "hadir")
+    .reduce((sum: number, r: any) => sum + (r.guest_count || 1), 0);
+} catch (error: any) {
+  console.error("[Manage] Fatal error fetching data:", error);
+}
+
+// Sidebar context
+const currentTab = Astro.url.searchParams.get("tab") || "overview";
+const buyerName = invitationData?.buyer_name;
+const buyerPhone = invitationData?.buyer_phone;
+---
+
+<UserLayout 
+  title={`Kelola /${invitationSlug}`} 
+  invitationId={invitationId} 
+  activeTab={currentTab}
+  userName={buyerName}
+  userPhone={buyerPhone}
+>
+
+  {!invitationData ? (
+    <div class="py-20 text-center bg-white dark:bg-slate-900 rounded-[2.5rem] border-2 border-dashed border-red-200 dark:border-red-900/30">
+      <p class="text-red-500 font-bold">Gagal memuat data undangan.</p>
+      <p class="text-xs text-slate-400 mt-2">Silakan coba muat ulang halaman ini.</p>
+    </div>
+  ) : (
+    <AdminDashboard
+      client:load
+      invitationId={invitationId}
+      invitation={invitationData}
+      initialRsvps={rsvps}
+      initialWishes={wishes}
+      initialSettings={settings as any}
+      siteUrl={new URL(Astro.url).origin}
+    />
+  )}
+</UserLayout>

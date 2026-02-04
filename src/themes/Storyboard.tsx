@@ -651,8 +651,8 @@ const Navbar: FC<{ theme: "light" | "dark"; toggleTheme: () => void }> = ({ them
     const navItems = [{ icon: Home, label: "Intro", href: "#hero" }, { icon: Heart, label: "Heroes", href: "#couple" }, { icon: Star, label: "History", href: "#story" }, { icon: Calendar, label: "Agenda", href: "#event" }, { icon: Camera, label: "Panels", href: "#gallery" }, { icon: Gift, label: "Tokens", href: "#gift" }, { icon: MessageCircle, label: "Log", href: "#rsvp" }];
     return (
         <nav className={`fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-32 scale-75 pointer-events-none'}`}>
-            <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-[4px] border-[#2d2d2d] dark:border-blue-500 px-8 py-5 shadow-2xl flex items-center gap-6 md:gap-10">
-                {navItems.map((item, idx) => (<a key={idx} href={item.href} className="group relative text-[#2d2d2d]/30 hover:text-[#2196f3] transition-all"><item.icon size={22} /><span className="absolute -top-16 opacity-0 group-hover:opacity-100 transition-all bg-[#ffeb3b] text-[#2d2d2d] text-[10px] font-black px-5 py-3 border-[3px] border-[#2d2d2d] hidden group-hover:block whitespace-nowrap italic">{item.label}</span></a>))}
+            <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-[4px] border-[#2d2d2d] dark:border-blue-500 px-8 py-5 shadow-2xl flex items-center gap-6 sm:gap-10">
+                {navItems.map((item, idx) => (<a key={idx} href={item.href} className="group relative text-[#2d2d2d]/30 hover:text-[#2196f3] transition-all"><item.icon size={22} /><span className="absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-[#ffeb3b] text-[#2d2d2d] text-[10px] font-black px-5 py-3 border-[3px] border-[#2d2d2d] hidden group-hover:block whitespace-nowrap italic">{item.label}</span></a>))}
                 <button onClick={toggleTheme} className="text-[#2d2d2d]/30 hover:text-[#2196f3] transition-all">{theme === "light" ? <Moon size={22} /> : <Sun size={22} />}</button>
             </div>
         </nav>
@@ -668,7 +668,7 @@ const StoryboardTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen 
             <main className={`transition-all duration-[1.5s] ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isOpened ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-90 translate-y-20 pointer-events-none"}`}>
                 <Hero /><CoupleProfile /><LoveStory /><EventDetails /><Gallery /><GiftInfo /><RSVPForm /><Wishes />
             </main>
-            <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4"><MusicController /><AutoScrollController isOpened={isOpened} /></div>
+            <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4"><MusicController isOpened={isOpened} /><AutoScrollController isOpened={isOpened} /></div>
             <Navbar theme={theme} toggleTheme={toggleTheme} /><MusicPlayer /><InstallPrompt />
         </div>
     );

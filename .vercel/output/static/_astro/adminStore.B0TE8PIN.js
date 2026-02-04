@@ -1,0 +1,1 @@
+import{a as o}from"./index.BmGAChnO.js";const i=o("overview");function a(t){if(i.set(t),typeof window<"u"){const e=new URL(window.location.href);e.searchParams.set("view",t),window.history.pushState({},"",e.toString())}}export{i as a,a as s};

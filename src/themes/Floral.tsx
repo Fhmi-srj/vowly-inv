@@ -32,6 +32,9 @@ import {
     Plus,
     Minus,
     Maximize2,
+    ImageIcon,
+    Package,
+    ArrowDown,
 } from "lucide-react";
 import { useSettings } from "../contexts/SettingsContext";
 import { dbService } from "../services/dbService";
@@ -45,6 +48,7 @@ import MusicPlayer from "./Shared/MusicPlayer";
 import MusicController from "./Shared/MusicController";
 import AutoScrollController from "./Shared/AutoScrollController";
 import InstallPrompt from "./Shared/InstallPrompt";
+import FloatingPetals from "./Shared/FloatingPetals";
 
 import type { ThemeProps } from "./types";
 
@@ -140,11 +144,11 @@ const Envelope: FC<{ onOpen: () => void }> = ({ onOpen }) => {
 
                         <button
                             onClick={handleOpenClick}
-                            className="group relative inline-flex items-center justify-center gap-3 px-12 py-5 bg-[#db7093] text-white rounded-full transition-all hover:scale-105 active:scale-95 shadow-xl shadow-[#db7093]/20"
+                            className="group relative inline-flex items-center justify-center gap-4 px-12 py-6 bg-[#db7093] text-white rounded-[2.8rem] transition-all hover:scale-105 active:scale-95 shadow-xl shadow-[#db7093]/20"
                         >
-                            <span className="relative z-10 font-bold tracking-widest text-[11px] uppercase">Open Invitation</span>
-                            <Heart className="relative z-10 h-4 w-4 fill-white" />
-                            <div className="absolute inset-0 bg-[#c71585] rounded-full scale-0 transition-transform group-hover:scale-100 origin-center"></div>
+                            <span className="relative z-10 font-bold tracking-[0.3em] text-[10px] md:text-[12px] uppercase">Buka Undangan</span>
+                            <Mail className="relative z-10 h-4 w-4 fill-white" />
+                            <div className="absolute inset-0 bg-[#c71585] rounded-[2.8rem] scale-x-0 transition-transform group-hover:scale-x-100 origin-left"></div>
                         </button>
 
                         <p className="text-[10px] tracking-widest text-[#db7093] uppercase opacity-60">We are getting married!</p>
@@ -239,16 +243,27 @@ const Hero: FC = () => {
                 </Reveal>
 
                 <Reveal delay={0.6}>
-                    <div className="space-y-4">
+                    <div className="space-y-6">
                         <p className="font-serif text-2xl md:text-3xl text-[#4a4a4a] dark:text-stone-300 italic transition-colors">
                             {config.hero.date}
                         </p>
                         <div className="flex items-center justify-center gap-4 text-[#db7093] dark:text-[#ff8da1]">
                             <div className="h-[1px] w-12 bg-current opacity-30"></div>
-                            <p className="text-xs font-bold tracking-[0.4em] uppercase">{config.hero.city}</p>
+                            <p className="text-[9px] md:text-[13px] font-black tracking-[0.4em] uppercase">{config.hero.city}</p>
                             <div className="h-[1px] w-12 bg-current opacity-30"></div>
                         </div>
                     </div>
+                </Reveal>
+
+                <Reveal delay={0.8}>
+                    <motion.button
+                        animate={{ y: [0, 10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        onClick={() => document.getElementById('couple')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="mt-12 md:mt-20 w-12 h-12 md:w-16 md:h-16 rounded-full border border-[#db7093]/20 flex items-center justify-center text-[#db7093] hover:bg-[#db7093] hover:text-white transition-all shadow-lg"
+                    >
+                        <ArrowDown className="h-5 w-5 md:h-6 md:w-6" />
+                    </motion.button>
                 </Reveal>
 
             </div>
@@ -282,10 +297,14 @@ const CoupleProfile: FC = () => {
                         <div className="space-y-6">
                             <Heart className="text-[#db7093] dark:text-[#ff8da1] h-8 w-8 mx-auto animate-pulse fill-[#db7093] dark:fill-[#ff8da1] opacity-20 transition-colors" />
                             <p className="font-serif text-lg md:text-xl text-[#db7093] dark:text-[#ff8da1] tracking-widest uppercase mb-4">The Holy Matrimony</p>
-                            <h3 className="font-serif text-2xl md:text-3xl text-[#4a4a4a] dark:text-stone-200 italic leading-relaxed transition-colors">
-                                "And among His Signs is this, that He created for you mates from among yourselves, that ye may dwell in tranquillity with them, and He has put love and mercy between your (hearts): verily in that are Signs for those who reflect."
-                            </h3>
-                            <p className="text-[10px] tracking-[0.4em] font-black text-[#db7093] dark:text-[#ff8da1] uppercase transition-colors">— QS. AR-RUM: 21 —</p>
+                            <div className="relative">
+                                <Quote className="absolute -top-6 -left-6 h-12 w-12 text-[#db7093]/10 dark:text-white/5 -scale-x-100" />
+                                <h3 className="font-serif text-2xl md:text-3xl text-[#4a4a4a] dark:text-stone-200 italic leading-relaxed transition-colors px-4">
+                                    "And among His Signs is this, that He created for you mates from among yourselves, that ye may dwell in tranquillity with them, and He has put love and mercy between your (hearts): verily in that are Signs for those who reflect."
+                                </h3>
+                                <Quote className="absolute -bottom-6 -right-6 h-12 w-12 text-[#db7093]/10 dark:text-white/5" />
+                            </div>
+                            <p className="text-[10px] md:text-[12px] tracking-[0.4em] font-black text-[#db7093] dark:text-[#ff8da1] uppercase transition-colors">— QS. AR-RUM: 21 —</p>
                         </div>
                     </Reveal>
                 </div>
@@ -296,7 +315,7 @@ const CoupleProfile: FC = () => {
                         <div className="space-y-10 text-center group">
                             <div className="relative inline-block mx-auto">
                                 <div className="absolute inset-0 bg-[#ffd1dc] rounded-full blur-[60px] opacity-0 group-hover:opacity-40 transition-opacity duration-1000"></div>
-                                <div className="relative z-10 w-64 md:w-80 h-64 md:h-80 mx-auto rounded-full p-2 border border-[#ffd1dc] shadow-2xl overflow-hidden">
+                                <div className="relative z-10 w-64 h-64 md:w-[24rem] md:h-[24rem] mx-auto rounded-full p-2 border border-[#ffd1dc] shadow-2xl overflow-hidden">
                                     <img
                                         src={firstCouple.image}
                                         className="w-full h-full object-cover rounded-full saturate-[0.8] hover:scale-105 transition-transform duration-1000"
@@ -308,9 +327,9 @@ const CoupleProfile: FC = () => {
                                 <h3 className="font-serif text-4xl md:text-5xl text-[#4a4a4a] dark:text-stone-100 italic transition-colors">
                                     {firstCouple.fullName}
                                 </h3>
-                                <div className="space-y-2">
-                                    <p className="text-xs font-bold text-[#db7093] dark:text-[#ff8da1] tracking-widest uppercase transition-colors">Putra Kedua Dari:</p>
-                                    <p className="text-slate-400 dark:text-stone-400 italic text-sm transition-colors">{firstCouple.parents}</p>
+                                <div className="space-y-3">
+                                    <p className="text-[10px] md:text-[12px] font-bold text-[#db7093] dark:text-[#ff8da1] tracking-widest uppercase transition-colors">Putra Kedua Dari:</p>
+                                    <p className="text-slate-400 dark:text-stone-400 italic text-sm md:text-base transition-colors">{firstCouple.parents}</p>
                                 </div>
                             </div>
                         </div>
@@ -321,7 +340,7 @@ const CoupleProfile: FC = () => {
                         <div className="space-y-10 text-center group">
                             <div className="relative inline-block mx-auto">
                                 <div className="absolute inset-0 bg-[#ffd1dc] rounded-full blur-[60px] opacity-0 group-hover:opacity-40 transition-opacity duration-1000"></div>
-                                <div className="relative z-10 w-64 md:w-80 h-64 md:h-80 mx-auto rounded-full p-2 border border-[#ffd1dc] shadow-2xl overflow-hidden">
+                                <div className="relative z-10 w-64 h-64 md:w-[24rem] md:h-[24rem] mx-auto rounded-full p-2 border border-[#ffd1dc] shadow-2xl overflow-hidden">
                                     <img
                                         src={secondCouple.image}
                                         className="w-full h-full object-cover rounded-full saturate-[0.8] hover:scale-105 transition-transform duration-1000"
@@ -333,9 +352,9 @@ const CoupleProfile: FC = () => {
                                 <h3 className="font-serif text-4xl md:text-5xl text-[#4a4a4a] dark:text-stone-100 italic transition-colors">
                                     {secondCouple.fullName}
                                 </h3>
-                                <div className="space-y-2">
-                                    <p className="text-xs font-bold text-[#db7093] dark:text-[#ff8da1] tracking-widest uppercase transition-colors">Putri Pertama Dari:</p>
-                                    <p className="text-slate-400 dark:text-stone-400 italic text-sm transition-colors">{secondCouple.parents}</p>
+                                <div className="space-y-3">
+                                    <p className="text-[10px] md:text-[12px] font-bold text-[#db7093] dark:text-[#ff8da1] tracking-widest uppercase transition-colors">Putri Pertama Dari:</p>
+                                    <p className="text-slate-400 dark:text-stone-400 italic text-sm md:text-base transition-colors">{secondCouple.parents}</p>
                                 </div>
                             </div>
                         </div>
@@ -351,12 +370,19 @@ const LoveStory: FC = () => {
 
     return (
         <section id="story" className="bg-[#fffafa] dark:bg-slate-950 py-24 md:py-40 px-6 relative overflow-hidden transition-colors duration-1000">
+            {/* Elegant Background Watermark */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none overflow-hidden opacity-5 whitespace-nowrap">
+                <h2 className="font-serif text-[20vw] italic text-[#db7093] leading-none">Our Story</h2>
+            </div>
             {/* Watercolor Accents */}
             <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-white dark:from-slate-900 to-transparent transition-colors"></div>
             <div className="absolute -left-32 top-1/2 w-96 h-96 bg-[#ffd1dc] opacity-10 rounded-full blur-[100px]"></div>
 
             <div className="container mx-auto max-w-5xl space-y-32 relative z-10">
-                <div className="text-center space-y-6">
+                <div className="text-center space-y-6 relative">
+                    <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+                        <h2 className="font-serif text-[12rem] md:text-[20rem] italic whitespace-nowrap">Our Story</h2>
+                    </div>
                     <Star className="text-[#db7093] dark:text-[#ff8da1] h-8 w-8 mx-auto opacity-30 animate-spin-slow transition-colors" />
                     <h2 className="font-serif text-5xl md:text-9xl text-[#4a4a4a] dark:text-stone-200 italic leading-tight transition-colors">Our Love Story</h2>
                     <div className="flex items-center justify-center gap-4">
@@ -430,43 +456,46 @@ const EventDetails: FC = () => {
                     </Reveal>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-12 lg:gap-20">
+                <div className={`grid ${config.events.length === 1 ? 'grid-cols-1 max-w-2xl mx-auto' : 'grid-cols-2'} gap-3 sm:gap-6 md:gap-12 lg:gap-20`}>
                     {config.events.map((event, idx) => (
                         <Reveal key={event.id} delay={idx * 0.2}>
-                            <div className="group relative">
+                            <div className="group relative h-full">
                                 {/* Floral Card Background */}
-                                <div className="absolute inset-0 bg-white dark:bg-slate-900 rounded-[4rem] shadow-2xl transition-all group-hover:shadow-[#ffd1dc]/40 group-hover:-translate-y-2 duration-1000 overflow-hidden border border-[#ffd1dc]/20 dark:border-white/5">
-                                    <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#ffd1dc] opacity-10 rounded-full blur-[50px]"></div>
+                                <div className="absolute inset-0 bg-white dark:bg-slate-900 rounded-xl sm:rounded-2xl md:rounded-[4rem] shadow-2xl transition-all group-hover:shadow-[#ffd1dc]/40 group-hover:-translate-y-2 duration-1000 overflow-hidden border border-[#ffd1dc]/20 dark:border-white/5">
+                                    <div className="absolute -top-10 -right-10 w-24 h-24 bg-[#ffd1dc] opacity-10 rounded-full blur-[30px]"></div>
                                 </div>
 
-                                <div className="relative p-12 md:p-20 space-y-12 text-center">
-                                    <div className="space-y-4">
-                                        <p className="text-xs font-black text-[#db7093] dark:text-[#ff8da1] tracking-[0.4em] uppercase transition-colors">{idx === 0 ? "Holy Matrimony" : "Grand Reception"}</p>
-                                        <h3 className="font-serif text-4xl md:text-5xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors">{event.title}</h3>
+                                <div className="relative p-3 sm:p-6 md:p-12 lg:p-20 space-y-4 sm:space-y-8 md:space-y-12 text-center h-full flex flex-col justify-between">
+                                    <div className="space-y-2 sm:space-y-4">
+                                        <div className="flex flex-col items-center gap-1">
+                                            {idx === 0 ? <Heart className="text-[#db7093] h-3 w-3 sm:h-5 sm:w-5 md:h-6 md:w-6" /> : <Sparkles className="text-[#db7093] h-3 w-3 sm:h-5 sm:w-5 md:h-6 md:w-6" />}
+                                            <p className="text-[7px] sm:text-[9px] md:text-xs font-black text-[#db7093] dark:text-[#ff8da1] tracking-[0.2em] uppercase transition-colors">{idx === 0 ? "Akad Nikah" : "Resepsi"}</p>
+                                        </div>
+                                        <h3 className="font-serif text-sm sm:text-2xl md:text-4xl lg:text-5xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors leading-tight">{event.title}</h3>
                                     </div>
 
-                                    <div className="space-y-10">
-                                        <div className="space-y-3">
-                                            <Calendar className="text-[#db7093] h-6 w-6 mx-auto opacity-40" />
-                                            <p className="font-serif text-3xl text-[#4a4a4a] dark:text-stone-200 italic leading-none transition-colors">{event.day}, {event.date}</p>
+                                    <div className="space-y-3 sm:space-y-6 md:space-y-10">
+                                        <div className="space-y-1 sm:space-y-3">
+                                            <Calendar className="text-[#db7093] h-3 w-3 sm:h-5 sm:w-5 md:h-6 md:w-6 mx-auto opacity-40" />
+                                            <p className="font-serif text-[10px] sm:text-lg md:text-3xl text-[#4a4a4a] dark:text-stone-200 italic leading-none transition-colors">{event.day}, {event.date}</p>
                                         </div>
 
-                                        <div className="space-y-3">
-                                            <Clock className="text-[#db7093] h-6 w-6 mx-auto opacity-40" />
-                                            <p className="text-[12px] font-black text-[#db7093] dark:text-[#ff8da1] tracking-[0.2em] uppercase transition-colors">
+                                        <div className="space-y-1 sm:space-y-3">
+                                            <Clock className="text-[#db7093] h-3 w-3 sm:h-5 sm:w-5 md:h-6 md:w-6 mx-auto opacity-40" />
+                                            <p className="text-[8px] sm:text-[10px] md:text-[12px] font-black text-[#db7093] dark:text-[#ff8da1] tracking-[0.2em] uppercase transition-colors">
                                                 {event.startTime} — {event.endTime} WIB
                                             </p>
                                         </div>
 
-                                        <div className="pt-10 border-t border-[#ffd1dc]/30 dark:border-white/5 space-y-4 transition-colors">
-                                            <MapPin className="text-[#db7093] h-6 w-6 mx-auto opacity-40" />
-                                            <h4 className="font-serif text-2xl text-[#4a4a4a] dark:text-stone-200 font-bold transition-colors">{event.venue.name}</h4>
-                                            <p className="text-sm text-slate-400 dark:text-stone-400 max-w-[250px] mx-auto italic leading-relaxed transition-colors">{event.venue.address}</p>
+                                        <div className="pt-3 sm:pt-6 md:pt-10 border-t border-[#ffd1dc]/30 dark:border-white/5 space-y-1 sm:space-y-4 transition-colors">
+                                            <MapPin className="text-[#db7093] h-3 w-3 sm:h-5 sm:w-5 md:h-6 md:w-6 mx-auto opacity-40" />
+                                            <h4 className="font-serif text-[10px] sm:text-lg md:text-2xl text-[#4a4a4a] dark:text-stone-200 font-bold transition-colors leading-tight">{event.venue.name}</h4>
+                                            <p className="text-[7px] sm:text-xs md:text-sm text-slate-400 dark:text-stone-400 max-w-[150px] sm:max-w-[250px] mx-auto italic leading-relaxed transition-colors line-clamp-2 md:line-clamp-none">{event.venue.address}</p>
                                         </div>
                                     </div>
 
                                     {/* Interactive Map Embed */}
-                                    <div className="rounded-[2.5rem] overflow-hidden border border-[#ffd1dc]/20 dark:border-white/5 h-64 relative group/map">
+                                    <div className="rounded-lg sm:rounded-2xl md:rounded-[2.5rem] overflow-hidden border border-[#ffd1dc]/20 dark:border-white/5 h-[120px] sm:h-[160px] md:h-[200px] lg:h-64 relative group/map">
                                         <iframe
                                             src={event.venue.mapsEmbedUrl}
                                             className="w-full h-full grayscale-[0.5] contrast-[0.8] brightness-[1.1] group-hover/map:grayscale-0 group-hover/map:contrast-100 transition-all duration-1000"
@@ -474,84 +503,86 @@ const EventDetails: FC = () => {
                                         ></iframe>
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="relative">
-                                            <button
-                                                onClick={() => setShowCalendar(showCalendar === event.id ? null : event.id)}
-                                                className="w-full py-5 px-4 bg-white dark:bg-slate-800 border border-[#ffd1dc] dark:border-white/10 text-[#db7093] dark:text-[#ff8da1] rounded-full text-[10px] font-black tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-[#db7093] hover:text-white transition-all active:scale-95"
-                                            >
-                                                <CalendarPlus size={14} /> Save Date
-                                            </button>
+                                    <div className="flex flex-col gap-2 sm:gap-4">
+                                        <div className="grid grid-cols-2 gap-2 sm:gap-4">
+                                            <div className="relative">
+                                                <button
+                                                    onClick={() => setShowCalendar(showCalendar === event.id ? null : event.id)}
+                                                    className="w-full py-2 sm:py-3 md:py-5 px-1 sm:px-4 bg-white dark:bg-slate-800 border border-[#ffd1dc] dark:border-white/10 text-[#db7093] dark:text-[#ff8da1] rounded-full text-[7px] sm:text-[9px] md:text-[10px] font-black tracking-widest uppercase flex items-center justify-center gap-1 sm:gap-2 hover:bg-[#db7093] hover:text-white transition-all active:scale-95"
+                                                >
+                                                    <CalendarPlus className="h-2.5 w-2.5 sm:h-3.5 sm:w-3.5" /> Save Date
+                                                </button>
 
-                                            <AnimatePresence>
-                                                {showCalendar === event.id && (
-                                                    <motion.div
-                                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                                        className="absolute bottom-full left-0 right-0 mb-4 bg-white dark:bg-slate-800 border border-[#ffd1dc] dark:border-white/10 rounded-[2rem] shadow-2xl overflow-hidden z-[50]"
-                                                    >
-                                                        <button
-                                                            onClick={() => {
-                                                                window.open(generateGoogleCalendarUrl({
-                                                                    title: event.title,
-                                                                    description: `The Wedding of ${config.couple.groom.name} & ${config.couple.bride.name}`,
-                                                                    location: `${event.venue.name}, ${event.venue.address}`,
-                                                                    startTime: event.startDateTime,
-                                                                    endTime: event.endDateTime,
-                                                                }), '_blank');
-                                                                setShowCalendar(null);
-                                                            }}
-                                                            className="w-full p-6 text-left hover:bg-[#fffafa] dark:hover:bg-white/5 flex items-center gap-4 transition-colors"
+                                                <AnimatePresence>
+                                                    {showCalendar === event.id && (
+                                                        <motion.div
+                                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                            className="absolute bottom-full left-0 right-0 mb-2 sm:mb-4 bg-white dark:bg-slate-800 border border-[#ffd1dc] dark:border-white/10 rounded-xl sm:rounded-[2rem] shadow-2xl overflow-hidden z-[50]"
                                                         >
-                                                            <div className="w-8 h-8 rounded-full bg-[#db7093]/10 flex items-center justify-center">
-                                                                <Star size={14} className="text-[#db7093]" />
-                                                            </div>
-                                                            <span className="text-[10px] font-black tracking-widest uppercase">Google Calendar</span>
-                                                        </button>
-                                                        <button
-                                                            onClick={() => {
-                                                                downloadICS({
-                                                                    title: event.title,
-                                                                    description: `The Wedding of ${config.couple.groom.name} & ${config.couple.bride.name}`,
-                                                                    location: `${event.venue.name}, ${event.venue.address}`,
-                                                                    startTime: event.startDateTime,
-                                                                    endTime: event.endDateTime,
-                                                                });
-                                                                setShowCalendar(null);
-                                                            }}
-                                                            className="w-full p-6 text-left hover:bg-[#fffafa] dark:hover:bg-white/5 flex items-center gap-4 border-t border-[#ffd1dc]/10 transition-colors"
-                                                        >
-                                                            <div className="w-8 h-8 rounded-full bg-[#db7093]/10 flex items-center justify-center">
-                                                                <Clock size={14} className="text-[#db7093]" />
-                                                            </div>
-                                                            <span className="text-[10px] font-black tracking-widest uppercase">iCal / Outlook</span>
-                                                        </button>
-                                                    </motion.div>
+                                                            <button
+                                                                onClick={() => {
+                                                                    window.open(generateGoogleCalendarUrl({
+                                                                        title: event.title,
+                                                                        description: `The Wedding of ${config.couple.groom.name} & ${config.couple.bride.name}`,
+                                                                        location: `${event.venue.name}, ${event.venue.address}`,
+                                                                        startTime: event.startDateTime,
+                                                                        endTime: event.endDateTime,
+                                                                    }), '_blank');
+                                                                    setShowCalendar(null);
+                                                                }}
+                                                                className="w-full p-2 sm:p-4 md:p-6 text-left hover:bg-[#fffafa] dark:hover:bg-white/5 flex items-center gap-2 sm:gap-4 transition-colors"
+                                                            >
+                                                                <div className="w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-[#db7093]/10 flex items-center justify-center">
+                                                                    <Star size={10} className="text-[#db7093] sm:size-14" />
+                                                                </div>
+                                                                <span className="text-[6px] sm:text-[9px] md:text-[10px] font-black tracking-widest uppercase">Google</span>
+                                                            </button>
+                                                            <button
+                                                                onClick={() => {
+                                                                    downloadICS({
+                                                                        title: event.title,
+                                                                        description: `The Wedding of ${config.couple.groom.name} & ${config.couple.bride.name}`,
+                                                                        location: `${event.venue.name}, ${event.venue.address}`,
+                                                                        startTime: event.startDateTime,
+                                                                        endTime: event.endDateTime,
+                                                                    });
+                                                                    setShowCalendar(null);
+                                                                }}
+                                                                className="w-full p-2 sm:p-4 md:p-6 text-left hover:bg-[#fffafa] dark:hover:bg-white/5 flex items-center gap-2 sm:gap-4 border-t border-[#ffd1dc]/10 transition-colors"
+                                                            >
+                                                                <div className="w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-[#db7093]/10 flex items-center justify-center">
+                                                                    <Clock size={10} className="text-[#db7093] sm:size-14" />
+                                                                </div>
+                                                                <span className="text-[6px] sm:text-[9px] md:text-[10px] font-black tracking-widest uppercase">iCal</span>
+                                                            </button>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
+
+                                            <button
+                                                onClick={() => copyAddress(event.venue.address, event.id)}
+                                                className="w-full py-2 sm:py-3 md:py-5 px-1 sm:px-4 bg-[#db7093] text-white rounded-full text-[7px] sm:text-[9px] md:text-[10px] font-black tracking-widest uppercase flex items-center justify-center gap-1 sm:gap-2 hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 active:scale-95"
+                                            >
+                                                {copiedId === event.id ? (
+                                                    <><Check size={10} className="sm:size-14" /> COPIED</>
+                                                ) : (
+                                                    <><Copy size={10} className="sm:size-14" /> COPY</>
                                                 )}
-                                            </AnimatePresence>
+                                            </button>
                                         </div>
 
-                                        <button
-                                            onClick={() => copyAddress(event.venue.address, event.id)}
-                                            className="w-full py-5 px-4 bg-[#db7093] text-white rounded-full text-[10px] font-black tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 active:scale-95"
+                                        <a
+                                            href={event.venue.mapsEmbedUrl.replace('&output=embed', '')}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="w-full py-2.5 sm:py-4 md:py-6 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-full text-[8px] sm:text-[10px] md:text-[11px] font-black tracking-[0.2em] uppercase flex items-center justify-center gap-2 sm:gap-4 transition-all hover:shadow-2xl active:scale-95"
                                         >
-                                            {copiedId === event.id ? (
-                                                <><Check size={14} /> COPIED</>
-                                            ) : (
-                                                <><Copy size={14} /> COPY ADDRESS</>
-                                            )}
-                                        </button>
+                                            <Map size={14} className="sm:size-18" /> GOOGLE MAPS
+                                        </a>
                                     </div>
-
-                                    <a
-                                        href={event.venue.mapsEmbedUrl.replace('&output=embed', '')}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="w-full py-6 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-full text-[11px] font-black tracking-[0.2em] uppercase flex items-center justify-center gap-4 transition-all hover:shadow-2xl active:scale-95"
-                                    >
-                                        <Map size={18} /> OPEN IN GOOGLE MAPS
-                                    </a>
                                 </div>
                             </div>
                         </Reveal>
@@ -568,11 +599,11 @@ const Gallery: FC = () => {
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
 
-    // Auto-play logic: berganti setiap 3 detik
+    // Auto-play logic: berganti setiap 5 detik
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex((current) => (current + 1) % config.galleryImages.length);
-        }, 3000);
+        }, 5000);
         return () => clearInterval(interval);
     }, [config.galleryImages.length]);
 
@@ -669,27 +700,40 @@ const Gallery: FC = () => {
                     </div>
                 </Reveal>
 
-                {/* Featured Image Area */}
+                {/* Featured Image Area - Stacked Crossfade */}
                 <Reveal delay={0.4}>
                     <div className="relative aspect-[9/16] w-full max-w-[450px] mx-auto rounded-[3rem] sm:rounded-[4rem] overflow-hidden border border-[#ffd1dc]/30 dark:border-white/5 shadow-2xl group">
-                        <AnimatePresence mode="wait">
+                        {config.galleryImages.map((img, idx) => (
                             <motion.img
-                                key={activeIndex}
-                                initial={{ opacity: 0, filter: "blur(10px)" }}
-                                animate={{ opacity: 1, filter: "blur(0px)" }}
-                                exit={{ opacity: 0, filter: "blur(10px)" }}
-                                transition={{ duration: 1, ease: "easeInOut" }}
-                                src={config.galleryImages[activeIndex]}
+                                key={idx}
+                                initial={{ opacity: 0 }}
+                                animate={{
+                                    opacity: activeIndex === idx ? 1 : 0,
+                                    scale: activeIndex === idx ? 1 : 1.1,
+                                    filter: activeIndex === idx ? "blur(0px)" : "blur(10px)"
+                                }}
+                                transition={{ duration: 1.5, ease: "easeInOut" }}
+                                src={img}
                                 className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-                                alt="Featured Moment"
-                                onClick={() => openLightbox(activeIndex)}
+                                alt={`Slide ${idx}`}
+                                onClick={() => openLightbox(idx)}
                             />
-                        </AnimatePresence>
+                        ))}
 
                         <div className="absolute inset-0 bg-[#db7093]/5 group-hover:bg-transparent transition-colors duration-700 pointer-events-none"></div>
 
+                        {/* Progress Indicator */}
+                        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                            {config.galleryImages.map((_, i) => (
+                                <div
+                                    key={i}
+                                    className={`h-1 rounded-full transition-all duration-500 ${activeIndex === i ? 'w-8 bg-white' : 'w-2 bg-white/30'}`}
+                                ></div>
+                            ))}
+                        </div>
+
                         {/* Action Button */}
-                        <div className="absolute bottom-8 right-8 z-20">
+                        <div className="absolute bottom-12 right-12 z-20">
                             <button
                                 onClick={() => openLightbox(activeIndex)}
                                 className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-xl border border-white/40 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110 hover:bg-[#db7093]/80"
@@ -831,7 +875,7 @@ const GiftInfo: FC = () => {
                         </Reveal>
                     ))}
 
-                    {config.giftAddress && (
+                    {config.giftAddress ? (
                         <Reveal delay={0.4}>
                             <div className="h-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 border border-white/10 dark:border-black/5 p-12 rounded-[4rem] shadow-2xl flex flex-col justify-center text-center space-y-10 group hover:shadow-2xl transition-all duration-1000">
                                 <div className="space-y-4">
@@ -858,6 +902,28 @@ const GiftInfo: FC = () => {
                                 </button>
                             </div>
                         </Reveal>
+                    ) : (
+                        <Reveal delay={0.4}>
+                            <div className="h-full bg-white dark:bg-slate-900 border border-[#ffd1dc]/40 dark:border-white/5 p-12 rounded-[4rem] shadow-2xl flex flex-col justify-center text-center space-y-10 group transition-all duration-1000">
+                                <div className="space-y-6">
+                                    <div className="relative w-24 h-24 mx-auto mb-6">
+                                        <div className="absolute inset-0 bg-[#ffd1dc]/20 rounded-full blur-xl group-hover:scale-125 transition-transform duration-700"></div>
+                                        <div className="relative w-full h-full bg-[#fffafa] dark:bg-slate-950 rounded-full flex items-center justify-center border border-[#ffd1dc]/40 group-hover:scale-110 transition-all">
+                                            <Package className="text-[#db7093] h-10 w-10" />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4">
+                                        <h3 className="font-serif text-3xl text-[#4a4a4a] dark:text-stone-200 font-bold transition-colors">Physical Gifts</h3>
+                                        <p className="text-sm text-slate-400 dark:text-stone-400 italic leading-relaxed">Please contact us directly if you wish to send a physical gift or visit us in person.</p>
+                                    </div>
+                                    <div className="pt-8 flex justify-center gap-4">
+                                        <div className="w-2 h-2 rounded-full bg-[#db7093]/20"></div>
+                                        <div className="w-2 h-2 rounded-full bg-[#db7093]/40"></div>
+                                        <div className="w-2 h-2 rounded-full bg-[#db7093]/20"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Reveal>
                     )}
                 </div>
             </div>
@@ -866,24 +932,26 @@ const GiftInfo: FC = () => {
 };
 
 const Navbar: FC<{ theme: "light" | "dark"; toggleTheme: () => void }> = ({ theme, toggleTheme }) => {
-    const [scrolled, setScrolled] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     const [activeSection, setActiveSection] = useState("");
 
     const navItems = [
-        { id: "hero", icon: Home, label: "Home" },
-        { id: "couple", icon: Heart, label: "Couple" },
-        { id: "event", icon: Calendar, label: "Event" },
-        { id: "gallery", icon: Camera, label: "Gallery" },
-        { id: "gift", icon: Gift, label: "Gift" },
-        { id: "rsvp", icon: MessageCircle, label: "RSVP" },
+        { icon: Home, label: "INFO", href: "#hero", id: "hero" },
+        { icon: Heart, label: "LOVE", href: "#couple", id: "couple" },
+        { icon: Star, label: "STORY", href: "#story", id: "story" },
+        { icon: Calendar, label: "DATE", href: "#event", id: "event" },
+        { icon: ImageIcon, label: "SHOTS", href: "#gallery", id: "gallery" },
+        { icon: Gift, label: "GIFT", href: "#gift", id: "gift" },
+        { icon: MessageCircle, label: "RSVP", href: "#rsvp", id: "rsvp" }
     ];
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 400);
+            setIsVisible(window.scrollY > 400);
 
-            const sections = navItems.map((item) => item.id);
-            for (const sectionId of sections.reverse()) {
+            // Manual active section tracking as fallback or primary
+            const sections = navItems.map(item => item.id);
+            for (const sectionId of [...sections].reverse()) {
                 const element = document.getElementById(sectionId);
                 if (element) {
                     const rect = element.getBoundingClientRect();
@@ -907,43 +975,40 @@ const Navbar: FC<{ theme: "light" | "dark"; toggleTheme: () => void }> = ({ them
     };
 
     return (
-        <nav className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-[1100] transition-all duration-1000 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}>
-            <div className="bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl px-4 py-3 rounded-full border border-[#ffd1dc]/40 dark:border-white/10 shadow-2xl flex items-center gap-2 md:gap-6">
-                {navItems.map((item) => {
+        <nav className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-32 scale-75 pointer-events-none'}`}>
+            <div className="bg-white/80 dark:bg-slate-900/95 backdrop-blur-2xl border border-[#ffd1dc]/40 dark:border-white/5 px-4 py-3 rounded-full shadow-2xl flex items-center gap-3 sm:px-8 sm:py-5 sm:gap-6 md:gap-10 transition-all duration-500">
+                {navItems.map((item, idx) => {
                     const isActive = activeSection === item.id;
-                    const Icon = item.icon;
                     return (
                         <a
-                            key={item.id}
-                            href={`#${item.id}`}
+                            key={idx}
+                            href={item.href}
                             onClick={(e) => {
                                 e.preventDefault();
                                 scrollToSection(item.id);
                             }}
-                            className={`group relative flex flex-col items-center gap-1 p-2 transition-all duration-300 ${isActive ? 'text-[#db7093] scale-110' : 'text-slate-400 dark:text-stone-500 hover:text-[#db7093]'}`}
+                            className={`group relative transition-all duration-300 ${isActive ? 'text-[#db7093] dark:text-[#ff8da1] scale-125' : 'text-slate-300 dark:text-slate-600 hover:text-[#db7093] dark:hover:text-[#ff8da1] hover:scale-125'}`}
                         >
-                            <Icon size={18} className={`transition-transform duration-300 ${isActive ? '' : 'group-hover:-translate-y-1'}`} />
-                            <span className="text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-12 bg-[#db7093] text-white px-3 py-2 rounded-full whitespace-nowrap shadow-lg pointer-events-none">
+                            <item.icon size={20} className="sm:size-[22px]" />
+                            <span className="absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-[#db7093] dark:bg-[#ff8da1] text-white dark:text-slate-950 text-[9px] font-black tracking-widest px-5 py-3 rounded-full hidden group-hover:block whitespace-nowrap italic pointer-events-none">
                                 {item.label}
                             </span>
                             {isActive && (
-                                <motion.div layoutId="nav-active" className="absolute -bottom-1 w-1 h-1 bg-[#db7093] rounded-full" />
+                                <motion.div
+                                    layoutId="active-nav"
+                                    className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-[#db7093] dark:bg-[#ff8da1] rounded-full sm:w-1.5 sm:h-1.5"
+                                />
                             )}
                         </a>
                     );
                 })}
-
-                <div className="w-[1px] h-6 bg-[#ffd1dc]/40 dark:bg-white/10 mx-1 md:mx-2"></div>
-
+                <div className="w-[1px] h-6 bg-[#ffd1dc]/30 mx-1 hidden sm:block"></div>
                 <button
                     onClick={toggleTheme}
-                    className="group relative flex flex-col items-center gap-1 p-2 text-slate-400 dark:text-stone-500 hover:text-[#db7093] transition-all duration-300"
-                    aria-label="Toggle theme"
+                    className="text-slate-300 dark:text-slate-600 hover:text-[#db7093] dark:hover:text-[#ff8da1] transition-all hover:scale-125"
+                    aria-label="Toggle Theme"
                 >
-                    {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-                    <span className="text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-12 bg-[#db7093] text-white px-3 py-2 rounded-full whitespace-nowrap shadow-lg pointer-events-none">
-                        {theme === "light" ? "Dark Mode" : "Light Mode"}
-                    </span>
+                    {theme === "light" ? <Moon size={20} className="sm:size-[22px]" /> : <Sun size={20} className="sm:size-[22px]" />}
                 </button>
             </div>
         </nav>
@@ -965,6 +1030,11 @@ const Footer: FC = () => {
         <footer className="bg-white dark:bg-slate-950 py-24 md:py-40 px-6 relative overflow-hidden transition-colors duration-1000 border-t border-[#ffd1dc]/20">
             {/* Background Decor */}
             <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#db7093 0.5px, transparent 0.5px)', backgroundSize: '30px 30px' }}></div>
+
+            {/* Soft Heart Watermark */}
+            <div className="absolute bottom-0 right-1/2 translate-x-1/2 pointer-events-none select-none overflow-hidden opacity-5">
+                <Heart size={400} className="text-[#db7093]" />
+            </div>
 
             <div className="container mx-auto max-w-4xl relative z-10 flex flex-col items-center text-center space-y-20">
                 <button
@@ -1122,279 +1192,283 @@ const RSVPForm: FC = () => {
                     </div>
 
                     {/* Form Side */}
-                    <div className="lg:col-span-5">
-                        <Reveal>
-                            <div className="bg-white dark:bg-slate-900 p-10 md:p-14 rounded-[4rem] border border-[#ffd1dc]/40 dark:border-white/5 shadow-2xl space-y-14 relative overflow-hidden transition-all duration-1000 min-h-[600px] flex flex-col justify-between">
-                                {submitted ? (
-                                    <div className="text-center py-20 space-y-8 animate-reveal flex flex-col items-center justify-center flex-grow">
-                                        <div className="relative">
-                                            <div className="absolute inset-0 bg-[#db7093]/20 rounded-full blur-2xl animate-pulse"></div>
-                                            <CheckCircle2 className="text-[#db7093] h-24 w-24 relative z-10" />
-                                        </div>
-                                        <h3 className="font-serif text-4xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors">See You There!</h3>
-                                        <p className="text-slate-400 dark:text-stone-400 italic text-xl transition-colors">Your presence will make our day complete.</p>
-                                        <button onClick={() => setSubmitted(false)} className="px-12 py-5 bg-[#db7093] text-white rounded-full text-[10px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20">SEND ANOTHER RESPONSE</button>
-                                    </div>
-                                ) : (
-                                    <>
-                                        {/* Step Indicator */}
-                                        <div className="flex items-center justify-between px-4 pb-10 border-b border-[#ffd1dc]/20">
-                                            {formSteps.map((s, i) => (
-                                                <div key={i} className="flex items-center gap-4">
-                                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${step > i + 1 ? 'bg-[#db7093] text-white' : step === i + 1 ? 'bg-[#db7093] text-white shadow-lg scale-110' : 'bg-slate-100 dark:bg-slate-800 text-slate-300'}`}>
-                                                        {step > i + 1 ? <Check size={16} strokeWidth={3} /> : <s.icon size={16} />}
-                                                    </div>
-                                                    {i < 2 && <div className={`w-8 h-[1px] ${step > i + 1 ? 'bg-[#db7093]' : 'bg-slate-200'}`}></div>}
+                    <div className="lg:col-span-12 lg:sticky lg:top-32 h-fit">
+                        <div className="grid lg:grid-cols-12 gap-16 items-start">
+                            <div className="lg:col-span-5">
+                                <Reveal>
+                                    <div className="bg-white dark:bg-slate-900 p-10 md:p-14 rounded-[4rem] border border-[#ffd1dc]/40 dark:border-white/5 shadow-2xl space-y-14 relative overflow-hidden transition-all duration-1000 min-h-[600px] flex flex-col justify-between">
+                                        {submitted ? (
+                                            <div className="text-center py-20 space-y-8 animate-reveal flex flex-col items-center justify-center flex-grow">
+                                                <div className="relative">
+                                                    <div className="absolute inset-0 bg-[#db7093]/20 rounded-full blur-2xl animate-pulse"></div>
+                                                    <CheckCircle2 className="text-[#db7093] h-24 w-24 relative z-10" />
                                                 </div>
-                                            ))}
-                                        </div>
-
-                                        <form onSubmit={handleSubmit} className="space-y-10 flex-grow pt-10">
-                                            <AnimatePresence mode="wait">
-                                                {step === 1 && (
-                                                    <motion.div
-                                                        key="step1"
-                                                        initial={{ opacity: 0, x: 20 }}
-                                                        animate={{ opacity: 1, x: 0 }}
-                                                        exit={{ opacity: 0, x: -20 }}
-                                                        className="space-y-8"
-                                                    >
-                                                        <div className="space-y-3">
-                                                            <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase">Your Name</label>
-                                                            <input
-                                                                required
-                                                                disabled={isNameLocked}
-                                                                placeholder="Type your name..."
-                                                                className="w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-full px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 focus:ring-4 focus:ring-[#db7093]/20 outline-none transition-all"
-                                                                value={formData.guest_name}
-                                                                onChange={(e) => setFormData({ ...formData, guest_name: e.target.value })}
-                                                            />
-                                                        </div>
-                                                        <div className="space-y-3">
-                                                            <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase">Phone Number (Optional)</label>
-                                                            <input
-                                                                placeholder="0812..."
-                                                                className="w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-full px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 focus:ring-4 focus:ring-[#db7093]/20 outline-none transition-all"
-                                                                value={formData.phone}
-                                                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                            />
-                                                        </div>
-                                                    </motion.div>
-                                                )}
-
-                                                {step === 2 && (
-                                                    <motion.div
-                                                        key="step2"
-                                                        initial={{ opacity: 0, x: 20 }}
-                                                        animate={{ opacity: 1, x: 0 }}
-                                                        exit={{ opacity: 0, x: -20 }}
-                                                        className="space-y-12"
-                                                    >
-                                                        <div className="space-y-4">
-                                                            <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase">Will you attend?</label>
-                                                            <div className="grid grid-cols-2 gap-4">
-                                                                {[AttendanceStatus.HADIR, AttendanceStatus.TIDAK_HADIR].map(status => (
-                                                                    <button
-                                                                        key={status}
-                                                                        type="button"
-                                                                        onClick={() => setFormData({ ...formData, attendance: status })}
-                                                                        className={`py-6 rounded-3xl border text-[10px] font-black tracking-widest uppercase transition-all ${formData.attendance === status ? 'bg-[#db7093] border-[#db7093] text-white shadow-xl shadow-[#db7093]/20 scale-[1.02]' : 'bg-white dark:bg-slate-800 border-[#ffd1dc]/20 text-[#db7093]'}`}
-                                                                    >
-                                                                        {status === AttendanceStatus.HADIR ? "YES, I WILL" : "NO, I CAN'T"}
-                                                                    </button>
-                                                                ))}
-                                                            </div>
-                                                        </div>
-
-                                                        {formData.attendance === AttendanceStatus.HADIR && (
-                                                            <div className="space-y-6">
-                                                                <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase flex items-center justify-between">
-                                                                    Guest Count <span>{formData.guest_count} Person</span>
-                                                                </label>
-                                                                <div className="flex items-center gap-6">
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={() => setFormData(prev => ({ ...prev, guest_count: Math.max(1, prev.guest_count - 1) }))}
-                                                                        className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[#db7093] hover:bg-[#db7093] hover:text-white transition-all"
-                                                                    >
-                                                                        <Minus size={20} />
-                                                                    </button>
-                                                                    <div className="flex-grow h-2 bg-[#ffd1dc]/30 rounded-full relative overflow-hidden">
-                                                                        <motion.div
-                                                                            className="absolute left-0 top-0 bottom-0 bg-[#db7093]"
-                                                                            animate={{ width: `${(formData.guest_count / config.maxGuests) * 100}%` }}
-                                                                        />
-                                                                    </div>
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={() => setFormData(prev => ({ ...prev, guest_count: Math.min(config.maxGuests, prev.guest_count + 1) }))}
-                                                                        className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[#db7093] hover:bg-[#db7093] hover:text-white transition-all"
-                                                                    >
-                                                                        <Plus size={20} />
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </motion.div>
-                                                )}
-
-                                                {step === 3 && (
-                                                    <motion.div
-                                                        key="step3"
-                                                        initial={{ opacity: 0, x: 20 }}
-                                                        animate={{ opacity: 1, x: 0 }}
-                                                        exit={{ opacity: 0, x: -20 }}
-                                                        className="space-y-8"
-                                                    >
-                                                        <div className="space-y-4">
-                                                            <div className="flex items-center justify-between">
-                                                                <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase italic">Add a Sticker</label>
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={() => setShowStickerPicker(true)}
-                                                                    className="text-[#db7093] hover:rotate-12 transition-transform"
-                                                                >
-                                                                    <Smile size={24} />
-                                                                </button>
-                                                            </div>
-                                                            {formData.sticker ? (
-                                                                <div className="relative inline-block group">
-                                                                    <img src={formData.sticker.src} className="w-24 h-24 object-contain animate-bounce-slow" />
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={() => setFormData({ ...formData, sticker: null })}
-                                                                        className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                                                                    >
-                                                                        <X size={14} />
-                                                                    </button>
-                                                                </div>
-                                                            ) : (
-                                                                <div
-                                                                    onClick={() => setShowStickerPicker(true)}
-                                                                    className="w-full h-32 border-2 border-dashed border-[#ffd1dc] rounded-3xl flex flex-col items-center justify-center gap-3 text-slate-300 cursor-pointer hover:border-[#db7093] hover:text-[#db7093] transition-all"
-                                                                >
-                                                                    <Smile size={32} />
-                                                                    <span className="text-[10px] font-black tracking-widest uppercase">Pick a Sticker</span>
-                                                                </div>
-                                                            )}
-                                                        </div>
-
-                                                        <div className="space-y-3">
-                                                            <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase">Message</label>
-                                                            <textarea
-                                                                rows={4}
-                                                                placeholder="Write a beautiful message..."
-                                                                className="w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-[2.5rem] px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 outline-none focus:ring-4 focus:ring-[#db7093]/20 transition-all resize-none"
-                                                                value={formData.message}
-                                                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                                            />
-                                                        </div>
-                                                    </motion.div>
-                                                )}
-                                            </AnimatePresence>
-
-                                            <div className="flex gap-4 pt-10">
-                                                {step > 1 && (
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setStep(step - 1)}
-                                                        className="w-20 py-2 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] hover:bg-slate-50 active:scale-95 transition-all"
-                                                    >
-                                                        <ChevronLeft size={24} />
-                                                    </button>
-                                                )}
-                                                {step < 3 ? (
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setStep(step + 1)}
-                                                        disabled={step === 1 && !formData.guest_name}
-                                                        className="flex-grow bg-[#db7093] text-white py-6 rounded-full text-[11px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 disabled:opacity-30 flex items-center justify-center gap-4 active:scale-95"
-                                                    >
-                                                        NEXT STEP <ChevronRight size={18} />
-                                                    </button>
-                                                ) : (
-                                                    <button
-                                                        type="submit"
-                                                        disabled={isSubmitting}
-                                                        className="flex-grow bg-[#db7093] text-white py-6 rounded-full text-[11px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 flex items-center justify-center gap-4 active:scale-95"
-                                                    >
-                                                        {isSubmitting ? "SENDING..." : "CONFIRM RSVP"}
-                                                        <Send size={18} />
-                                                    </button>
-                                                )}
+                                                <h3 className="font-serif text-4xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors">See You There!</h3>
+                                                <p className="text-slate-400 dark:text-stone-400 italic text-xl transition-colors">Your presence will make our day complete.</p>
+                                                <button onClick={() => setSubmitted(false)} className="px-12 py-5 bg-[#db7093] text-white rounded-full text-[10px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20">SEND ANOTHER RESPONSE</button>
                                             </div>
-                                        </form>
-                                    </>
-                                )}
-                            </div>
-                        </Reveal>
-                    </div>
+                                        ) : (
+                                            <>
+                                                {/* Step Indicator */}
+                                                <div className="flex items-center justify-between px-4 pb-10 border-b border-[#ffd1dc]/20">
+                                                    {formSteps.map((s, i) => (
+                                                        <div key={i} className="flex items-center gap-4">
+                                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${step > i + 1 ? 'bg-[#db7093] text-white' : step === i + 1 ? 'bg-[#db7093] text-white shadow-lg scale-110' : 'bg-slate-100 dark:bg-slate-800 text-slate-300'}`}>
+                                                                {step > i + 1 ? <Check size={16} strokeWidth={3} /> : <s.icon size={16} />}
+                                                            </div>
+                                                            {i < 2 && <div className={`w-8 h-[1px] ${step > i + 1 ? 'bg-[#db7093]' : 'bg-slate-200'}`}></div>}
+                                                        </div>
+                                                    ))}
+                                                </div>
 
-                    {/* List Side */}
-                    <div className="lg:col-span-7 space-y-12">
-                        <div className="grid grid-cols-3 gap-4 md:gap-8">
-                            {[
-                                { label: "Attending", count: stats.hadir, color: "text-[#db7093]", bg: "bg-white" },
-                                { label: "Unsure", count: stats.ragu, color: "text-slate-400", bg: "bg-white/50" },
-                                { label: "Absent", count: stats.tidak, color: "text-[#ffd1dc]", bg: "bg-white/30" }
-                            ].map((stat, i) => (
-                                <Reveal key={i} delay={i * 0.1}>
-                                    <div className={`${stat.bg} dark:bg-slate-900 border border-[#ffd1dc]/20 dark:border-white/5 p-8 rounded-[3rem] text-center space-y-2 shadow-xl hover:-translate-y-2 transition-all duration-500`}>
-                                        <p className={`font-serif text-4xl md:text-6xl font-bold ${stat.color}`}>{stat.count}</p>
-                                        <p className="text-[9px] font-black tracking-widest text-[#db7093] uppercase italic">{stat.label}</p>
+                                                <form onSubmit={handleSubmit} className="space-y-10 flex-grow pt-10">
+                                                    <AnimatePresence mode="wait">
+                                                        {step === 1 && (
+                                                            <motion.div
+                                                                key="step1"
+                                                                initial={{ opacity: 0, x: 20 }}
+                                                                animate={{ opacity: 1, x: 0 }}
+                                                                exit={{ opacity: 0, x: -20 }}
+                                                                className="space-y-8"
+                                                            >
+                                                                <div className="space-y-3">
+                                                                    <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase">Your Name</label>
+                                                                    <input
+                                                                        required
+                                                                        disabled={isNameLocked}
+                                                                        placeholder="Type your name..."
+                                                                        className="w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-full px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 focus:ring-4 focus:ring-[#db7093]/20 outline-none transition-all"
+                                                                        value={formData.guest_name}
+                                                                        onChange={(e) => setFormData({ ...formData, guest_name: e.target.value })}
+                                                                    />
+                                                                </div>
+                                                                <div className="space-y-3">
+                                                                    <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase">Phone Number (Optional)</label>
+                                                                    <input
+                                                                        placeholder="0812..."
+                                                                        className="w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-full px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 focus:ring-4 focus:ring-[#db7093]/20 outline-none transition-all"
+                                                                        value={formData.phone}
+                                                                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                                                    />
+                                                                </div>
+                                                            </motion.div>
+                                                        )}
+
+                                                        {step === 2 && (
+                                                            <motion.div
+                                                                key="step2"
+                                                                initial={{ opacity: 0, x: 20 }}
+                                                                animate={{ opacity: 1, x: 0 }}
+                                                                exit={{ opacity: 0, x: -20 }}
+                                                                className="space-y-12"
+                                                            >
+                                                                <div className="space-y-4">
+                                                                    <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase">Will you attend?</label>
+                                                                    <div className="grid grid-cols-2 gap-4">
+                                                                        {[AttendanceStatus.HADIR, AttendanceStatus.TIDAK_HADIR].map(status => (
+                                                                            <button
+                                                                                key={status}
+                                                                                type="button"
+                                                                                onClick={() => setFormData({ ...formData, attendance: status })}
+                                                                                className={`py-6 rounded-3xl border text-[10px] font-black tracking-widest uppercase transition-all ${formData.attendance === status ? 'bg-[#db7093] border-[#db7093] text-white shadow-xl shadow-[#db7093]/20 scale-[1.02]' : 'bg-white dark:bg-slate-800 border-[#ffd1dc]/20 text-[#db7093]'}`}
+                                                                            >
+                                                                                {status === AttendanceStatus.HADIR ? "YES, I WILL" : "NO, I CAN'T"}
+                                                                            </button>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+
+                                                                {formData.attendance === AttendanceStatus.HADIR && (
+                                                                    <div className="space-y-6">
+                                                                        <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase flex items-center justify-between">
+                                                                            Guest Count <span>{formData.guest_count} Person</span>
+                                                                        </label>
+                                                                        <div className="flex items-center gap-6">
+                                                                            <button
+                                                                                type="button"
+                                                                                onClick={() => setFormData(prev => ({ ...prev, guest_count: Math.max(1, prev.guest_count - 1) }))}
+                                                                                className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[#db7093] hover:bg-[#db7093] hover:text-white transition-all"
+                                                                            >
+                                                                                <Minus size={20} />
+                                                                            </button>
+                                                                            <div className="flex-grow h-2 bg-[#ffd1dc]/30 rounded-full relative overflow-hidden">
+                                                                                <motion.div
+                                                                                    className="absolute left-0 top-0 bottom-0 bg-[#db7093]"
+                                                                                    animate={{ width: `${(formData.guest_count / config.maxGuests) * 100}%` }}
+                                                                                />
+                                                                            </div>
+                                                                            <button
+                                                                                type="button"
+                                                                                onClick={() => setFormData(prev => ({ ...prev, guest_count: Math.min(config.maxGuests, prev.guest_count + 1) }))}
+                                                                                className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[#db7093] hover:bg-[#db7093] hover:text-white transition-all"
+                                                                            >
+                                                                                <Plus size={20} />
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                            </motion.div>
+                                                        )}
+
+                                                        {step === 3 && (
+                                                            <motion.div
+                                                                key="step3"
+                                                                initial={{ opacity: 0, x: 20 }}
+                                                                animate={{ opacity: 1, x: 0 }}
+                                                                exit={{ opacity: 0, x: -20 }}
+                                                                className="space-y-8"
+                                                            >
+                                                                <div className="space-y-4">
+                                                                    <div className="flex items-center justify-between">
+                                                                        <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase italic">Add a Sticker</label>
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={() => setShowStickerPicker(true)}
+                                                                            className="text-[#db7093] hover:rotate-12 transition-transform"
+                                                                        >
+                                                                            <Smile size={24} />
+                                                                        </button>
+                                                                    </div>
+                                                                    {formData.sticker ? (
+                                                                        <div className="relative inline-block group">
+                                                                            <img src={formData.sticker.src} className="w-24 h-24 object-contain animate-bounce-slow" />
+                                                                            <button
+                                                                                type="button"
+                                                                                onClick={() => setFormData({ ...formData, sticker: null })}
+                                                                                className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                                                            >
+                                                                                <X size={14} />
+                                                                            </button>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div
+                                                                            onClick={() => setShowStickerPicker(true)}
+                                                                            className="w-full h-32 border-2 border-dashed border-[#ffd1dc] rounded-3xl flex flex-col items-center justify-center gap-3 text-slate-300 cursor-pointer hover:border-[#db7093] hover:text-[#db7093] transition-all"
+                                                                        >
+                                                                            <Smile size={32} />
+                                                                            <span className="text-[10px] font-black tracking-widest uppercase">Pick a Sticker</span>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+
+                                                                <div className="space-y-3">
+                                                                    <label className="text-[10px] font-black text-[#db7093] tracking-widest uppercase">Message</label>
+                                                                    <textarea
+                                                                        rows={4}
+                                                                        placeholder="Write a beautiful message..."
+                                                                        className="w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-[2.5rem] px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 outline-none focus:ring-4 focus:ring-[#db7093]/20 transition-all resize-none"
+                                                                        value={formData.message}
+                                                                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                                                    />
+                                                                </div>
+                                                            </motion.div>
+                                                        )}
+                                                    </AnimatePresence>
+
+                                                    <div className="flex gap-4 pt-10">
+                                                        {step > 1 && (
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setStep(step - 1)}
+                                                                className="w-20 py-2 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] hover:bg-slate-50 active:scale-95 transition-all"
+                                                            >
+                                                                <ChevronLeft size={24} />
+                                                            </button>
+                                                        )}
+                                                        {step < 3 ? (
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setStep(step + 1)}
+                                                                disabled={step === 1 && !formData.guest_name}
+                                                                className="flex-grow bg-[#db7093] text-white py-6 rounded-full text-[11px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 disabled:opacity-30 flex items-center justify-center gap-4 active:scale-95"
+                                                            >
+                                                                NEXT STEP <ChevronRight size={18} />
+                                                            </button>
+                                                        ) : (
+                                                            <button
+                                                                type="submit"
+                                                                disabled={isSubmitting}
+                                                                className="flex-grow bg-[#db7093] text-white py-6 rounded-full text-[11px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 flex items-center justify-center gap-4 active:scale-95"
+                                                            >
+                                                                {isSubmitting ? "SENDING..." : "CONFIRM RSVP"}
+                                                                <Send size={18} />
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                </form>
+                                            </>
+                                        )}
                                     </div>
                                 </Reveal>
-                            ))}
-                        </div>
-
-                        <div className="space-y-8">
-                            <div className="grid sm:grid-cols-2 gap-6">
-                                {currentRSVPs.map((rsvp, idx) => (
-                                    <Reveal key={rsvp.id} delay={idx * 0.05}>
-                                        <div className="p-8 bg-white dark:bg-slate-900 rounded-[3rem] border border-[#ffd1dc]/10 dark:border-white/5 shadow-lg group hover:shadow-2xl transition-all duration-500 min-h-[160px] flex flex-col justify-between">
-                                            <div className="space-y-4">
-                                                <div className="flex items-start justify-between">
-                                                    <div className="space-y-1">
-                                                        <p className="font-serif text-2xl text-[#4a4a4a] dark:text-stone-200 italic leading-none">{rsvp.guest_name}</p>
-                                                        <p className="text-[10px] font-black tracking-widest text-[#db7093] uppercase opacity-40">
-                                                            {rsvp.attendance === AttendanceStatus.HADIR ? `Hadir • ${rsvp.guest_count} Orang` : 'Tidak Hadir'}
-                                                        </p>
-                                                    </div>
-                                                    {rsvp.sticker && (
-                                                        <img src={`/stickers/${rsvp.sticker}.webp`} className="w-12 h-12 object-contain" />
-                                                    )}
-                                                </div>
-                                                <p className="text-slate-400 text-sm italic leading-relaxed line-clamp-3">"{rsvp.message || "Sending love and prayers..."}"</p>
-                                            </div>
-                                            <div className="pt-4 flex justify-end">
-                                                <p className="text-[9px] text-slate-200 dark:text-stone-700 font-bold uppercase tracking-widest">
-                                                    {new Date(rsvp.created_at).toLocaleDateString()}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Reveal>
-                                ))}
                             </div>
 
-                            {totalPages > 1 && (
-                                <div className="flex justify-center items-center gap-6 pt-10">
-                                    <button
-                                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                                        disabled={currentPage === 1}
-                                        className="w-12 h-12 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] disabled:opacity-20 transition-all hover:bg-[#db7093] hover:text-white"
-                                    >
-                                        <ChevronLeft size={20} />
-                                    </button>
-                                    <span className="font-serif text-xl italic text-[#db7093]">{currentPage} / {totalPages}</span>
-                                    <button
-                                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                                        disabled={currentPage === totalPages}
-                                        className="w-12 h-12 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] disabled:opacity-20 transition-all hover:bg-[#db7093] hover:text-white"
-                                    >
-                                        <ChevronRight size={20} />
-                                    </button>
+                            {/* List Side */}
+                            <div className="lg:col-span-7 space-y-12">
+                                <div className="grid grid-cols-3 gap-4 md:gap-8">
+                                    {[
+                                        { label: "Attending", count: stats.hadir, color: "text-[#db7093]", bg: "bg-white" },
+                                        { label: "Unsure", count: stats.ragu, color: "text-slate-400", bg: "bg-white/50" },
+                                        { label: "Absent", count: stats.tidak, color: "text-[#ffd1dc]", bg: "bg-white/30" }
+                                    ].map((stat, i) => (
+                                        <Reveal key={i} delay={i * 0.1}>
+                                            <div className={`${stat.bg} dark:bg-slate-900 border border-[#ffd1dc]/20 dark:border-white/5 p-8 rounded-[3rem] text-center space-y-2 shadow-xl hover:-translate-y-2 transition-all duration-500`}>
+                                                <p className={`font-serif text-4xl md:text-6xl font-bold ${stat.color}`}>{stat.count}</p>
+                                                <p className="text-[9px] font-black tracking-widest text-[#db7093] uppercase italic">{stat.label}</p>
+                                            </div>
+                                        </Reveal>
+                                    ))}
                                 </div>
-                            )}
+
+                                <div className="space-y-8">
+                                    <div className="grid sm:grid-cols-2 gap-6">
+                                        {currentRSVPs.map((rsvp, idx) => (
+                                            <Reveal key={rsvp.id} delay={idx * 0.05}>
+                                                <div className="p-8 bg-white dark:bg-slate-900 rounded-[3rem] border border-[#ffd1dc]/10 dark:border-white/5 shadow-lg group hover:shadow-2xl transition-all duration-500 min-h-[160px] flex flex-col justify-between">
+                                                    <div className="space-y-4">
+                                                        <div className="flex items-start justify-between">
+                                                            <div className="space-y-1">
+                                                                <p className="font-serif text-2xl text-[#4a4a4a] dark:text-stone-200 italic leading-none">{rsvp.guest_name}</p>
+                                                                <p className="text-[10px] font-black tracking-widest text-[#db7093] uppercase opacity-40">
+                                                                    {rsvp.attendance === AttendanceStatus.HADIR ? `Hadir • ${rsvp.guest_count} Orang` : 'Tidak Hadir'}
+                                                                </p>
+                                                            </div>
+                                                            {rsvp.sticker && (
+                                                                <img src={`/stickers/${rsvp.sticker}.webp`} className="w-12 h-12 object-contain" />
+                                                            )}
+                                                        </div>
+                                                        <p className="text-slate-400 text-sm italic leading-relaxed line-clamp-3">"{rsvp.message || "Sending love and prayers..."}"</p>
+                                                    </div>
+                                                    <div className="pt-4 flex justify-end">
+                                                        <p className="text-[9px] text-slate-200 dark:text-stone-700 font-bold uppercase tracking-widest">
+                                                            {new Date(rsvp.created_at).toLocaleDateString()}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </Reveal>
+                                        ))}
+                                    </div>
+
+                                    {totalPages > 1 && (
+                                        <div className="flex justify-center items-center gap-6 pt-10">
+                                            <button
+                                                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                                disabled={currentPage === 1}
+                                                className="w-12 h-12 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] disabled:opacity-20 transition-all hover:bg-[#db7093] hover:text-white"
+                                            >
+                                                <ChevronLeft size={20} />
+                                            </button>
+                                            <span className="font-serif text-xl italic text-[#db7093]">{currentPage} / {totalPages}</span>
+                                            <button
+                                                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                                disabled={currentPage === totalPages}
+                                                className="w-12 h-12 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] disabled:opacity-20 transition-all hover:bg-[#db7093] hover:text-white"
+                                            >
+                                                <ChevronRight size={20} />
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1472,7 +1546,7 @@ const Wishes: FC = () => {
         <section id="wishes" className="bg-white dark:bg-slate-950 py-24 md:py-40 px-6 relative overflow-hidden transition-colors duration-1000">
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ffd1dc] to-transparent opacity-30"></div>
 
-            <div className="container mx-auto max-w-6xl relative z-10 space-y-24">
+            <div className="container mx-auto max-w-7xl relative z-10 space-y-24">
                 <div className="text-center space-y-6">
                     <Reveal>
                         <div className="space-y-6">
@@ -1487,9 +1561,9 @@ const Wishes: FC = () => {
 
                 <div className="grid lg:grid-cols-12 gap-16 items-start">
                     {/* Form Side */}
-                    <div className="lg:col-span-5">
+                    <div className="lg:col-span-5 lg:sticky lg:top-32 h-fit">
                         <Reveal>
-                            <div className="bg-[#fffafa] dark:bg-slate-900 p-12 md:p-16 rounded-[4rem] border border-[#ffd1dc]/40 dark:border-white/5 shadow-2xl space-y-12 transition-all duration-1000">
+                            <div className="bg-white dark:bg-slate-900 p-10 md:p-14 rounded-[4rem] border border-[#ffd1dc]/40 dark:border-white/5 shadow-2xl space-y-12 transition-all duration-1000">
                                 <div className="space-y-4 text-center">
                                     <h3 className="font-serif text-4xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors">Send a Wish</h3>
                                     <div className="h-[1px] w-12 bg-[#db7093] opacity-30 mx-auto"></div>
@@ -1540,16 +1614,21 @@ const Wishes: FC = () => {
                             {currentWishes.map((wish, idx) => (
                                 <Reveal key={wish.id} delay={idx * 0.1}>
                                     <div className="relative group p-10 bg-[#fffafa] dark:bg-slate-900 rounded-[3.5rem] border border-[#ffd1dc]/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-1000 flex flex-col gap-6 min-h-[240px]">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-full bg-[#db7093] text-white flex items-center justify-center font-bold text-lg shadow-lg">
+                                                {wish.name.charAt(0).toUpperCase()}
+                                            </div>
+                                            <div className="flex-grow">
+                                                <p className="text-[11px] font-black tracking-[0.3em] text-[#db7093] dark:text-[#ff8da1] uppercase italic transition-colors truncate">{wish.name}</p>
+                                                <p className="text-[9px] text-slate-300 dark:text-stone-600 font-bold uppercase tracking-widest mt-1">
+                                                    {new Date(wish.created_at).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}
+                                                </p>
+                                            </div>
+                                        </div>
                                         <div className="absolute top-8 right-8 text-[#db7093]/10 dark:text-white/5 group-hover:text-[#db7093] transition-colors">
                                             <Quote size={40} />
                                         </div>
                                         <p className="font-serif text-2xl text-[#4a4a4a] dark:text-stone-200 italic leading-relaxed flex-grow transition-colors">"{wish.message}"</p>
-                                        <div className="pt-6 border-t border-[#fffafa] dark:border-white/5">
-                                            <p className="text-[11px] font-black tracking-[0.3em] text-[#db7093] dark:text-[#ff8da1] uppercase italic transition-colors truncate">{wish.name}</p>
-                                            <p className="text-[9px] text-slate-300 dark:text-stone-600 font-bold uppercase tracking-widest mt-1">
-                                                {new Date(wish.created_at).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}
-                                            </p>
-                                        </div>
                                     </div>
                                 </Reveal>
                             ))}
@@ -1665,6 +1744,7 @@ const FloralTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) =
             {!isOpened && <Envelope onOpen={onOpen} />}
 
             <main className={`transition-all duration-1000 ${isOpened ? "opacity-100" : "opacity-0 blur-lg scale-95 pointer-events-none"}`}>
+                <FloatingPetals />
                 <Hero />
                 <CoupleProfile />
                 <LoveStory />
@@ -1678,7 +1758,7 @@ const FloralTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) =
 
             {/* Standardized Floating Utilities */}
             <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4">
-                <MusicController />
+                <MusicController isOpened={isOpened} />
                 <AutoScrollController isOpened={isOpened} />
             </div>
 

@@ -37,7 +37,7 @@ export const AVAILABLE_THEMES = [
         id: "luxury",
         name: "Luxury Premium",
         preview: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=600&auto=format&fit=crop",
-        description: "Desain elegan dengan glassmorphism dan animasi mewah.",
+        description: "Desain elegan dengan glassmorphis dan animasi mewah.",
     },
     {
         id: "minimalist",
@@ -79,13 +79,13 @@ export const AVAILABLE_THEMES = [
         id: "dark-elegant",
         name: "Dark Elegant",
         preview: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=600&auto=format&fit=crop",
-        description: "Kemewahan emerald dan emas dalam balutan dark mode premium.",
+        description: "Kemewahan emerald dan emas dalam dark mode premium.",
     },
     {
         id: "royal",
         name: "Royal Heritage",
         preview: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=600&auto=format&fit=crop",
-        description: "Keagungan warisan budaya dengan motif Batik dan warna emas.",
+        description: "Keagungan warisan budaya motif Batik dan warna emas.",
     },
     {
         id: "islamic",
