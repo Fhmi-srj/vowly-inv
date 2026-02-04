@@ -1,11 +1,11 @@
-import * as React from "react";
 import { useEffect, useState } from "react";
+import type { FC } from "react";
 import { SettingsProvider, useSettings } from "./contexts/SettingsContext";
-import InstallPrompt from "./components/Invitation/Shared/InstallPrompt";
+import InstallPrompt from "./themes/Shared/InstallPrompt";
 import { getThemeComponent } from "./themes";
 
 // Inner component that uses the settings context
-const AppContent: React.FC = () => {
+const AppContent: FC = () => {
   const { config } = useSettings();
 
   const [theme, setTheme] = useState<"light" | "dark">(() => {
@@ -83,7 +83,7 @@ const AppContent: React.FC = () => {
 };
 
 // Main App component wrapped with SettingsProvider
-const App: React.FC<{ invitationId?: number; initialConfig?: any }> = ({ invitationId, initialConfig }) => {
+const App: FC<{ invitationId?: number; initialConfig?: any }> = ({ invitationId, initialConfig }) => {
   return (
     <SettingsProvider invitationId={invitationId} initialConfig={initialConfig}>
       <AppContent />

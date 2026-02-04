@@ -1,27 +1,25 @@
-import * as React from "react";
-import LuxuryTheme from "./LuxuryTheme";
-import MinimalistTheme from "./MinimalistTheme";
-import RusticTheme from "./RusticTheme";
-import FloralTheme from "./FloralTheme";
-import BohoTheme from "./BohoTheme";
-import MonokromTheme from "./MonokromTheme";
-import VibrantTheme from "./VibrantTheme";
-import DarkElegantTheme from "./DarkElegantTheme";
-import RoyalTheme from "./RoyalTheme";
-import IslamicTheme from "./IslamicTheme";
-import VintageTheme from "./VintageTheme";
-import StoryboardTheme from "./StoryboardTheme";
-import type { ThemeProps } from "./types";
+import type { FC } from "react";
+import LuxuryTheme from "./Luxury";
+import MinimalistTheme from "./Minimalist";
+import RusticTheme from "./Rustic";
+import FloralTheme from "./Floral";
+import BohoTheme from "./Boho";
+import MonokromTheme from "./Monokrom";
+import VibrantTheme from "./Vibrant";
+import DarkElegantTheme from "./DarkElegant";
+import RoyalTheme from "./Royal";
+import IslamicTheme from "./Islamic";
+import VintageTheme from "./Vintage";
+import StoryboardTheme from "./Storyboard";
+import type { ThemeProps, ThemeId } from "./types";
 
-export type ThemeId = "luxury" | "minimalist" | "rustic" | "floral" | "boho" | "monochrome" | "vibrant" | "dark-elegant" | "royal" | "islamic" | "vintage" | "storyboard";
-
-export const ThemeRegistry: Record<ThemeId, React.FC<ThemeProps>> = {
+export const ThemeRegistry: Record<ThemeId, FC<ThemeProps>> = {
     luxury: LuxuryTheme,
     minimalist: MinimalistTheme,
     rustic: RusticTheme,
     floral: FloralTheme,
     boho: BohoTheme,
-    monochrome: MonokromTheme,
+    monokrom: MonokromTheme,
     vibrant: VibrantTheme,
     "dark-elegant": DarkElegantTheme,
     royal: RoyalTheme,
@@ -30,7 +28,7 @@ export const ThemeRegistry: Record<ThemeId, React.FC<ThemeProps>> = {
     storyboard: StoryboardTheme,
 };
 
-export const getThemeComponent = (themeId: string): React.FC<ThemeProps> => {
+export const getThemeComponent = (themeId: string): FC<ThemeProps> => {
     return ThemeRegistry[themeId as ThemeId] || LuxuryTheme;
 };
 
@@ -66,7 +64,7 @@ export const AVAILABLE_THEMES = [
         description: "Etnik, macrame, dan palet warna terracotta yang berjiwa bebas.",
     },
     {
-        id: "monochrome",
+        id: "monokrom",
         name: "Modern Monokrom",
         preview: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=600&auto=format&fit=crop",
         description: "Minimalis kontras tinggi dengan tipografi bold yang urban.",

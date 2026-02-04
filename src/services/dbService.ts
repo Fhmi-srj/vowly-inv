@@ -64,7 +64,7 @@ export const dbService = {
     }
   },
 
-  async saveWish(invitationId: number, data: { name: string; message: string }): Promise<Wish> {
+  async saveWish(invitationId: number, data: { name: string; message: string; sticker?: string }): Promise<Wish> {
     wishesCache = null;
     const response = await fetch("/api/wishes", {
       method: "POST",

@@ -6,3 +6,17 @@ export interface ThemeProps {
     isOpened: boolean;
     onOpen: () => void;
 }
+
+export type ThemeId =
+    | "luxury"
+    | "minimalist"
+    | "rustic"
+    | "floral"
+    | "boho"
+    | "monokrom"
+    | "vibrant"
+    | "dark-elegant"
+    | "royal"
+    | "islamic"
+    | "vintage"
+    | "storyboard";

@@ -1,6 +1,5 @@
-import * as React from "react";
 import { createContext, useContext, useState, useEffect } from "react";
-import type { ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 import { WEDDING_CONFIG, WEDDING_TEXT, BANK_ACCOUNTS, LOVE_STORY, GALLERY_IMAGES, MUSIC_URL, MAX_GUESTS } from "../constants";
 
 // Settings fetched from database
@@ -360,7 +359,7 @@ interface SettingsProviderProps {
     initialConfig?: AppConfig;
 }
 
-export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, invitationId = null, initialConfig }) => {
+export const SettingsProvider: FC<SettingsProviderProps> = ({ children, invitationId = null, initialConfig }) => {
     const [config, setConfig] = useState<AppConfig>(initialConfig || defaultConfig);
     const [isLoading, setIsLoading] = useState(!initialConfig);
 
