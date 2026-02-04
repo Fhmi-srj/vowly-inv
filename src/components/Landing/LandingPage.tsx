@@ -523,10 +523,12 @@ const LandingPage: React.FC = () => {
                                         <button
                                             key={idx}
                                             onClick={() => {
-                                                if (carouselRef.current) {
-                                                    const cardWidth = window.innerWidth >= 1024 ? 304 : 168; // Adjust for desktop gap
+                                                const isDesktop = window.innerWidth >= 1024;
+                                                const ref = isDesktop ? desktopCarouselRef : mobileCarouselRef;
+                                                if (ref.current) {
+                                                    const cardWidth = isDesktop ? 304 : 177;
                                                     const targetSlide = AVAILABLE_THEMES.length + idx;
-                                                    carouselRef.current.scrollTo({
+                                                    ref.current.scrollTo({
                                                         left: targetSlide * cardWidth,
                                                         behavior: 'smooth'
                                                     });
