@@ -910,8 +910,8 @@ const Navbar: FC<{ theme: "light" | "dark"; toggleTheme: () => void }> = ({ them
         { icon: Heart, label: "Couple", href: "#couple" },
         { icon: Calendar, label: "Event", href: "#event" },
         { icon: Camera, label: "Gallery", href: "#gallery" },
-        { icon: Gift, label: "Gift", href: "#gift" },
         { icon: MessageCircle, label: "RSVP", href: "#rsvp" },
+        { icon: Gift, label: "Gift", href: "#gift" },
     ];
 
     return (
@@ -1637,9 +1637,9 @@ export default function Rustic({ theme, toggleTheme, isOpened, onOpen }: ThemePr
                     <LoveStory />
                     <EventDetails />
                     <Gallery />
-                    <GiftInfo />
                     <RSVPForm />
                     <Wishes />
+                    <GiftInfo />
                     <Footer />
                     <Navbar theme={theme} toggleTheme={toggleTheme} />
 
