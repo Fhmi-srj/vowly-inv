@@ -9,7 +9,12 @@ export default defineConfig({
   site: "https://undangan-pernikahan.vercel.app",
   integrations: [react(), sitemap()],
   output: "server",
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+    edge: false, // Ensure standard serverless for better stability with postgres
+  }),
   vite: {
     plugins: [
       tailwind(),

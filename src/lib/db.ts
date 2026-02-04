@@ -206,7 +206,8 @@ export async function initializeTables() {
   }
 }
 
-// Startup
+// Startup - REMOVED for Vercel stability
+/*
 if (DATABASE_URL) {
   console.log("📍 [DB] Attempting auto-initialization...");
   initializeTables()
@@ -215,5 +216,6 @@ if (DATABASE_URL) {
 } else {
   console.warn("⚠️ [DB] No DATABASE_URL found. Initialize manually or check environment.");
 }
+*/
 
 export default sql;
