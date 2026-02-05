@@ -50,30 +50,7 @@ export async function initializeTables() {
   try {
     console.log("🚀 [DB] Initializing tables...");
 
-    // Create invitations table
-    await sql`
-            CREATE TABLE IF NOT EXISTS invitations (
-                id SERIAL PRIMARY KEY,
-                user_id INTEGER REFERENCES users(id),
-                slug VARCHAR(100) UNIQUE NOT NULL,
-                theme_id VARCHAR(50) DEFAULT 'luxury',
-                is_active BOOLEAN DEFAULT TRUE,
-                views_count INT DEFAULT 0,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        `;
-
-    // Add status column to invitations if missing
-    await sql`
-      DO $$ BEGIN
-        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='invitations' AND column_name='status') THEN
-          ALTER TABLE invitations ADD COLUMN status VARCHAR(20) DEFAULT 'inactive';
-        END IF;
-      END $$;
-    `;
-
-    // Create Users Table
+    // 1. Create Users Table FIRST (required for foreign keys)
     await sql`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
@@ -84,61 +61,62 @@ export async function initializeTables() {
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       );
     `;
+    console.log("✅ [DB] users table ready");
 
-    // Add user_id column to invitations if missing
+    // 2. Create invitations table (depends on users)
     await sql`
-      DO $$ BEGIN
-        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='invitations' AND column_name='user_id') THEN
-          ALTER TABLE invitations ADD COLUMN user_id INTEGER REFERENCES users(id);
-        ELSE
-          -- Ensure it's INTEGER even if it existed as VARCHAR
-          ALTER TABLE invitations ALTER COLUMN user_id TYPE INTEGER USING user_id::INTEGER;
-        END IF;
-      END $$;
+      CREATE TABLE IF NOT EXISTS invitations (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id),
+        slug VARCHAR(100) UNIQUE NOT NULL,
+        theme_id VARCHAR(50) DEFAULT 'luxury',
+        status VARCHAR(20) DEFAULT 'inactive',
+        is_active BOOLEAN DEFAULT TRUE,
+        views_count INT DEFAULT 0,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
     `;
+    console.log("✅ [DB] invitations table ready");
 
-    // Create rsvps table
+    // 3. Create rsvps table (depends on invitations)
     await sql`
       CREATE TABLE IF NOT EXISTS rsvps (
-                id SERIAL PRIMARY KEY,
-                invitation_id INT REFERENCES invitations(id) ON DELETE CASCADE,
-                guest_name VARCHAR(255) NOT NULL,
-                phone VARCHAR(50),
-                attendance VARCHAR(50),
-                guest_count INT,
-                message TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        `;
+        id SERIAL PRIMARY KEY,
+        invitation_id INT REFERENCES invitations(id) ON DELETE CASCADE,
+        guest_name VARCHAR(255) NOT NULL,
+        phone VARCHAR(50),
+        attendance VARCHAR(50),
+        guest_count INT,
+        message TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `;
+    console.log("✅ [DB] rsvps table ready");
 
-    // Create wishes table
+    // 4. Create wishes table (depends on invitations)
     await sql`
-            CREATE TABLE IF NOT EXISTS wishes (
-                id SERIAL PRIMARY KEY,
-                invitation_id INT REFERENCES invitations(id) ON DELETE CASCADE,
-                name VARCHAR(255) NOT NULL,
-                message TEXT NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        `;
+      CREATE TABLE IF NOT EXISTS wishes (
+        id SERIAL PRIMARY KEY,
+        invitation_id INT REFERENCES invitations(id) ON DELETE CASCADE,
+        name VARCHAR(255) NOT NULL,
+        message TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `;
+    console.log("✅ [DB] wishes table ready");
 
-    // Create invitation_settings table
+    // 5. Create invitation_settings table (depends on invitations)
     await sql`
-            CREATE TABLE IF NOT EXISTS invitation_settings (
-                invitation_id INT REFERENCES invitations(id) ON DELETE CASCADE,
-                setting_key VARCHAR(100),
-                setting_value TEXT,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                PRIMARY KEY (invitation_id, setting_key)
-            )
-        `;
-
-    // Migration logic
-    try {
-      await sql`ALTER TABLE rsvps ADD COLUMN IF NOT EXISTS invitation_id INT REFERENCES invitations(id) ON DELETE CASCADE`;
-      await sql`ALTER TABLE wishes ADD COLUMN IF NOT EXISTS invitation_id INT REFERENCES invitations(id) ON DELETE CASCADE`;
-      await sql`ALTER TABLE invitations ADD COLUMN IF NOT EXISTS theme_id VARCHAR(50) DEFAULT 'luxury'`;
-    } catch (e) { }
+      CREATE TABLE IF NOT EXISTS invitation_settings (
+        invitation_id INT REFERENCES invitations(id) ON DELETE CASCADE,
+        setting_key VARCHAR(100),
+        setting_value TEXT,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (invitation_id, setting_key)
+      )
+    `;
+    console.log("✅ [DB] invitation_settings table ready");
 
     // Admin Promotion Logic
     const adminPhone = process.env.ADMIN_PHONE;
