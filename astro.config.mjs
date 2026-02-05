@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@tailwindcss/vite";
-import vercel from "@astrojs/vercel";
+import vercel from "@astrojs/vercel/serverless";
 import sitemap from "@astrojs/sitemap";
 import { VitePWA } from "vite-plugin-pwa";
 
