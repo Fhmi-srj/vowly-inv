@@ -37,66 +37,14 @@ export const sql = DATABASE_URL
     throw new Error("DATABASE_URL is not configured.");
   }) as any;
 
-/**
- * Robustly parse the database name and a base connection URL (to 'postgres') 
- * to handle automated database creation if the target DB doesn't exist.
- */
-function parseDbInfo(urlStr: string) {
-  try {
-    const url = new URL(urlStr);
-    const dbName = url.pathname.replace(/^\//, "").split(/[?#]/)[0];
-
-    // Construct base URL for 'postgres' default database
-    url.pathname = "/postgres";
-    const baseUrl = url.toString();
-
-    return { dbName, baseUrl };
-  } catch (e) {
-    // Fallback for non-standard or malformed URLs
-    const dbName = urlStr.split("/").pop()?.split(/[?#]/)[0] || "wedding_db";
-    const baseUrl = urlStr.replace(new RegExp(`/${dbName}(\\?.*)?$`), "/postgres$1");
-    return { dbName, baseUrl };
-  }
-}
-
 // Initialize tables
 export async function initializeTables() {
   if (!DATABASE_URL) {
     console.error("⚠️ [DB] Cannot initialize: DATABASE_URL is empty.");
-    return;
+    throw new Error("DATABASE_URL is missing");
   }
 
-  const { dbName, baseUrl } = parseDbInfo(DATABASE_URL);
-
-  console.log(`🔍 [DB] Targeted database: "${dbName}"`);
-
-  // 1. Ensure Database Exists (Connect to default 'postgres' first)
-  try {
-    console.log(`� [DB] Connecting to default "postgres" to check "${dbName}"...`);
-    // Connect to system default DB
-    const tempSql = postgres(baseUrl, {
-      max: 1,
-      idle_timeout: 1,
-      connect_timeout: 5
-    });
-
-    const dbs = await tempSql`SELECT datname FROM pg_database WHERE datname = ${dbName}`;
-
-    if (dbs.length === 0) {
-      console.log(`✨ [DB] Database "${dbName}" missing. Creating...`);
-      await tempSql.unsafe(`CREATE DATABASE ${dbName}`);
-      console.log(`🎉 [DB] Database "${dbName}" created successfully!`);
-    } else {
-      console.log(`✅ [DB] Database "${dbName}" exists.`);
-    }
-    await tempSql.end();
-  } catch (err: any) {
-    console.warn("⚠️ [DB] Warning during database check:", err.message);
-    // If it's a connection error to 'postgres', we might not be able to auto-create
-    if (err.message.includes("does not exist") && err.message.includes("postgres")) {
-      console.error("🚨 [DB] Fatal: Default 'postgres' database not found on server.");
-    }
-  }
+  console.log("🚀 [DB] Starting table initialization...");
 
   // 2. Initialize Tables (Connect to the actual target DB)
   try {
