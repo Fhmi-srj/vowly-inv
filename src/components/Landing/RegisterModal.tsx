@@ -126,12 +126,12 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
             `}</style>
 
             <div className={`fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
-                <div 
+                <div
                     className={`absolute inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
                     onClick={handleClose}
                 ></div>
 
-                <div className={`relative w-full max-w-lg overflow-hidden rounded-3xl sm:rounded-[2.5rem] bg-white shadow-2xl dark:bg-slate-900 border border-slate-100 dark:border-white/5 max-h-[95vh] overflow-y-auto transition-all duration-300 ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}>
+                <div className={`relative w-full max-w-lg overflow-hidden rounded-3xl sm:rounded-[2.5rem] bg-white shadow-2xl border border-pink-100 max-h-[95vh] overflow-y-auto transition-all duration-300 ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}>
                     <button
                         onClick={handleClose}
                         className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 transition-colors z-10"
@@ -141,8 +141,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
 
                     <div className="p-6 sm:p-8 md:p-12">
                         <div className={`flex flex-col items-center text-center mb-8 sm:mb-10 transition-all duration-300 ${isAnimating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
-                            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-4 sm:mb-6">
-                                <Heart className="h-7 w-7 sm:h-8 sm:w-8 animate-pulse" />
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-pink-50 rounded-3xl flex items-center justify-center p-2 mb-4 sm:mb-6">
+                                <img src="/logo-vowly.png" alt="Vowly Logo" className="w-full h-full object-contain" />
                             </div>
                             <h2 className="text-2xl sm:text-3xl font-serif italic font-bold mb-2">
                                 {mode === "register" ? "Mulailah Kebahagiaan Anda" : "Selamat Datang Kembali"}
@@ -165,7 +165,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
                                 <div className="space-y-1.5 animate-fadeIn">
                                     <label className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1">Nama Lengkap</label>
                                     <div className="relative group">
-                                        <User className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" />
+                                        <User className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-pink-500 transition-colors" />
                                         <input
                                             type="text"
                                             name="fullName"
@@ -173,7 +173,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
                                             value={formData.fullName}
                                             onChange={handleChange}
                                             placeholder="Nama Anda"
-                                            className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                                            className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-pink-50/50 border border-pink-100 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
                                         />
                                     </div>
                                 </div>
@@ -182,7 +182,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
                             <div className="space-y-1.5 animate-fadeIn" style={{ animationDelay: mode === "register" ? "50ms" : "0ms" }}>
                                 <label className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1">Nomor HP (WhatsApp)</label>
                                 <div className="relative group">
-                                    <Smartphone className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" />
+                                    <Smartphone className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-pink-500 transition-colors" />
                                     <input
                                         type="tel"
                                         name="phone"
@@ -190,7 +190,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
                                         value={formData.phone}
                                         onChange={handleChange}
                                         placeholder="081234567890"
-                                        className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                                        className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-pink-50/50 border border-pink-100 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
                                     />
                                 </div>
                             </div>
@@ -199,7 +199,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
                                 <div className="space-y-1.5 animate-fadeIn" style={{ animationDelay: "100ms" }}>
                                     <label className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1">Subdomain / Slug</label>
                                     <div className="relative group">
-                                        <Globe className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" />
+                                        <Globe className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-pink-500 transition-colors" />
                                         <input
                                             type="text"
                                             name="slug"
@@ -207,7 +207,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
                                             value={formData.slug}
                                             onChange={handleChange}
                                             placeholder="nama-pasangan"
-                                            className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                                            className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-pink-50/50 border border-pink-100 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
                                         />
                                     </div>
                                     <p className="text-[9px] sm:text-[10px] text-slate-400 ml-1 mt-1 italic">Hasilnya akan: vowly.com/nama-pasangan</p>
@@ -217,7 +217,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
                             <div className="space-y-1.5 animate-fadeIn" style={{ animationDelay: mode === "register" ? "150ms" : "50ms" }}>
                                 <label className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1">Password</label>
                                 <div className="relative group">
-                                    <Lock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" />
+                                    <Lock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-pink-500 transition-colors" />
                                     <input
                                         type="password"
                                         name="password"
@@ -225,7 +225,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
                                         value={formData.password}
                                         onChange={handleChange}
                                         placeholder="••••••••"
-                                        className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                                        className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-pink-50/50 border border-pink-100 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
                                     />
                                 </div>
                             </div>
@@ -233,7 +233,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full py-4 sm:py-5 bg-primary text-white rounded-xl sm:rounded-2xl font-bold tracking-widest uppercase text-xs sm:text-sm shadow-luxury hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-95 disabled:opacity-50 disabled:translate-y-0 flex items-center justify-center gap-2 sm:gap-3 animate-fadeIn"
+                                className="w-full py-4 sm:py-5 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl sm:rounded-2xl font-bold tracking-widest uppercase text-xs sm:text-sm shadow-lg shadow-pink-200 hover:shadow-2xl hover:shadow-pink-300 hover:-translate-y-1 transition-all active:scale-95 disabled:opacity-50 disabled:translate-y-0 flex items-center justify-center gap-2 sm:gap-3 animate-fadeIn cursor-pointer"
                                 style={{ animationDelay: mode === "register" ? "200ms" : "100ms" }}
                             >
                                 {isLoading ? <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" /> : mode === "register" ? "DAFTAR SEKARANG" : "MASUK KE DASHBOARD"}
@@ -245,7 +245,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
                                 {mode === "register" ? "Sudah memiliki akun?" : "Belum memiliki akun?"}{" "}
                                 <button
                                     onClick={() => handleModeSwitch(mode === "register" ? "login" : "register")}
-                                    className="text-primary font-bold hover:underline transition-all hover:scale-105 inline-block"
+                                    className="text-pink-500 font-bold hover:underline transition-all hover:scale-105 inline-block"
                                 >
                                     {mode === "register" ? "Masuk di sini" : "Daftar di sini"}
                                 </button>

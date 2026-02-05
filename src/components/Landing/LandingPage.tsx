@@ -185,13 +185,13 @@ const LandingPage: React.FC = () => {
     const activeIndex = currentSlide % AVAILABLE_THEMES.length;
 
     return (
-        <div className="bg-white dark:bg-slate-950 text-slate-900 dark:text-white selection:bg-accent/30 selection:text-primary">
+        <div className="bg-gradient-to-b from-white to-pink-50/30 text-slate-900 selection:bg-pink-200/50 selection:text-pink-700">
             {/* Navbar */}
-            <nav className="fixed top-0 left-0 right-0 z-[100] backdrop-blur-md bg-white/70 dark:bg-slate-950/70 border-b border-slate-100 dark:border-white/5">
+            <nav className="fixed top-0 left-0 right-0 z-[100] backdrop-blur-md bg-white/80 border-b border-pink-100/50">
                 <div className="container mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <Heart className="h-5 w-5 md:h-6 md:w-6 text-primary animate-pulse" />
-                        <span className="font-serif text-xl md:text-2xl italic font-bold tracking-tighter">Vowly</span>
+                    <div className="flex items-center gap-3">
+                        <img src="/logo-vowly.png" alt="Vowly Logo" className="h-8 md:h-10 w-auto object-contain" />
+                        <span className="font-serif text-xl md:text-2xl italic font-bold tracking-tighter text-pink-600">Vowly</span>
                     </div>
 
                     {/* Desktop Menu */}
@@ -202,7 +202,7 @@ const LandingPage: React.FC = () => {
                         <a href="#faq" className="hover:text-primary transition-colors">FAQ</a>
                         <button
                             onClick={() => openRegister()}
-                            className="px-6 py-2.5 bg-primary text-white rounded-full hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+                            className="px-6 py-2.5 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-full hover:shadow-lg hover:shadow-pink-200 transition-all active:scale-95 cursor-pointer"
                         >
                             Buat Undangan
                         </button>
@@ -212,7 +212,7 @@ const LandingPage: React.FC = () => {
                     <div className="md:hidden flex items-center gap-2">
                         <button
                             onClick={() => openRegister()}
-                            className="px-4 py-2 text-xs bg-primary text-white rounded-full hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+                            className="px-4 py-2 text-xs bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-full hover:shadow-lg transition-all active:scale-95 cursor-pointer"
                         >
                             Buat
                         </button>
@@ -291,19 +291,19 @@ const LandingPage: React.FC = () => {
             {/* Hero Section */}
             <section className="relative pt-20 pb-12 md:pt-48 md:pb-40 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
-                    <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-primary/10 rounded-full blur-[120px] -mr-40 -mt-40 animate-pulse"></div>
-                    <div className="absolute bottom-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-accent/10 rounded-full blur-[120px] -ml-40 -mb-40"></div>
+                    <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-pink-300/20 rounded-full blur-[120px] -mr-40 -mt-40 animate-pulse"></div>
+                    <div className="absolute bottom-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-pink-200/20 rounded-full blur-[120px] -ml-40 -mb-40"></div>
                 </div>
 
                 <div className="container mx-auto px-4 sm:px-6 text-center space-y-4 md:space-y-12">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-slate-50 dark:bg-white/5 rounded-full border border-slate-100 dark:border-white/10 animate-reveal">
-                        <Sparkles className="h-3 w-3 md:h-4 md:w-4 text-accent" />
-                        <span className="text-[9px] md:text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400">Digital Wedding Invitation</span>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-pink-50 rounded-full border border-pink-100 animate-reveal">
+                        <Sparkles className="h-3 w-3 md:h-4 md:w-4 text-pink-500" />
+                        <span className="text-[9px] md:text-xs font-bold tracking-widest uppercase text-pink-600">Digital Wedding Invitation</span>
                     </div>
 
-                    <h1 className="font-serif text-3xl sm:text-5xl md:text-8xl lg:text-[10rem] leading-[0.95] md:leading-[0.85] tracking-tighter italic animate-reveal" style={{ animationDelay: "200ms" }}>
+                    <h1 className="font-serif text-3xl sm:text-5xl md:text-8xl lg:text-[10rem] leading-[0.95] md:leading-[0.85] tracking-tighter italic animate-reveal text-gray-800" style={{ animationDelay: "200ms" }}>
                         Abadikan Momen <br />
-                        <span className="text-primary italic">Cinta</span> Selamanya
+                        <span className="text-pink-500 italic">Cinta</span> Selamanya
                     </h1>
 
                     <p className="max-w-2xl mx-auto text-slate-500 dark:text-slate-300 text-sm sm:text-base md:text-xl animate-reveal leading-relaxed px-2" style={{ animationDelay: "400ms" }}>
@@ -313,11 +313,11 @@ const LandingPage: React.FC = () => {
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-6 animate-reveal px-4" style={{ animationDelay: "600ms" }}>
                         <button
                             onClick={() => openRegister()}
-                            className="w-full sm:w-auto px-6 md:px-10 py-3 md:py-5 bg-primary text-white rounded-xl md:rounded-2xl text-sm md:text-base font-bold tracking-luxury hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+                            className="w-full sm:w-auto px-6 md:px-10 py-3 md:py-5 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl md:rounded-2xl text-sm md:text-base font-bold tracking-luxury hover:shadow-2xl hover:shadow-pink-200 hover:-translate-y-1 transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
                         >
                             Mulai Buat Sekarang <ChevronRight className="h-4 w-4" />
                         </button>
-                        <a href="#templates" className="w-full sm:w-auto px-6 md:px-10 py-3 md:py-5 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl md:rounded-2xl text-sm md:text-base font-bold tracking-luxury transition-all hover:bg-slate-50 dark:hover:bg-white/10 text-center">
+                        <a href="#templates" className="w-full sm:w-auto px-6 md:px-10 py-3 md:py-5 bg-white border border-pink-200 rounded-xl md:rounded-2xl text-sm md:text-base font-bold tracking-luxury transition-all hover:bg-pink-50 text-center text-pink-600">
                             Lihat Demo
                         </a>
                     </div>
@@ -325,7 +325,7 @@ const LandingPage: React.FC = () => {
             </section>
 
             {/* Features Section */}
-            <section id="features" className="py-12 md:py-40 bg-slate-50/50 dark:bg-white/[0.02]">
+            <section id="features" className="py-12 md:py-40 bg-pink-50/50">
                 <div className="container mx-auto px-4 sm:px-6">
                     <div className="max-w-3xl mb-8 md:mb-24">
                         <h2 className="font-serif text-2xl sm:text-4xl md:text-6xl text-slate-900 dark:text-white italic mb-3 md:mb-6">
@@ -345,8 +345,8 @@ const LandingPage: React.FC = () => {
                             { icon: Calendar, title: "Add to Calendar", desc: "Tamu dapat menyimpan jadwal ke Google Calendar atau iCal." },
                             { icon: ShieldCheck, title: "Digital Greeting", desc: "Fitur nama tamu khusus untuk setiap link yang dibagikan." },
                         ].map((feature, idx) => (
-                            <div key={idx} className="bg-white dark:bg-slate-800/40 p-4 md:p-10 rounded-xl md:rounded-[2.5rem] border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group backdrop-blur-sm">
-                                <div className="w-10 h-10 md:w-16 md:h-16 bg-primary/5 dark:bg-primary/20 rounded-lg md:rounded-2xl flex items-center justify-center text-primary mb-3 md:mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                            <div key={idx} className="bg-white p-4 md:p-10 rounded-xl md:rounded-[2.5rem] border border-pink-100 shadow-sm hover:shadow-xl hover:shadow-pink-100 hover:-translate-y-2 transition-all duration-500 group backdrop-blur-sm">
+                                <div className="w-10 h-10 md:w-16 md:h-16 bg-pink-50 rounded-lg md:rounded-2xl flex items-center justify-center text-pink-500 mb-3 md:mb-8 group-hover:bg-pink-500 group-hover:text-white transition-colors duration-500">
                                     <feature.icon className="h-5 w-5 md:h-8 md:w-8" />
                                 </div>
                                 <h3 className="text-xs md:text-xl font-bold mb-1.5 md:mb-4 leading-tight">{feature.title}</h3>
@@ -382,7 +382,7 @@ const LandingPage: React.FC = () => {
                                         <div key={`${theme.id}-${idx}`} className="flex-shrink-0 w-[165px] snap-center">
                                             <div className="bg-white dark:bg-slate-800/60 rounded-2xl p-3 shadow-lg border border-slate-100 dark:border-white/10">
                                                 {/* Theme Preview */}
-                                                <div className="relative aspect-[9/14] overflow-hidden rounded-xl mb-2.5 shadow-md">
+                                                <div className="relative aspect-square overflow-hidden rounded-xl mb-2.5 shadow-md">
                                                     <img
                                                         src={theme.preview}
                                                         alt={theme.name}
@@ -398,7 +398,7 @@ const LandingPage: React.FC = () => {
                                                     <a
                                                         href={`/demo-${theme.id}`}
                                                         target="_blank"
-                                                        className="w-full py-2 bg-slate-900 dark:bg-slate-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-slate-800 transition-colors"
+                                                        className="w-full py-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:shadow-lg transition-colors"
                                                     >
                                                         Lihat Demo <ExternalLink className="h-3 w-3" />
                                                     </a>
@@ -419,7 +419,7 @@ const LandingPage: React.FC = () => {
                             <div className="flex justify-center items-center gap-3 mt-5">
                                 <button
                                     onClick={scrollToPrev}
-                                    className="w-11 h-11 rounded-full bg-slate-900 dark:bg-slate-700 text-white flex items-center justify-center shadow-lg hover:bg-slate-800 transition-all active:scale-95"
+                                    className="w-11 h-11 rounded-full bg-gradient-to-r from-pink-500 to-pink-600 text-white flex items-center justify-center shadow-lg hover:shadow-pink-200 transition-all active:scale-95"
                                 >
                                     <ChevronRight className="h-5 w-5 rotate-180" />
                                 </button>
@@ -430,8 +430,8 @@ const LandingPage: React.FC = () => {
                                         <div
                                             key={idx}
                                             className={`h-2 rounded-full transition-all ${idx === activeIndex
-                                                ? 'bg-slate-900 dark:bg-slate-300 w-6'
-                                                : 'bg-slate-300 dark:bg-slate-600 w-2'
+                                                ? 'bg-pink-500 w-6'
+                                                : 'bg-pink-200 w-2'
                                                 }`}
                                         />
                                     ))}
@@ -439,7 +439,7 @@ const LandingPage: React.FC = () => {
 
                                 <button
                                     onClick={scrollToNext}
-                                    className="w-11 h-11 rounded-full bg-slate-900 dark:bg-slate-700 text-white flex items-center justify-center shadow-lg hover:bg-slate-800 transition-all active:scale-95"
+                                    className="w-11 h-11 rounded-full bg-gradient-to-r from-pink-500 to-pink-600 text-white flex items-center justify-center shadow-lg hover:shadow-pink-200 transition-all active:scale-95"
                                 >
                                     <ChevronRight className="h-5 w-5" />
                                 </button>
@@ -450,7 +450,7 @@ const LandingPage: React.FC = () => {
                         <div className="text-center mt-6">
                             <button
                                 onClick={() => openRegister()}
-                                className="px-8 py-3 bg-slate-900 dark:bg-slate-700 text-white rounded-xl font-bold hover:bg-slate-800 dark:hover:bg-slate-600 transition-colors text-sm flex items-center gap-2 mx-auto"
+                                className="px-8 py-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl font-bold hover:shadow-lg hover:shadow-pink-200 transition-colors text-sm flex items-center gap-2 mx-auto"
                             >
                                 <Heart className="h-4 w-4" /> Lihat Semua Tema
                             </button>
@@ -472,7 +472,7 @@ const LandingPage: React.FC = () => {
                                         <div key={`${theme.id}-${idx}`} className="flex-shrink-0 w-[280px] snap-center group">
                                             <div className="bg-white dark:bg-slate-800/60 rounded-[2.5rem] p-6 shadow-xl border border-slate-100 dark:border-white/10 hover:shadow-2xl transition-all duration-500">
                                                 {/* Theme Preview */}
-                                                <div className="relative aspect-[9/14] overflow-hidden rounded-[1.5rem] mb-6 shadow-lg">
+                                                <div className="relative aspect-square overflow-hidden rounded-[1.5rem] mb-6 shadow-lg">
                                                     <img
                                                         src={theme.preview}
                                                         alt={theme.name}
@@ -512,13 +512,13 @@ const LandingPage: React.FC = () => {
                             <div className="flex justify-center items-center gap-6 mt-12">
                                 <button
                                     onClick={scrollToPrev}
-                                    className="w-14 h-14 rounded-full bg-slate-900 dark:bg-slate-700 text-white flex items-center justify-center shadow-xl hover:bg-slate-800 transition-all active:scale-90 hover:scale-105"
+                                    className="w-14 h-14 rounded-full bg-gradient-to-r from-pink-500 to-pink-600 text-white flex items-center justify-center shadow-xl hover:shadow-pink-200 transition-all active:scale-90 hover:scale-105"
                                 >
                                     <ChevronRight className="h-6 w-6 rotate-180" />
                                 </button>
 
                                 {/* Pagination Dots */}
-                                <div className="flex gap-2.5 px-6 py-3 bg-slate-100 dark:bg-white/5 rounded-full">
+                                <div className="flex gap-2.5 px-6 py-3 bg-pink-50 rounded-full">
                                     {AVAILABLE_THEMES.map((_, idx) => (
                                         <button
                                             key={idx}
@@ -536,8 +536,8 @@ const LandingPage: React.FC = () => {
                                                 }
                                             }}
                                             className={`h-2.5 rounded-full transition-all duration-500 ${idx === activeIndex
-                                                ? 'bg-slate-900 dark:bg-slate-300 w-10'
-                                                : 'bg-slate-300 dark:bg-slate-600 w-2.5 hover:bg-slate-400'
+                                                ? 'bg-pink-500 w-10'
+                                                : 'bg-pink-200 w-2.5 hover:bg-pink-300'
                                                 }`}
                                         />
                                     ))}
@@ -545,7 +545,7 @@ const LandingPage: React.FC = () => {
 
                                 <button
                                     onClick={scrollToNext}
-                                    className="w-14 h-14 rounded-full bg-slate-900 dark:bg-slate-700 text-white flex items-center justify-center shadow-xl hover:bg-slate-800 transition-all active:scale-90 hover:scale-105"
+                                    className="w-14 h-14 rounded-full bg-gradient-to-r from-pink-500 to-pink-600 text-white flex items-center justify-center shadow-xl hover:shadow-pink-200 transition-all active:scale-90 hover:scale-105"
                                 >
                                     <ChevronRight className="h-6 w-6" />
                                 </button>
@@ -562,22 +562,22 @@ const LandingPage: React.FC = () => {
 
                     <div className="max-w-5xl mx-auto grid grid-cols-2 gap-3 md:gap-8 items-stretch">
                         {/* Basic Plan */}
-                        <div className="bg-white dark:bg-slate-800/40 p-4 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-slate-100 dark:border-white/10 flex flex-col items-center backdrop-blur-sm shadow-xl">
-                            <span className="px-2 py-1 md:px-4 md:py-1.5 bg-slate-100 dark:bg-white/10 rounded-full text-[8px] md:text-[10px] font-bold tracking-widest uppercase mb-3 md:mb-8">Basic</span>
-                            <div className="text-xl md:text-5xl font-bold mb-1 md:mb-4 text-slate-900 dark:text-white">Gratis</div>
-                            <p className="text-slate-500 dark:text-slate-300 text-[10px] md:text-base mb-4 md:mb-10 text-center leading-tight">Coba fitur dasar</p>
+                        <div className="bg-white p-4 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-pink-100 flex flex-col items-center backdrop-blur-sm shadow-xl">
+                            <span className="px-2 py-1 md:px-4 md:py-1.5 bg-pink-50 rounded-full text-[8px] md:text-[10px] font-bold tracking-widest uppercase mb-3 md:mb-8 text-pink-600">Basic</span>
+                            <div className="text-xl md:text-5xl font-bold mb-1 md:mb-4 text-slate-900">Gratis</div>
+                            <p className="text-slate-500 text-[10px] md:text-base mb-4 md:mb-10 text-center leading-tight">Coba fitur dasar</p>
                             <ul className="space-y-1.5 md:space-y-4 text-left w-full mb-4 md:mb-12">
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm text-slate-600 dark:text-slate-200"><Zap className="h-3 w-3 md:h-4 md:w-4 text-primary flex-shrink-0 mt-0.5" /> <span className="leading-tight">Desain Standar</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm text-slate-600 dark:text-slate-200"><Zap className="h-3 w-3 md:h-4 md:w-4 text-primary flex-shrink-0 mt-0.5" /> <span className="leading-tight">RSVP Management</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm text-slate-600 dark:text-slate-200"><Zap className="h-3 w-3 md:h-4 md:w-4 text-primary flex-shrink-0 mt-0.5" /> <span className="leading-tight">Aktif 7 Hari</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm opacity-20 dark:opacity-40 line-through grayscale"><Zap className="h-3 w-3 md:h-4 md:w-4 text-slate-300 flex-shrink-0 mt-0.5" /> <span className="leading-tight">Music</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm opacity-20 dark:opacity-40 line-through grayscale"><Zap className="h-3 w-3 md:h-4 md:w-4 text-slate-300 flex-shrink-0 mt-0.5" /> <span className="leading-tight">Gallery</span></li>
+                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm text-slate-600"><Zap className="h-3 w-3 md:h-4 md:w-4 text-pink-500 flex-shrink-0 mt-0.5" /> <span className="leading-tight">Desain Standar</span></li>
+                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm text-slate-600"><Zap className="h-3 w-3 md:h-4 md:w-4 text-pink-500 flex-shrink-0 mt-0.5" /> <span className="leading-tight">RSVP Management</span></li>
+                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm text-slate-600"><Zap className="h-3 w-3 md:h-4 md:w-4 text-pink-500 flex-shrink-0 mt-0.5" /> <span className="leading-tight">Aktif 7 Hari</span></li>
+                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm opacity-20 line-through grayscale"><Zap className="h-3 w-3 md:h-4 md:w-4 text-slate-300 flex-shrink-0 mt-0.5" /> <span className="leading-tight">Music</span></li>
+                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm opacity-20 line-through grayscale"><Zap className="h-3 w-3 md:h-4 md:w-4 text-slate-300 flex-shrink-0 mt-0.5" /> <span className="leading-tight">Gallery</span></li>
                             </ul>
-                            <a href="/admin" className="w-full py-2.5 md:py-4 text-xs md:text-base rounded-xl md:rounded-2xl border border-slate-200 dark:border-white/10 font-bold hover:bg-slate-50 dark:hover:bg-white/10 transition-all mt-auto text-slate-900 dark:text-slate-200">Pilih</a>
+                            <a href="/admin" className="w-full py-2.5 md:py-4 text-xs md:text-base rounded-xl md:rounded-2xl border border-pink-200 font-bold hover:bg-pink-50 transition-all mt-auto text-pink-600 text-center">Pilih</a>
                         </div>
 
                         {/* Premium Plan */}
-                        <div className="bg-primary p-4 md:p-12 rounded-2xl md:rounded-[3.5rem] text-white flex flex-col items-center relative overflow-hidden shadow-2xl scale-[1.02] md:scale-105">
+                        <div className="bg-gradient-to-br from-pink-500 to-pink-600 p-4 md:p-12 rounded-2xl md:rounded-[3.5rem] text-white flex flex-col items-center relative overflow-hidden shadow-2xl shadow-pink-200 scale-[1.02] md:scale-105">
                             <div className="absolute top-0 right-0 bg-white/20 px-2 md:px-6 py-0.5 md:py-2 rounded-bl-xl md:rounded-bl-3xl text-[8px] md:text-[10px] font-black tracking-widest uppercase">Best</div>
                             <span className="px-2 py-1 md:px-4 md:py-1.5 bg-white/20 rounded-full text-[8px] md:text-[10px] font-bold tracking-widest uppercase mb-3 md:mb-8">Premium</span>
                             <div className="text-xl md:text-5xl font-bold mb-1 md:mb-4">149K</div>
@@ -591,7 +591,7 @@ const LandingPage: React.FC = () => {
                             </ul>
                             <button
                                 onClick={() => openRegister()}
-                                className="w-full py-2.5 md:py-4 text-xs md:text-base bg-white text-primary rounded-xl md:rounded-2xl font-bold hover:shadow-xl transition-all hover:scale-[1.02] mt-auto"
+                                className="w-full py-2.5 md:py-4 text-xs md:text-base bg-white text-pink-600 rounded-xl md:rounded-2xl font-bold hover:shadow-xl transition-all hover:scale-[1.02] mt-auto cursor-pointer"
                             >
                                 Mulai
                             </button>
@@ -607,7 +607,7 @@ const LandingPage: React.FC = () => {
             </section>
 
             {/* FAQ Section */}
-            <section id="faq" className="py-12 md:py-40 bg-slate-50/50 dark:bg-white/[0.02]">
+            <section id="faq" className="py-12 md:py-40 bg-pink-50/50">
                 <div className="container mx-auto px-4 sm:px-6">
                     <div className="text-center max-w-3xl mx-auto mb-12 md:mb-24">
                         <h2 className="font-serif text-2xl sm:text-4xl md:text-7xl italic mb-3 md:mb-6">Pertanyaan Sering Diajukan</h2>
@@ -658,13 +658,13 @@ const LandingPage: React.FC = () => {
             </section>
 
             {/* Footer */}
-            <footer className="py-10 md:py-20 border-t border-slate-100 dark:border-white/5">
+            <footer className="py-10 md:py-20 border-t border-pink-100">
                 <div className="container mx-auto px-4 sm:px-6">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-10">
                         <div className="space-y-2 md:space-y-4 text-center md:text-left">
-                            <div className="flex items-center justify-center md:justify-start gap-2">
-                                <Heart className="h-4 w-4 md:h-5 md:w-5 text-primary" />
-                                <span className="font-serif text-lg md:text-xl italic font-bold">Vowly</span>
+                            <div className="flex items-center justify-center md:justify-start gap-3">
+                                <img src="/logo-vowly.png" alt="Vowly Logo" className="h-6 md:h-8 w-auto object-contain" />
+                                <span className="font-serif text-lg md:text-xl italic font-bold text-pink-600">Vowly</span>
                             </div>
                             <p className="text-slate-400 dark:text-slate-300 text-xs md:text-sm max-w-xs">Mewujudkan undangan impian Anda menjadi kenyataan digital.</p>
                         </div>

@@ -2,13 +2,20 @@
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Colors */
-  --color-primary: #0f172a;
-  --color-secondary: #fafaf9;
-  --color-accent: #7dd3fc;
-  --color-accentDark: #075985;
-  --color-darkBg: #020617;
-  --color-darkSurface: #0f172a;
+  /* Primary Colors - Soft Pink & White */
+  --color-primary: #E91E8C;
+  --color-primary-soft: #F8BBD9;
+  --color-primary-light: #FCE4EC;
+  --color-secondary: #FFFFFF;
+  --color-accent: #F8BBD9;
+  --color-accentDark: #C2185B;
+  --color-darkBg: #FFF5F8;
+  --color-darkSurface: #FFFFFF;
+  
+  /* Text Colors */
+  --color-text-primary: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-rose-gold: #B76E79;
 
   /* Fonts */
   --font-serif: "Cormorant Garamond", serif;
