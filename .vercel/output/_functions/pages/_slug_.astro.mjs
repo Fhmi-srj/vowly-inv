@@ -1,8 +1,8 @@
 import { e as createAstro, f as createComponent, k as renderComponent, r as renderTemplate } from '../chunks/astro/server_izSyb1tO.mjs';
 import 'piccolore';
 import { $ as $$Layout } from '../chunks/Layout_C3XU2xVI.mjs';
-import { s as sql } from '../chunks/db_DVtNYTj_.mjs';
-import { s as settingsToConfig, d as defaultSettings, g as getSettings } from '../chunks/getSettings_Cs75FrNN.mjs';
+import { s as sql } from '../chunks/db_DAiex9Tg.mjs';
+import { s as settingsToConfig, d as defaultSettings, g as getSettings } from '../chunks/getSettings_C3FqBBS_.mjs';
 import { T as ThemeRegistry } from '../chunks/index_DEFKcdjj.mjs';
 export { renderers } from '../renderers.mjs';
 

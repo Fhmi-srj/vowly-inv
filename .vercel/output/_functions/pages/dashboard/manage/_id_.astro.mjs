@@ -1,8 +1,8 @@
 import { e as createAstro, f as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_izSyb1tO.mjs';
 import 'piccolore';
 import { a as activeTabStore, $ as $$UserLayout } from '../../../chunks/UserLayout_D-pStfLk.mjs';
-import { s as sql } from '../../../chunks/db_DVtNYTj_.mjs';
-import { g as getSettings, d as defaultSettings } from '../../../chunks/getSettings_Cs75FrNN.mjs';
+import { s as sql } from '../../../chunks/db_DAiex9Tg.mjs';
+import { g as getSettings, d as defaultSettings } from '../../../chunks/getSettings_C3FqBBS_.mjs';
 import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
 import * as React from 'react';
 import { useState, useRef, useMemo, useEffect } from 'react';

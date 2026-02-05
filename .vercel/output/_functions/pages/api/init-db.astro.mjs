@@ -1,4 +1,4 @@
-import { i as initializeTables } from '../../chunks/db_DVtNYTj_.mjs';
+import { i as initializeTables } from '../../chunks/db_DAiex9Tg.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const GET = async () => {

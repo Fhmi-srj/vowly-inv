@@ -1,15 +1,17 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@tailwindcss/vite";
-import vercel from "@astrojs/vercel";
+import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
-  site: "https://undangan-pernikahan.vercel.app",
+  site: "https://vowly.app", // Update this to your actual domain
   integrations: [react(), sitemap()],
   output: "server",
-  adapter: vercel(),
+  adapter: node({
+    mode: "standalone"
+  }),
   vite: {
     plugins: [
       tailwind(),

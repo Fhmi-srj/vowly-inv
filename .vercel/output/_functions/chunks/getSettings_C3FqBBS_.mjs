@@ -1,4 +1,4 @@
-import { s as sql } from './db_DVtNYTj_.mjs';
+import { s as sql } from './db_DAiex9Tg.mjs';
 import { a as WEDDING_TEXT, G as GALLERY_IMAGES, L as LOVE_STORY, B as BANK_ACCOUNTS, W as WEDDING_CONFIG, M as MUSIC_URL, b as MAX_GUESTS } from './constants_DNnL6zYp.mjs';
 
 const defaultSettings = {
