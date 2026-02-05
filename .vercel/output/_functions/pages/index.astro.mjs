@@ -1,9 +1,9 @@
 import { f as createComponent, k as renderComponent, r as renderTemplate } from '../chunks/astro/server_izSyb1tO.mjs';
 import 'piccolore';
 import { $ as $$Layout } from '../chunks/Layout_C3XU2xVI.mjs';
-import { jsxs, jsx } from 'react/jsx-runtime';
+import { jsxs, Fragment, jsx } from 'react/jsx-runtime';
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Heart, User, Smartphone, Globe, Lock, Loader2, Sparkles, ChevronRight, Music, Image, MessageSquare, Calendar, ShieldCheck, ExternalLink, Zap, Star, Minus, Plus } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { A as AVAILABLE_THEMES } from '../chunks/index_DEFKcdjj.mjs';
@@ -13,13 +13,34 @@ const RegisterModal = ({ isOpen, onClose, selectedTheme }) => {
   const [mode, setMode] = useState("register");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
     password: "",
     slug: ""
   });
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(true);
+    } else {
+      const timer = setTimeout(() => setIsVisible(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+  if (!isVisible) return null;
+  const handleModeSwitch = (newMode) => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setMode(newMode);
+      setError("");
+      setTimeout(() => setIsAnimating(false), 50);
+    }, 200);
+  };
+  const handleClose = () => {
+    onClose();
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -53,120 +74,161 @@ const RegisterModal = ({ isOpen, onClose, selectedTheme }) => {
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  return /* @__PURE__ */ jsxs("div", { className: "fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-4", children: [
-    /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-slate-950/60 backdrop-blur-md", onClick: onClose }),
-    /* @__PURE__ */ jsxs("div", { className: "relative w-full max-w-lg animate-reveal overflow-hidden rounded-3xl sm:rounded-[2.5rem] bg-white shadow-2xl dark:bg-slate-900 border border-slate-100 dark:border-white/5 max-h-[95vh] overflow-y-auto", children: [
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx("style", { children: `
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(10px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                @keyframes shake {
+                    0%, 100% { 
+                        transform: translateX(0); 
+                    }
+                    25% { 
+                        transform: translateX(-5px); 
+                    }
+                    75% { 
+                        transform: translateX(5px); 
+                    }
+                }
+
+                .animate-fadeIn {
+                    animation: fadeIn 0.4s ease-out forwards;
+                }
+
+                .animate-shake {
+                    animation: shake 0.3s ease-in-out;
+                }
+            ` }),
+    /* @__PURE__ */ jsxs("div", { className: `fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`, children: [
       /* @__PURE__ */ jsx(
-        "button",
+        "div",
         {
-          onClick: onClose,
-          className: "absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 transition-colors z-10",
-          children: /* @__PURE__ */ jsx(X, { className: "h-4 w-4 sm:h-5 sm:w-5 text-slate-400" })
+          className: `absolute inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`,
+          onClick: handleClose
         }
       ),
-      /* @__PURE__ */ jsxs("div", { className: "p-6 sm:p-8 md:p-12", children: [
-        /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center text-center mb-8 sm:mb-10", children: [
-          /* @__PURE__ */ jsx("div", { className: "w-14 h-14 sm:w-16 sm:h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-4 sm:mb-6", children: /* @__PURE__ */ jsx(Heart, { className: "h-7 w-7 sm:h-8 sm:w-8 animate-pulse" }) }),
-          /* @__PURE__ */ jsx("h2", { className: "text-2xl sm:text-3xl font-serif italic font-bold mb-2", children: mode === "register" ? "Mulailah Kebahagiaan Anda" : "Selamat Datang Kembali" }),
-          /* @__PURE__ */ jsx("p", { className: "text-sm sm:text-base text-slate-500 dark:text-slate-400 px-2", children: mode === "register" ? "Daftar sekarang untuk membuat undangan digital impian Anda." : "Masuk untuk mengelola undangan Anda." })
-        ] }),
-        /* @__PURE__ */ jsxs("form", { onSubmit: handleSubmit, className: "space-y-4 sm:space-y-5", children: [
-          error && /* @__PURE__ */ jsx("div", { className: "p-3 sm:p-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs sm:text-sm rounded-xl border border-red-100 dark:border-red-900/30", children: error }),
-          mode === "register" && /* @__PURE__ */ jsxs("div", { className: "space-y-1.5", children: [
-            /* @__PURE__ */ jsx("label", { className: "text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1", children: "Nama Lengkap" }),
-            /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
-              /* @__PURE__ */ jsx(User, { className: "absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" }),
-              /* @__PURE__ */ jsx(
-                "input",
-                {
-                  type: "text",
-                  name: "fullName",
-                  required: true,
-                  value: formData.fullName,
-                  onChange: handleChange,
-                  placeholder: "Nama Anda",
-                  className: "w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                }
-              )
-            ] })
+      /* @__PURE__ */ jsxs("div", { className: `relative w-full max-w-lg overflow-hidden rounded-3xl sm:rounded-[2.5rem] bg-white shadow-2xl dark:bg-slate-900 border border-slate-100 dark:border-white/5 max-h-[95vh] overflow-y-auto transition-all duration-300 ${isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-4"}`, children: [
+        /* @__PURE__ */ jsx(
+          "button",
+          {
+            onClick: handleClose,
+            className: "absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 transition-colors z-10",
+            children: /* @__PURE__ */ jsx(X, { className: "h-4 w-4 sm:h-5 sm:w-5 text-slate-400" })
+          }
+        ),
+        /* @__PURE__ */ jsxs("div", { className: "p-6 sm:p-8 md:p-12", children: [
+          /* @__PURE__ */ jsxs("div", { className: `flex flex-col items-center text-center mb-8 sm:mb-10 transition-all duration-300 ${isAnimating ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"}`, children: [
+            /* @__PURE__ */ jsx("div", { className: "w-14 h-14 sm:w-16 sm:h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-4 sm:mb-6", children: /* @__PURE__ */ jsx(Heart, { className: "h-7 w-7 sm:h-8 sm:w-8 animate-pulse" }) }),
+            /* @__PURE__ */ jsx("h2", { className: "text-2xl sm:text-3xl font-serif italic font-bold mb-2", children: mode === "register" ? "Mulailah Kebahagiaan Anda" : "Selamat Datang Kembali" }),
+            /* @__PURE__ */ jsx("p", { className: "text-sm sm:text-base text-slate-500 dark:text-slate-400 px-2", children: mode === "register" ? "Daftar sekarang untuk membuat undangan digital impian Anda." : "Masuk untuk mengelola undangan Anda." })
           ] }),
-          /* @__PURE__ */ jsxs("div", { className: "space-y-1.5", children: [
-            /* @__PURE__ */ jsx("label", { className: "text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1", children: "Nomor HP (WhatsApp)" }),
-            /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
-              /* @__PURE__ */ jsx(Smartphone, { className: "absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" }),
-              /* @__PURE__ */ jsx(
-                "input",
-                {
-                  type: "tel",
-                  name: "phone",
-                  required: true,
-                  value: formData.phone,
-                  onChange: handleChange,
-                  placeholder: "081234567890",
-                  className: "w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                }
-              )
-            ] })
-          ] }),
-          mode === "register" && /* @__PURE__ */ jsxs("div", { className: "space-y-1.5", children: [
-            /* @__PURE__ */ jsx("label", { className: "text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1", children: "Subdomain / Slug" }),
-            /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
-              /* @__PURE__ */ jsx(Globe, { className: "absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" }),
-              /* @__PURE__ */ jsx(
-                "input",
-                {
-                  type: "text",
-                  name: "slug",
-                  required: true,
-                  value: formData.slug,
-                  onChange: handleChange,
-                  placeholder: "nama-pasangan",
-                  className: "w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                }
-              )
+          /* @__PURE__ */ jsxs("form", { onSubmit: handleSubmit, className: `space-y-4 sm:space-y-5 transition-all duration-300 ${isAnimating ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"}`, children: [
+            error && /* @__PURE__ */ jsx("div", { className: "p-3 sm:p-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs sm:text-sm rounded-xl border border-red-100 dark:border-red-900/30 animate-shake", children: error }),
+            mode === "register" && /* @__PURE__ */ jsxs("div", { className: "space-y-1.5 animate-fadeIn", children: [
+              /* @__PURE__ */ jsx("label", { className: "text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1", children: "Nama Lengkap" }),
+              /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
+                /* @__PURE__ */ jsx(User, { className: "absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" }),
+                /* @__PURE__ */ jsx(
+                  "input",
+                  {
+                    type: "text",
+                    name: "fullName",
+                    required: true,
+                    value: formData.fullName,
+                    onChange: handleChange,
+                    placeholder: "Nama Anda",
+                    className: "w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  }
+                )
+              ] })
             ] }),
-            /* @__PURE__ */ jsx("p", { className: "text-[9px] sm:text-[10px] text-slate-400 ml-1 mt-1 italic", children: "Hasilnya akan: vowly.com/nama-pasangan" })
+            /* @__PURE__ */ jsxs("div", { className: "space-y-1.5 animate-fadeIn", style: { animationDelay: mode === "register" ? "50ms" : "0ms" }, children: [
+              /* @__PURE__ */ jsx("label", { className: "text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1", children: "Nomor HP (WhatsApp)" }),
+              /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
+                /* @__PURE__ */ jsx(Smartphone, { className: "absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" }),
+                /* @__PURE__ */ jsx(
+                  "input",
+                  {
+                    type: "tel",
+                    name: "phone",
+                    required: true,
+                    value: formData.phone,
+                    onChange: handleChange,
+                    placeholder: "081234567890",
+                    className: "w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  }
+                )
+              ] })
+            ] }),
+            mode === "register" && /* @__PURE__ */ jsxs("div", { className: "space-y-1.5 animate-fadeIn", style: { animationDelay: "100ms" }, children: [
+              /* @__PURE__ */ jsx("label", { className: "text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1", children: "Subdomain / Slug" }),
+              /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
+                /* @__PURE__ */ jsx(Globe, { className: "absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" }),
+                /* @__PURE__ */ jsx(
+                  "input",
+                  {
+                    type: "text",
+                    name: "slug",
+                    required: true,
+                    value: formData.slug,
+                    onChange: handleChange,
+                    placeholder: "nama-pasangan",
+                    className: "w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "text-[9px] sm:text-[10px] text-slate-400 ml-1 mt-1 italic", children: "Hasilnya akan: vowly.com/nama-pasangan" })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "space-y-1.5 animate-fadeIn", style: { animationDelay: mode === "register" ? "150ms" : "50ms" }, children: [
+              /* @__PURE__ */ jsx("label", { className: "text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1", children: "Password" }),
+              /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
+                /* @__PURE__ */ jsx(Lock, { className: "absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" }),
+                /* @__PURE__ */ jsx(
+                  "input",
+                  {
+                    type: "password",
+                    name: "password",
+                    required: true,
+                    value: formData.password,
+                    onChange: handleChange,
+                    placeholder: "••••••••",
+                    className: "w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  }
+                )
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx(
+              "button",
+              {
+                type: "submit",
+                disabled: isLoading,
+                className: "w-full py-4 sm:py-5 bg-primary text-white rounded-xl sm:rounded-2xl font-bold tracking-widest uppercase text-xs sm:text-sm shadow-luxury hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-95 disabled:opacity-50 disabled:translate-y-0 flex items-center justify-center gap-2 sm:gap-3 animate-fadeIn",
+                style: { animationDelay: mode === "register" ? "200ms" : "100ms" },
+                children: isLoading ? /* @__PURE__ */ jsx(Loader2, { className: "h-4 w-4 sm:h-5 sm:w-5 animate-spin" }) : mode === "register" ? "DAFTAR SEKARANG" : "MASUK KE DASHBOARD"
+              }
+            )
           ] }),
-          /* @__PURE__ */ jsxs("div", { className: "space-y-1.5", children: [
-            /* @__PURE__ */ jsx("label", { className: "text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1", children: "Password" }),
-            /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
-              /* @__PURE__ */ jsx(Lock, { className: "absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-primary transition-colors" }),
-              /* @__PURE__ */ jsx(
-                "input",
-                {
-                  type: "password",
-                  name: "password",
-                  required: true,
-                  value: formData.password,
-                  onChange: handleChange,
-                  placeholder: "••••••••",
-                  className: "w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                }
-              )
-            ] })
-          ] }),
-          /* @__PURE__ */ jsx(
-            "button",
-            {
-              type: "submit",
-              disabled: isLoading,
-              className: "w-full py-4 sm:py-5 bg-primary text-white rounded-xl sm:rounded-2xl font-bold tracking-widest uppercase text-xs sm:text-sm shadow-luxury hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-95 disabled:opacity-50 disabled:translate-y-0 flex items-center justify-center gap-2 sm:gap-3",
-              children: isLoading ? /* @__PURE__ */ jsx(Loader2, { className: "h-4 w-4 sm:h-5 sm:w-5 animate-spin" }) : mode === "register" ? "DAFTAR SEKARANG" : "MASUK KE DASHBOARD"
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: "mt-6 sm:mt-8 text-center", children: /* @__PURE__ */ jsxs("p", { className: "text-xs sm:text-sm text-slate-500", children: [
-          mode === "register" ? "Sudah memiliki akun?" : "Belum memiliki akun?",
-          " ",
-          /* @__PURE__ */ jsx(
-            "button",
-            {
-              onClick: () => setMode(mode === "register" ? "login" : "register"),
-              className: "text-primary font-bold hover:underline",
-              children: mode === "register" ? "Masuk di sini" : "Daftar di sini"
-            }
-          )
-        ] }) })
+          /* @__PURE__ */ jsx("div", { className: `mt-6 sm:mt-8 text-center transition-all duration-300 ${isAnimating ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"}`, children: /* @__PURE__ */ jsxs("p", { className: "text-xs sm:text-sm text-slate-500", children: [
+            mode === "register" ? "Sudah memiliki akun?" : "Belum memiliki akun?",
+            " ",
+            /* @__PURE__ */ jsx(
+              "button",
+              {
+                onClick: () => handleModeSwitch(mode === "register" ? "login" : "register"),
+                className: "text-primary font-bold hover:underline transition-all hover:scale-105 inline-block",
+                children: mode === "register" ? "Masuk di sini" : "Daftar di sini"
+              }
+            )
+          ] }) })
+        ] })
       ] })
     ] })
   ] });
