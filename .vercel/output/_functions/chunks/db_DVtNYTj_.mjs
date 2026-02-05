@@ -22,48 +22,12 @@ const sql = DATABASE_URL ? DATABASE_URL.includes("neon.tech") ? neon(DATABASE_UR
   console.error("❌ DATABASE_URL is missing! Queries will fail.");
   throw new Error("DATABASE_URL is not configured.");
 });
-function parseDbInfo(urlStr) {
-  try {
-    const url = new URL(urlStr);
-    const dbName = url.pathname.replace(/^\//, "").split(/[?#]/)[0];
-    url.pathname = "/postgres";
-    const baseUrl = url.toString();
-    return { dbName, baseUrl };
-  } catch (e) {
-    const dbName = urlStr.split("/").pop()?.split(/[?#]/)[0] || "wedding_db";
-    const baseUrl = urlStr.replace(new RegExp(`/${dbName}(\\?.*)?$`), "/postgres$1");
-    return { dbName, baseUrl };
-  }
-}
 async function initializeTables() {
   if (!DATABASE_URL) {
     console.error("⚠️ [DB] Cannot initialize: DATABASE_URL is empty.");
-    return;
+    throw new Error("DATABASE_URL is missing");
   }
-  const { dbName, baseUrl } = parseDbInfo(DATABASE_URL);
-  console.log(`🔍 [DB] Targeted database: "${dbName}"`);
-  try {
-    console.log(`� [DB] Connecting to default "postgres" to check "${dbName}"...`);
-    const tempSql = postgres(baseUrl, {
-      max: 1,
-      idle_timeout: 1,
-      connect_timeout: 5
-    });
-    const dbs = await tempSql`SELECT datname FROM pg_database WHERE datname = ${dbName}`;
-    if (dbs.length === 0) {
-      console.log(`✨ [DB] Database "${dbName}" missing. Creating...`);
-      await tempSql.unsafe(`CREATE DATABASE ${dbName}`);
-      console.log(`🎉 [DB] Database "${dbName}" created successfully!`);
-    } else {
-      console.log(`✅ [DB] Database "${dbName}" exists.`);
-    }
-    await tempSql.end();
-  } catch (err) {
-    console.warn("⚠️ [DB] Warning during database check:", err.message);
-    if (err.message.includes("does not exist") && err.message.includes("postgres")) {
-      console.error("🚨 [DB] Fatal: Default 'postgres' database not found on server.");
-    }
-  }
+  console.log("🚀 [DB] Starting table initialization...");
   try {
     console.log("🚀 [DB] Initializing tables...");
     await sql`
@@ -151,12 +115,6 @@ async function initializeTables() {
     console.error("❌ [DB] Table initialization failed:", error.message);
     throw error;
   }
-}
-if (DATABASE_URL) {
-  console.log("📍 [DB] Attempting auto-initialization...");
-  initializeTables().then(() => console.log("🏁 [DB] Initialization routine finished.")).catch((err) => console.error("🚨 [DB] Fatal startup error:", err.message));
-} else {
-  console.warn("⚠️ [DB] No DATABASE_URL found. Initialize manually or check environment.");
 }
 
 export { initializeTables as i, sql as s };

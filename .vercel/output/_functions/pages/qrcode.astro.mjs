@@ -1,6 +1,6 @@
 import { e as createAstro, f as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_izSyb1tO.mjs';
 import 'piccolore';
-import { $ as $$Layout } from '../chunks/Layout_DcQtjN1d.mjs';
+import { $ as $$Layout } from '../chunks/Layout_C3XU2xVI.mjs';
 import { jsxs, jsx } from 'react/jsx-runtime';
 import { useState, useRef, useMemo } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';

@@ -1,7 +1,7 @@
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import React__default, { createContext, useContext, useRef, useEffect, useState, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Music, Play, RefreshCw, ChevronDown, X, Smartphone, Download, Smile, Heart, ChevronUp, Quote, Sparkles, MailOpen, Calendar, Clock, CalendarPlus, MapPin, Check, Copy, ExternalLink, Image, ChevronLeft, ChevronRight, Maximize2, CheckCircle2, RefreshCcw, Users, Minus, Plus, Send, Gift, CreditCard, Home, Camera, MessageCircle, Moon, Sun, XCircle, Landmark, Star, Map, Mail, MoveRight, ArrowUpRight, MoveLeft, PartyPopper, Zap, ArrowRight } from 'lucide-react';
+import { Music, Play, RefreshCw, ChevronDown, X, Smartphone, Download, Smile, Heart, ChevronUp, Quote, Sparkles, MailOpen, Calendar, Clock, CalendarPlus, MapPin, Check, Copy, ExternalLink, Image, ChevronLeft, ChevronRight, Maximize2, CheckCircle2, RefreshCcw, Users, Minus, Plus, Send, Gift, CreditCard, Home, Camera, MessageCircle, Moon, Sun, XCircle, Landmark, Mail, ArrowDown, Star, Map, Package, ImageIcon, MoveRight, ArrowUpRight, MoveLeft, PartyPopper, Zap, ArrowRight } from 'lucide-react';
 import { a as WEDDING_TEXT, G as GALLERY_IMAGES, L as LOVE_STORY, B as BANK_ACCOUNTS, b as MAX_GUESTS, M as MUSIC_URL, W as WEDDING_CONFIG } from './constants_DNnL6zYp.mjs';
 
 const defaultConfig = {
@@ -1023,7 +1023,7 @@ const EventDetails$a = () => {
       id: "event",
       className: "bg-secondary/30 dark:bg-darkBg px-4 py-20 transition-colors duration-1000 md:px-6 md:py-40",
       children: /* @__PURE__ */ jsxs("div", { className: "container mx-auto max-w-6xl", children: [
-        /* @__PURE__ */ jsx(Reveal$b, { children: /* @__PURE__ */ jsxs("div", { className: "mb-16 space-y-4 text-center md:mb-24 md:space-y-6", children: [
+        /* @__PURE__ */ jsx(Reveal$b, { children: /* @__PURE__ */ jsxs("div", { className: "mb-12 space-y-3 text-center md:mb-24 md:space-y-6", children: [
           /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-center gap-4", children: [
             /* @__PURE__ */ jsx("div", { className: "bg-accentDark/20 dark:bg-accent/20 h-[1px] w-8 md:w-12" }),
             /* @__PURE__ */ jsx(Sparkles, { className: "text-accentDark dark:text-accent h-5 w-5 animate-pulse md:h-6 md:w-6" }),
@@ -1032,99 +1032,96 @@ const EventDetails$a = () => {
           /* @__PURE__ */ jsx("h2", { className: "font-serif text-4xl tracking-tight text-slate-900 italic md:text-9xl dark:text-white", children: "Waktu & Tempat" }),
           /* @__PURE__ */ jsx("p", { className: "mx-auto max-w-2xl px-4 text-base font-light text-balance text-slate-500 italic md:text-xl dark:text-slate-400", children: text.invitation })
         ] }) }),
-        /* @__PURE__ */ jsx("div", { className: `grid gap-8 md:gap-10 ${filteredEvents.length === 1 ? "max-w-lg mx-auto" : "md:grid-cols-2"}`, children: filteredEvents.map((ev, index) => {
+        /* @__PURE__ */ jsx("div", { className: `grid gap-3 sm:gap-6 md:gap-10 ${filteredEvents.length === 1 ? "max-w-lg mx-auto" : "grid-cols-2"}`, children: filteredEvents.map((ev, index) => {
           const mapUrl = ev.venue.mapsEmbedUrl;
           return /* @__PURE__ */ jsx(Reveal$b, { delay: index * 0.2, children: /* @__PURE__ */ jsxs(
             "div",
             {
-              className: "editorial-card dark:bg-darkSurface group relative flex flex-col overflow-visible rounded-[2.5rem] bg-white md:rounded-[4rem]",
+              className: "editorial-card dark:bg-darkSurface group relative flex flex-col overflow-visible rounded-2xl bg-white sm:rounded-[2.5rem] md:rounded-[4rem]",
               children: [
-                /* @__PURE__ */ jsx("div", { className: "bg-accentDark/10 dark:bg-accent/10 text-accentDark dark:text-accent animate-float absolute -top-4 -right-4 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 backdrop-blur-md md:-top-6 md:-right-6 md:h-16 md:w-16 dark:border-white/5", children: index === 0 ? /* @__PURE__ */ jsx(Heart, { className: "h-5 w-5 fill-current md:h-7 md:w-7" }) : /* @__PURE__ */ jsx(Sparkles, { className: "h-5 w-5 md:h-7 md:w-7" }) }),
-                /* @__PURE__ */ jsxs("div", { className: "space-y-8 p-8 text-center md:space-y-12 md:p-12", children: [
-                  /* @__PURE__ */ jsxs("div", { className: "space-y-2 md:space-y-4", children: [
-                    /* @__PURE__ */ jsx("span", { className: "tracking-luxury text-accentDark dark:text-accent text-[9px] font-bold uppercase md:text-[10px]", children: "Our Sacred Day" }),
-                    /* @__PURE__ */ jsx("h3", { className: "font-serif text-3xl leading-tight text-slate-900 italic md:text-5xl dark:text-white", children: ev.title })
-                  ] }),
-                  /* @__PURE__ */ jsxs("div", { className: "w-full space-y-6 border-y border-slate-100 py-8 md:space-y-8 md:py-10 dark:border-white/5", children: [
-                    /* @__PURE__ */ jsx("div", { className: "flex flex-col items-center justify-center gap-3 font-serif text-xl text-slate-700 italic md:text-2xl dark:text-slate-100", children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 md:gap-4", children: [
-                      /* @__PURE__ */ jsx(Calendar, { className: "text-accentDark dark:text-accent h-5 w-5 md:h-6 md:w-6" }),
-                      /* @__PURE__ */ jsxs("span", { children: [
-                        ev.day,
-                        ", ",
-                        ev.date
-                      ] })
-                    ] }) }),
-                    /* @__PURE__ */ jsxs("div", { className: "tracking-editorial flex items-center justify-center gap-3 text-[11px] font-bold text-slate-400 uppercase md:gap-4 md:text-[12px] dark:text-slate-500", children: [
-                      /* @__PURE__ */ jsx(Clock, { className: "text-accentDark dark:text-accent h-4 w-4 md:h-5 md:w-5" }),
-                      /* @__PURE__ */ jsxs("span", { children: [
-                        ev.startTime,
-                        " — ",
-                        ev.endTime,
-                        " WIB"
-                      ] })
+                /* @__PURE__ */ jsx("div", { className: "bg-accentDark/10 dark:bg-accent/10 text-accentDark dark:text-accent animate-float absolute -top-2 -right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 backdrop-blur-md sm:-top-4 sm:-right-4 sm:h-12 sm:w-12 md:-top-6 md:-right-6 md:h-16 md:w-16 dark:border-white/5", children: index === 0 ? /* @__PURE__ */ jsx(Heart, { className: "h-3 w-3 fill-current sm:h-5 sm:w-5 md:h-7 md:w-7" }) : /* @__PURE__ */ jsx(Sparkles, { className: "h-3 w-3 sm:h-5 sm:w-5 md:h-7 md:w-7" }) }),
+                /* @__PURE__ */ jsxs("div", { className: "space-y-3 p-3 text-center sm:space-y-4 sm:p-6 md:space-y-6 md:p-8", children: [
+                  /* @__PURE__ */ jsx("span", { className: "tracking-luxury text-accentDark dark:text-accent block text-[7px] font-bold uppercase sm:text-[9px] md:text-[10px]", children: "Our Sacred Day" }),
+                  /* @__PURE__ */ jsx("h3", { className: "font-serif text-base leading-tight text-slate-900 italic sm:text-xl md:text-3xl dark:text-white", children: ev.title })
+                ] }),
+                /* @__PURE__ */ jsxs("div", { className: "space-y-2 border-y border-slate-100 px-3 py-3 sm:space-y-3 sm:px-6 sm:py-4 md:space-y-4 md:px-8 md:py-6 dark:border-white/5", children: [
+                  /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-center gap-2", children: [
+                    /* @__PURE__ */ jsx(Calendar, { className: "text-accentDark dark:text-accent h-3 w-3 flex-shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" }),
+                    /* @__PURE__ */ jsxs("span", { className: "font-serif text-[10px] text-slate-700 italic sm:text-xs md:text-base dark:text-slate-100", children: [
+                      ev.day,
+                      ", ",
+                      ev.date
                     ] })
                   ] }),
-                  /* @__PURE__ */ jsxs("div", { className: "relative w-full", children: [
-                    /* @__PURE__ */ jsxs(
-                      "button",
-                      {
-                        onClick: () => setActiveDropdown(activeDropdown === ev.id ? null : ev.id),
-                        className: "bg-primary dark:bg-accentDark tracking-editorial flex w-full items-center justify-center gap-3 rounded-2xl py-4 text-[10px] font-bold text-white uppercase transition-all hover:shadow-2xl active:scale-95 md:gap-5 md:rounded-3xl md:py-5 md:text-[11px]",
-                        children: [
-                          /* @__PURE__ */ jsx(CalendarPlus, { className: "h-4 w-4 md:h-5 md:w-5" }),
-                          "Save The Date",
-                          /* @__PURE__ */ jsx(
-                            ChevronDown,
-                            {
-                              className: `h-3 w-3 transition-transform duration-500 md:h-4 md:w-4 ${activeDropdown === ev.id ? "rotate-180" : ""}`
-                            }
-                          )
-                        ]
-                      }
-                    ),
-                    activeDropdown === ev.id && /* @__PURE__ */ jsxs("div", { className: "frosted-glass animate-reveal absolute top-full right-0 left-0 z-[50] mt-3 overflow-hidden rounded-[1.5rem] border border-slate-200 p-2 shadow-2xl md:mt-4 md:rounded-[2rem] md:p-3 dark:border-white/10", children: [
-                      /* @__PURE__ */ jsxs(
-                        "button",
-                        {
-                          onClick: () => handleCalendarAction("google", ev),
-                          className: "flex w-full items-center gap-4 rounded-xl px-6 py-4 text-left text-slate-800 transition-colors hover:bg-slate-50 md:gap-5 md:rounded-2xl md:px-8 md:py-5 dark:text-white dark:hover:bg-white/5",
-                          children: [
-                            /* @__PURE__ */ jsx("div", { className: "bg-accentDark dark:bg-accent h-2 w-2 animate-pulse rounded-full md:h-3 md:w-3" }),
-                            /* @__PURE__ */ jsx("span", { className: "tracking-luxury text-[10px] font-bold uppercase md:text-[11px]", children: "Google Calendar" })
-                          ]
-                        }
-                      ),
-                      /* @__PURE__ */ jsxs(
-                        "button",
-                        {
-                          onClick: () => handleCalendarAction("ics", ev),
-                          className: "flex w-full items-center gap-4 rounded-xl px-6 py-4 text-left text-slate-800 transition-colors hover:bg-slate-50 md:gap-5 md:rounded-2xl md:px-8 md:py-5 dark:text-white dark:hover:bg-white/5",
-                          children: [
-                            /* @__PURE__ */ jsx("div", { className: "h-2 w-2 rounded-full bg-slate-300 md:h-3 md:w-3 dark:bg-slate-600" }),
-                            /* @__PURE__ */ jsx("span", { className: "tracking-luxury text-[10px] font-bold uppercase md:text-[11px]", children: "Apple / Outlook" })
-                          ]
-                        }
-                      )
+                  /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-center gap-2", children: [
+                    /* @__PURE__ */ jsx(Clock, { className: "text-accentDark dark:text-accent h-3 w-3 flex-shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" }),
+                    /* @__PURE__ */ jsxs("span", { className: "tracking-editorial text-[9px] font-bold text-slate-400 uppercase sm:text-[10px] md:text-[11px] dark:text-slate-500", children: [
+                      ev.startTime,
+                      " — ",
+                      ev.endTime
                     ] })
                   ] })
                 ] }),
-                /* @__PURE__ */ jsxs("div", { className: "space-y-6 border-t border-slate-100 p-8 md:space-y-8 md:p-12 dark:border-white/5", children: [
-                  /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-4 md:items-center md:gap-6", children: [
-                    /* @__PURE__ */ jsx("div", { className: "text-accentDark dark:text-accent flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-100 bg-slate-50 shadow-lg md:h-14 md:w-14 dark:border-white/10 dark:bg-white/5", children: /* @__PURE__ */ jsx(MapPin, { className: "h-6 w-6 md:h-7 md:w-7" }) }),
-                    /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1 space-y-1", children: [
-                      /* @__PURE__ */ jsx("h4", { className: "font-serif text-xl leading-tight tracking-tight text-slate-900 italic md:text-2xl dark:text-white", children: ev.venue.name }),
-                      /* @__PURE__ */ jsx("p", { className: "text-sm leading-snug font-light text-slate-500 italic md:text-base dark:text-slate-400", children: ev.venue.address })
+                /* @__PURE__ */ jsxs("div", { className: "relative px-3 pt-3 sm:px-6 sm:pt-4 md:px-8 md:pt-6", children: [
+                  /* @__PURE__ */ jsxs(
+                    "button",
+                    {
+                      onClick: () => setActiveDropdown(activeDropdown === ev.id ? null : ev.id),
+                      className: "bg-primary dark:bg-accentDark tracking-editorial flex w-full items-center justify-center gap-1.5 rounded-xl py-2 text-[8px] font-bold text-white uppercase transition-all hover:shadow-2xl active:scale-95 sm:gap-2 sm:rounded-2xl sm:py-3 sm:text-[9px] md:gap-3 md:rounded-3xl md:py-4 md:text-[10px]",
+                      children: [
+                        /* @__PURE__ */ jsx(CalendarPlus, { className: "h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" }),
+                        "Save Date",
+                        /* @__PURE__ */ jsx(
+                          ChevronDown,
+                          {
+                            className: `h-2 w-2 transition-transform duration-500 sm:h-2.5 sm:w-2.5 md:h-3 md:w-3 ${activeDropdown === ev.id ? "rotate-180" : ""}`
+                          }
+                        )
+                      ]
+                    }
+                  ),
+                  activeDropdown === ev.id && /* @__PURE__ */ jsxs("div", { className: "frosted-glass animate-reveal absolute top-full right-0 left-0 z-[50] mt-2 overflow-hidden rounded-xl border border-slate-200 p-1.5 shadow-2xl sm:mt-3 sm:rounded-[1.5rem] sm:p-2 md:mt-4 md:rounded-[2rem] md:p-3 dark:border-white/10", children: [
+                    /* @__PURE__ */ jsxs(
+                      "button",
+                      {
+                        onClick: () => handleCalendarAction("google", ev),
+                        className: "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-slate-800 transition-colors hover:bg-slate-50 sm:gap-3 sm:rounded-xl sm:px-4 sm:py-3 md:gap-4 md:rounded-2xl md:px-6 md:py-4 dark:text-white dark:hover:bg-white/5",
+                        children: [
+                          /* @__PURE__ */ jsx("div", { className: "bg-accentDark dark:bg-accent h-1.5 w-1.5 animate-pulse rounded-full sm:h-2 sm:w-2 md:h-2.5 md:w-2.5" }),
+                          /* @__PURE__ */ jsx("span", { className: "tracking-luxury text-[8px] font-bold uppercase sm:text-[9px] md:text-[10px]", children: "Google Calendar" })
+                        ]
+                      }
+                    ),
+                    /* @__PURE__ */ jsxs(
+                      "button",
+                      {
+                        onClick: () => handleCalendarAction("ics", ev),
+                        className: "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-slate-800 transition-colors hover:bg-slate-50 sm:gap-3 sm:rounded-xl sm:px-4 sm:py-3 md:gap-4 md:rounded-2xl md:px-6 md:py-4 dark:text-white dark:hover:bg-white/5",
+                        children: [
+                          /* @__PURE__ */ jsx("div", { className: "h-1.5 w-1.5 rounded-full bg-slate-300 sm:h-2 sm:w-2 md:h-2.5 md:w-2.5 dark:bg-slate-600" }),
+                          /* @__PURE__ */ jsx("span", { className: "tracking-luxury text-[8px] font-bold uppercase sm:text-[9px] md:text-[10px]", children: "Apple / Outlook" })
+                        ]
+                      }
+                    )
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsxs("div", { className: "space-y-2 border-t border-slate-100 p-3 sm:space-y-3 sm:p-6 md:space-y-4 md:p-8 dark:border-white/5", children: [
+                  /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-2 sm:gap-3 md:gap-4", children: [
+                    /* @__PURE__ */ jsx("div", { className: "text-accentDark dark:text-accent flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 shadow-lg sm:h-10 sm:w-10 md:h-12 md:w-12 md:rounded-2xl dark:border-white/10 dark:bg-white/5", children: /* @__PURE__ */ jsx(MapPin, { className: "h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" }) }),
+                    /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
+                      /* @__PURE__ */ jsx("h4", { className: "font-serif text-xs leading-tight tracking-tight text-slate-900 italic sm:text-sm md:text-lg dark:text-white", children: ev.venue.name }),
+                      /* @__PURE__ */ jsx("p", { className: "mt-0.5 text-[9px] leading-snug font-light text-slate-500 italic sm:text-[10px] md:text-sm dark:text-slate-400", children: ev.venue.address })
                     ] })
                   ] }),
-                  /* @__PURE__ */ jsxs("div", { className: "flex gap-3", children: [
+                  /* @__PURE__ */ jsxs("div", { className: "flex gap-1.5 sm:gap-2 md:gap-3", children: [
                     /* @__PURE__ */ jsxs(
                       "button",
                       {
                         onClick: () => copyToClipboard(ev.venue.address, ev.id),
-                        className: "tracking-editorial flex flex-1 items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-[9px] font-bold text-slate-700 uppercase transition-all hover:bg-slate-50 md:rounded-2xl md:py-4 md:text-[10px] dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/5",
+                        className: "tracking-editorial flex flex-1 items-center justify-center gap-1 rounded-lg border border-slate-200 px-2 py-1.5 text-[7px] font-bold text-slate-700 uppercase transition-all hover:bg-slate-50 sm:gap-1.5 sm:rounded-xl sm:px-3 sm:py-2 sm:text-[8px] md:gap-2 md:rounded-2xl md:py-3 md:text-[9px] dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/5",
                         children: [
-                          copiedEvent === ev.id ? /* @__PURE__ */ jsx(Check, { className: "h-4 w-4 text-green-500" }) : /* @__PURE__ */ jsx(Copy, { className: "text-accentDark dark:text-accent h-4 w-4" }),
-                          copiedEvent === ev.id ? "Copied" : "Copy"
+                          copiedEvent === ev.id ? /* @__PURE__ */ jsx(Check, { className: "h-3 w-3 text-green-500 sm:h-3.5 sm:w-3.5" }) : /* @__PURE__ */ jsx(Copy, { className: "text-accentDark dark:text-accent h-3 w-3 sm:h-3.5 sm:w-3.5" }),
+                          copiedEvent === ev.id ? "OK" : "Copy"
                         ]
                       }
                     ),
@@ -1134,15 +1131,15 @@ const EventDetails$a = () => {
                         href: ev.venue.mapsEmbedUrl.replace("&output=embed", ""),
                         target: "_blank",
                         rel: "noopener noreferrer",
-                        className: "bg-primary dark:text-primary tracking-editorial flex flex-1 items-center justify-center gap-2 rounded-xl px-4 py-3 text-[9px] font-bold text-white uppercase transition-all hover:shadow-2xl md:rounded-2xl md:py-4 md:text-[10px] dark:bg-white",
+                        className: "bg-primary dark:text-primary tracking-editorial flex flex-1 items-center justify-center gap-1 rounded-lg px-2 py-1.5 text-[7px] font-bold text-white uppercase transition-all hover:shadow-2xl sm:gap-1.5 sm:rounded-xl sm:px-3 sm:py-2 sm:text-[8px] md:gap-2 md:rounded-2xl md:py-3 md:text-[9px] dark:bg-white",
                         children: [
-                          /* @__PURE__ */ jsx(ExternalLink, { className: "h-4 w-4" }),
+                          /* @__PURE__ */ jsx(ExternalLink, { className: "h-3 w-3 sm:h-3.5 sm:w-3.5" }),
                           "Maps"
                         ]
                       }
                     )
                   ] }),
-                  /* @__PURE__ */ jsxs("div", { className: "relative h-[200px] overflow-hidden rounded-2xl border border-slate-100 shadow-lg md:h-[250px] md:rounded-3xl dark:border-white/10", children: [
+                  /* @__PURE__ */ jsxs("div", { className: "relative h-[120px] overflow-hidden rounded-xl border border-slate-100 shadow-lg sm:h-[160px] sm:rounded-2xl md:h-[200px] md:rounded-3xl dark:border-white/10", children: [
                     /* @__PURE__ */ jsx(
                       "iframe",
                       {
@@ -1156,7 +1153,7 @@ const EventDetails$a = () => {
                         referrerPolicy: "no-referrer-when-downgrade"
                       }
                     ),
-                    /* @__PURE__ */ jsx("div", { className: "dark:border-darkSurface/5 pointer-events-none absolute inset-0 border-[4px] border-white/5 md:border-[6px]" })
+                    /* @__PURE__ */ jsx("div", { className: "dark:border-darkSurface/5 pointer-events-none absolute inset-0 border-[2px] border-white/5 sm:border-[3px] md:border-[4px]" })
                   ] })
                 ] })
               ]
@@ -1173,6 +1170,7 @@ const Gallery$b = () => {
   const [selectedImg, setSelectedImg] = useState(null);
   const [isClosing, setIsClosing] = useState(false);
   const [side, setSide] = useState("pria");
+  const [isTransitioning, setIsTransitioning] = useState(false);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const sideParam = params.get("side");
@@ -1182,8 +1180,12 @@ const Gallery$b = () => {
   const secondName = side === "wanita" ? config.couple.groom.name : config.couple.bride.name;
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((current) => (current + 1) % config.galleryImages.length);
-    }, 3e3);
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+        setIsTransitioning(false);
+      }, 400);
+    }, 5e3);
     return () => clearInterval(interval);
   }, [config.galleryImages.length]);
   const openLightbox = (index) => {
@@ -1208,11 +1210,15 @@ const Gallery$b = () => {
         setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
       }
     } else {
-      if (direction === "prev") {
-        setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
-      } else {
-        setActiveIndex((activeIndex + 1) % config.galleryImages.length);
-      }
+      setIsTransitioning(true);
+      setTimeout(() => {
+        if (direction === "prev") {
+          setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+        } else {
+          setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+        }
+        setIsTransitioning(false);
+      }, 400);
     }
   };
   useEffect(() => {
@@ -1238,20 +1244,26 @@ const Gallery$b = () => {
         /* @__PURE__ */ jsx("h2", { className: "font-serif text-5xl tracking-tight text-slate-900 italic md:text-9xl dark:text-white leading-none capitalize", children: "Our Gallery" }),
         /* @__PURE__ */ jsx("p", { className: "tracking-luxury text-[10px] font-black text-balance text-slate-400 uppercase italic md:text-[13px] dark:text-slate-500", children: "Momen-momen indah yang terpatri abadi dalam perjalanan cinta kami" })
       ] }) }),
-      /* @__PURE__ */ jsx(Reveal$b, { delay: 0.2, children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 sm:gap-6 justify-center px-4", children: [
+      /* @__PURE__ */ jsx(Reveal$b, { delay: 0.2, children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 sm:gap-4 justify-center px-4", children: [
         /* @__PURE__ */ jsx(
           "button",
           {
             onClick: () => navigate("prev"),
-            className: "w-10 h-10 rounded-full bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-900 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-all shadow-lg active:scale-95 flex-shrink-0",
-            children: /* @__PURE__ */ jsx(ChevronLeft, { size: 20 })
+            className: "w-8 h-8 rounded-full bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-900 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-all shadow-lg active:scale-95 flex-shrink-0",
+            children: /* @__PURE__ */ jsx(ChevronLeft, { size: 16 })
           }
         ),
-        /* @__PURE__ */ jsx("div", { className: "flex gap-3 sm:gap-4 overflow-x-auto no-scrollbar py-4 px-2", children: config.galleryImages.map((img, idx) => /* @__PURE__ */ jsx(
+        /* @__PURE__ */ jsx("div", { className: "flex gap-2 overflow-x-auto no-scrollbar py-2 px-1", children: config.galleryImages.map((img, idx) => /* @__PURE__ */ jsx(
           "button",
           {
-            onClick: () => setActiveIndex(idx),
-            className: `relative flex-shrink-0 w-20 h-14 sm:w-28 sm:h-20 rounded-2xl overflow-hidden border-2 transition-all duration-500 ${activeIndex === idx ? "border-accent scale-110 shadow-xl z-20" : "border-transparent opacity-40 grayscale hover:opacity-80 hover:scale-105"}`,
+            onClick: () => {
+              setIsTransitioning(true);
+              setTimeout(() => {
+                setActiveIndex(idx);
+                setIsTransitioning(false);
+              }, 400);
+            },
+            className: `relative flex-shrink-0 w-12 h-10 sm:w-16 sm:h-12 rounded-xl overflow-hidden border-2 transition-all duration-500 ${activeIndex === idx ? "border-accent scale-105 shadow-xl z-20" : "border-transparent opacity-40 grayscale hover:opacity-80 hover:scale-105"}`,
             children: /* @__PURE__ */ jsx("img", { src: img, className: "w-full h-full object-cover", alt: `Thumb ${idx}` })
           },
           idx
@@ -1260,28 +1272,27 @@ const Gallery$b = () => {
           "button",
           {
             onClick: () => navigate("next"),
-            className: "w-10 h-10 rounded-full bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-900 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-all shadow-lg active:scale-95 flex-shrink-0",
-            children: /* @__PURE__ */ jsx(ChevronRight, { size: 20 })
+            className: "w-8 h-8 rounded-full bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-900 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-all shadow-lg active:scale-95 flex-shrink-0",
+            children: /* @__PURE__ */ jsx(ChevronRight, { size: 16 })
           }
         )
       ] }) }),
       /* @__PURE__ */ jsx(Reveal$b, { delay: 0.4, children: /* @__PURE__ */ jsxs("div", { className: "relative aspect-[9/16] w-full max-w-[500px] mx-auto rounded-[3rem] sm:rounded-[4.5rem] overflow-hidden border border-slate-200 dark:border-white/5 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] group", children: [
-        /* @__PURE__ */ jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsx(
-          motion.img,
+        config.galleryImages.map((img, idx) => /* @__PURE__ */ jsx(
+          "img",
           {
-            initial: { opacity: 0, scale: 1.1 },
-            animate: { opacity: 1, scale: 1 },
-            exit: { opacity: 0, scale: 0.95 },
-            transition: { duration: 1.2, ease: "easeInOut" },
-            src: config.galleryImages[activeIndex],
-            className: "absolute inset-0 w-full h-full object-cover cursor-pointer",
-            alt: "Featured Gallery",
-            onClick: () => openLightbox(activeIndex)
+            src: img,
+            className: `absolute inset-0 w-full h-full object-cover cursor-pointer transition-opacity duration-[800ms] ease-in-out ${idx === activeIndex ? "opacity-100 z-10" : "opacity-0 z-0"}`,
+            alt: `Gallery ${idx}`,
+            onClick: () => openLightbox(activeIndex),
+            style: {
+              transitionDelay: idx === activeIndex ? "0ms" : "0ms"
+            }
           },
-          activeIndex
-        ) }),
-        /* @__PURE__ */ jsx("div", { className: "absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" }),
-        /* @__PURE__ */ jsx("div", { className: "absolute bottom-10 right-10 z-20", children: /* @__PURE__ */ jsx(
+          idx
+        )),
+        /* @__PURE__ */ jsx("div", { className: "absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20" }),
+        /* @__PURE__ */ jsx("div", { className: "absolute bottom-10 right-10 z-30", children: /* @__PURE__ */ jsx(
           "button",
           {
             onClick: () => openLightbox(activeIndex),
@@ -2140,8 +2151,8 @@ const Navbar$b = ({ theme, toggleTheme }) => {
   return /* @__PURE__ */ jsx(
     "nav",
     {
-      className: `fixed bottom-8 left-1/2 z-[1100] -translate-x-1/2 transition-all duration-700 ${scrolled ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"}`,
-      children: /* @__PURE__ */ jsxs("div", { className: "bg-white/80 dark:bg-slate-900/95 backdrop-blur-md px-3 py-3 rounded-full border border-slate-200 dark:border-white/10 shadow-2xl flex items-center gap-1 md:gap-8 md:px-6 md:py-4", children: [
+      className: `fixed bottom-6 left-1/2 z-[1100] -translate-x-1/2 transition-all duration-700 ${scrolled ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"}`,
+      children: /* @__PURE__ */ jsxs("div", { className: "bg-white/80 dark:bg-slate-900/95 backdrop-blur-md px-3 py-2 rounded-full border border-slate-200 dark:border-white/10 shadow-2xl flex items-center gap-2 sm:px-4 sm:py-2.5 sm:gap-3 md:px-5 md:py-3 md:gap-4", children: [
         navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeSection === item.id;
@@ -2153,26 +2164,26 @@ const Navbar$b = ({ theme, toggleTheme }) => {
                 e.preventDefault();
                 scrollToSection(item.id);
               },
-              className: `group relative flex flex-col items-center gap-1 px-2 py-1 transition-all duration-300 ${isActive ? "text-accentDark dark:text-accent scale-110" : "text-slate-400 dark:text-white/60 hover:text-slate-900 dark:hover:text-white"}`,
+              className: `group relative flex flex-col items-center gap-0.5 px-1.5 py-1 transition-all duration-300 sm:px-2 md:gap-1 ${isActive ? "text-accentDark dark:text-accent scale-110" : "text-slate-400 dark:text-white/60 hover:text-slate-900 dark:hover:text-white"}`,
               children: [
-                /* @__PURE__ */ jsx(Icon, { size: 18, className: `transition-transform duration-300 ${isActive ? "" : "group-hover:-translate-y-1"}` }),
-                /* @__PURE__ */ jsx("span", { className: "text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-10 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-full whitespace-nowrap text-slate-900 dark:text-white border border-slate-100 dark:border-white/10 shadow-xl pointer-events-none", children: item.label }),
-                isActive && /* @__PURE__ */ jsx("div", { className: "bg-accentDark dark:bg-accent absolute -bottom-1 h-1 w-1 rounded-full md:h-1.5 md:w-1.5" })
+                /* @__PURE__ */ jsx(Icon, { size: 16, className: `transition-transform duration-300 sm:size-[18px] md:size-[20px] ${isActive ? "" : "group-hover:-translate-y-1"}` }),
+                /* @__PURE__ */ jsx("span", { className: "text-[7px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-8 bg-white dark:bg-slate-900 px-2 py-1 rounded-full whitespace-nowrap text-slate-900 dark:text-white border border-slate-100 dark:border-white/10 shadow-xl pointer-events-none sm:-top-9 sm:text-[8px] sm:px-2.5 sm:py-1.5", children: item.label }),
+                isActive && /* @__PURE__ */ jsx("div", { className: "bg-accentDark dark:bg-accent absolute -bottom-0.5 h-0.5 w-0.5 rounded-full sm:h-1 sm:w-1" })
               ]
             },
             item.id
           );
         }),
-        /* @__PURE__ */ jsx("div", { className: "mx-1 h-6 w-[1px] bg-slate-200 dark:bg-white/10 md:mx-2" }),
+        /* @__PURE__ */ jsx("div", { className: "mx-0.5 h-4 w-[1px] bg-slate-200 dark:bg-white/10 sm:mx-1 sm:h-5 md:h-6" }),
         /* @__PURE__ */ jsxs(
           "button",
           {
             onClick: toggleTheme,
-            className: "group relative flex flex-col items-center gap-1 px-2 py-1 text-slate-400 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-all duration-300",
+            className: "group relative flex flex-col items-center gap-0.5 px-1.5 py-1 text-slate-400 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-all duration-300 sm:px-2 md:gap-1",
             "aria-label": "Toggle theme",
             children: [
-              theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 18, className: "transition-transform duration-500 group-hover:rotate-12" }) : /* @__PURE__ */ jsx(Sun, { size: 18, className: "transition-transform duration-500 group-hover:rotate-90" }),
-              /* @__PURE__ */ jsx("span", { className: "text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-10 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-full whitespace-nowrap text-slate-900 dark:text-white border border-slate-100 dark:border-white/10 shadow-xl pointer-events-none", children: theme === "light" ? "Dark Mode" : "Light Mode" })
+              theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 16, className: "transition-transform duration-500 group-hover:rotate-12 sm:size-[18px] md:size-[20px]" }) : /* @__PURE__ */ jsx(Sun, { size: 16, className: "transition-transform duration-500 group-hover:rotate-90 sm:size-[18px] md:size-[20px]" }),
+              /* @__PURE__ */ jsx("span", { className: "text-[7px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-8 bg-white dark:bg-slate-900 px-2 py-1 rounded-full whitespace-nowrap text-slate-900 dark:text-white border border-slate-100 dark:border-white/10 shadow-xl pointer-events-none sm:-top-9 sm:text-[8px] sm:px-2.5 sm:py-1.5", children: theme === "light" ? "Dark" : "Light" })
             ]
           }
         )
@@ -2341,32 +2352,20 @@ const Envelope$a = ({ onOpen }) => {
   );
 };
 const Navbar$a = ({ theme, toggleTheme }) => {
-  const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsVisible(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-8 left-1/2 -translate-x-1/2 z-[1100] transition-all duration-500`, children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-6 py-3 rounded-full border border-slate-100 dark:border-slate-800 shadow-xl", children: [
-    /* @__PURE__ */ jsx(
-      "button",
-      {
-        onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }),
-        className: "p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors",
-        children: /* @__PURE__ */ jsx(Home, { className: "w-5 h-5" })
-      }
-    ),
-    /* @__PURE__ */ jsx("div", { className: "w-[1px] h-4 bg-slate-200 dark:bg-slate-800" }),
-    /* @__PURE__ */ jsx(
-      "button",
-      {
-        onClick: toggleTheme,
-        className: "p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors",
-        children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { className: "w-5 h-5" }) : /* @__PURE__ */ jsx(Sun, { className: "w-5 h-5" })
-      }
-    )
+  const navItems = [{ icon: Home, label: "Awal", href: "#hero" }, { icon: Heart, label: "Mempelai", href: "#couple" }, { icon: Calendar, label: "Agenda", href: "#event" }, { icon: Image, label: "Galeri", href: "#gallery" }];
+  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[1100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-75 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-6 sm:gap-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-8 py-5 rounded-full border border-slate-100 dark:border-slate-800 shadow-xl", children: [
+    navItems.map((item, idx) => /* @__PURE__ */ jsxs("a", { href: item.href, className: "group relative text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors", children: [
+      /* @__PURE__ */ jsx(item.icon, { size: 22 }),
+      /* @__PURE__ */ jsx("span", { className: "absolute -top-14 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-slate-900 text-white text-[9px] font-medium tracking-widest px-4 py-2 rounded-sm hidden group-hover:block whitespace-nowrap uppercase", children: item.label })
+    ] }, idx)),
+    /* @__PURE__ */ jsx("div", { className: "w-[1px] h-6 bg-slate-200 dark:bg-slate-800" }),
+    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 22 }) : /* @__PURE__ */ jsx(Sun, { size: 22 }) })
   ] }) });
 };
 const Gallery$a = () => {
@@ -2962,21 +2961,20 @@ const EventDetails$9 = () => {
         /* @__PURE__ */ jsx("h2", { className: "font-serif text-3xl sm:text-5xl md:text-8xl text-[#4a3f35] dark:text-stone-200 italic leading-tight transition-colors", children: "Waktu & Tempat" }),
         /* @__PURE__ */ jsx("p", { className: "tracking-[0.3em] sm:tracking-[0.4em] text-[9px] sm:text-[10px] font-black text-[#8c7851] dark:text-[#c5a386] uppercase transition-colors", children: "Undangan Pernikahan" })
       ] }) }),
-      /* @__PURE__ */ jsx("div", { className: "grid lg:grid-cols-2 gap-8 sm:gap-12 md:gap-20", children: config.events.map((ev) => /* @__PURE__ */ jsx(Reveal$9, { delay: 0.2, children: /* @__PURE__ */ jsxs("div", { className: "bg-white dark:bg-slate-950 rounded-[1.5rem] sm:rounded-[3rem] overflow-hidden border border-[#d9c5b2] dark:border-white/5 shadow-2xl transition-all duration-1000 group", children: [
-        /* @__PURE__ */ jsxs("div", { className: "p-6 sm:p-10 md:p-14 space-y-8 sm:space-y-12", children: [
-          /* @__PURE__ */ jsxs("div", { className: "text-center space-y-4 sm:space-y-6", children: [
-            /* @__PURE__ */ jsx("div", { className: "inline-block px-4 sm:px-8 py-2 sm:py-3 bg-[#4a3f35] dark:bg-stone-200 rounded-full shadow-lg transition-colors", children: /* @__PURE__ */ jsx("p", { className: "text-[9px] sm:text-[10px] font-black tracking-widest text-[#f4ebe1] dark:text-slate-900 uppercase", children: ev.title }) }),
-            /* @__PURE__ */ jsxs("div", { className: "space-y-1 sm:space-y-2", children: [
-              /* @__PURE__ */ jsx("h3", { className: "font-serif text-2xl sm:text-4xl md:text-5xl text-[#4a3f35] dark:text-stone-200 italic transition-colors leading-[0.8]", children: ev.day }),
-              /* @__PURE__ */ jsx("p", { className: "font-serif text-lg sm:text-2xl text-[#c5a386] italic tracking-wide", children: ev.date })
+      /* @__PURE__ */ jsx("div", { className: `grid gap-3 sm:gap-8 md:gap-12 lg:gap-20 ${config.events.length === 1 ? "max-w-2xl mx-auto" : "grid-cols-2"}`, children: config.events.map((ev) => /* @__PURE__ */ jsx(Reveal$9, { delay: 0.2, children: /* @__PURE__ */ jsxs("div", { className: "bg-white dark:bg-slate-950 rounded-[1rem] sm:rounded-[3rem] overflow-hidden border border-[#d9c5b2] dark:border-white/5 shadow-2xl transition-all duration-1000 group", children: [
+        /* @__PURE__ */ jsxs("div", { className: "p-3 sm:p-10 md:p-14 space-y-4 sm:space-y-12", children: [
+          /* @__PURE__ */ jsxs("div", { className: "text-center space-y-2 sm:space-y-6", children: [
+            /* @__PURE__ */ jsx("div", { className: "inline-block px-3 sm:px-8 py-1 sm:py-3 bg-[#4a3f35] dark:bg-stone-200 rounded-full shadow-lg transition-colors", children: /* @__PURE__ */ jsx("p", { className: "text-[7px] sm:text-[10px] font-black tracking-widest text-[#f4ebe1] dark:text-slate-900 uppercase", children: ev.title }) }),
+            /* @__PURE__ */ jsxs("div", { className: "space-y-0.5 sm:space-y-2", children: [
+              /* @__PURE__ */ jsx("h3", { className: "font-serif text-base sm:text-4xl md:text-5xl text-[#4a3f35] dark:text-stone-200 italic transition-colors leading-tight", children: ev.day }),
+              /* @__PURE__ */ jsx("p", { className: "font-serif text-[10px] sm:text-2xl text-[#c5a386] italic tracking-wide", children: ev.date })
             ] }),
-            /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-center gap-2 sm:gap-4 text-[#8c7851] dark:text-[#c5a386] transition-colors", children: [
-              /* @__PURE__ */ jsx(Clock, { size: 14, className: "sm:size-4" }),
-              /* @__PURE__ */ jsxs("p", { className: "text-xs sm:text-sm font-black tracking-widest uppercase", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-center gap-1 sm:gap-4 text-[#8c7851] dark:text-[#c5a386] transition-colors", children: [
+              /* @__PURE__ */ jsx(Clock, { size: 12, className: "sm:size-4" }),
+              /* @__PURE__ */ jsxs("p", { className: "text-[8px] sm:text-sm font-black tracking-widest uppercase", children: [
                 ev.startTime,
                 " — ",
-                ev.endTime,
-                " WIB"
+                ev.endTime
               ] })
             ] })
           ] }),
@@ -2985,23 +2983,23 @@ const EventDetails$9 = () => {
               "button",
               {
                 onClick: () => setActiveDropdown(activeDropdown === ev.id ? null : ev.id),
-                className: "w-full py-3 sm:py-5 bg-[#4a3f35] dark:bg-white text-white dark:text-slate-900 rounded-full text-[9px] sm:text-[10px] font-black tracking-widest uppercase shadow-xl transition-all hover:bg-[#8c7851] flex items-center justify-center gap-2 sm:gap-3 active:scale-95",
+                className: "w-full py-2 sm:py-5 bg-[#4a3f35] dark:bg-white text-white dark:text-slate-900 rounded-full text-[7px] sm:text-[10px] font-black tracking-widest uppercase shadow-xl transition-all hover:bg-[#8c7851] flex items-center justify-center gap-1 sm:gap-3 active:scale-95",
                 children: [
-                  /* @__PURE__ */ jsx(CalendarPlus, { size: 14, className: "sm:size-4" }),
-                  "Ingatkan Saya",
-                  /* @__PURE__ */ jsx(ChevronDown, { size: 12, className: `sm:size-4 transition-transform duration-500 ${activeDropdown === ev.id ? "rotate-180" : ""}` })
+                  /* @__PURE__ */ jsx(CalendarPlus, { size: 12, className: "sm:size-4" }),
+                  "Simpan",
+                  /* @__PURE__ */ jsx(ChevronDown, { size: 10, className: `sm:size-4 transition-transform duration-500 ${activeDropdown === ev.id ? "rotate-180" : ""}` })
                 ]
               }
             ),
-            activeDropdown === ev.id && /* @__PURE__ */ jsxs("div", { className: "absolute top-full left-0 right-0 mt-2 sm:mt-3 bg-white dark:bg-slate-900 border border-[#d9c5b2] dark:border-white/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl z-[50]", children: [
+            activeDropdown === ev.id && /* @__PURE__ */ jsxs("div", { className: "absolute top-full left-0 right-0 mt-1 sm:mt-3 bg-white dark:bg-slate-900 border border-[#d9c5b2] dark:border-white/10 rounded-xl sm:rounded-3xl overflow-hidden shadow-2xl z-[50]", children: [
               /* @__PURE__ */ jsxs(
                 "button",
                 {
                   onClick: () => handleCalendarAction("google", ev),
-                  className: "w-full px-4 sm:px-8 py-3 sm:py-5 text-left flex items-center gap-2 sm:gap-4 hover:bg-[#f9f5f0] dark:hover:bg-white/5 transition-colors",
+                  className: "w-full px-2 sm:px-8 py-2 sm:py-5 text-left flex items-center gap-1.5 sm:gap-4 hover:bg-[#f9f5f0] dark:hover:bg-white/5 transition-colors",
                   children: [
-                    /* @__PURE__ */ jsx("div", { className: "w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#c5a386] rounded-full animate-pulse" }),
-                    /* @__PURE__ */ jsx("span", { className: "text-[9px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300", children: "Google Calendar" })
+                    /* @__PURE__ */ jsx("div", { className: "w-1 h-1 sm:w-2 sm:h-2 bg-[#c5a386] rounded-full animate-pulse" }),
+                    /* @__PURE__ */ jsx("span", { className: "text-[7px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300", children: "Google Calendar" })
                   ]
                 }
               ),
@@ -3009,33 +3007,33 @@ const EventDetails$9 = () => {
                 "button",
                 {
                   onClick: () => handleCalendarAction("ics", ev),
-                  className: "w-full px-4 sm:px-8 py-3 sm:py-5 text-left flex items-center gap-2 sm:gap-4 hover:bg-[#f9f5f0] dark:hover:bg-white/5 transition-colors",
+                  className: "w-full px-2 sm:px-8 py-2 sm:py-5 text-left flex items-center gap-1.5 sm:gap-4 hover:bg-[#f9f5f0] dark:hover:bg-white/5 transition-colors",
                   children: [
-                    /* @__PURE__ */ jsx("div", { className: "w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-300 rounded-full" }),
-                    /* @__PURE__ */ jsx("span", { className: "text-[9px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300", children: "Apple / Outlook" })
+                    /* @__PURE__ */ jsx("div", { className: "w-1 h-1 sm:w-2 sm:h-2 bg-slate-300 rounded-full" }),
+                    /* @__PURE__ */ jsx("span", { className: "text-[7px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300", children: "Apple / Outlook" })
                   ]
                 }
               )
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ jsxs("div", { className: "border-t border-[#f9f5f0] dark:border-white/5 p-6 sm:p-10 md:p-14 space-y-6 sm:space-y-10", children: [
-          /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-4 sm:gap-6", children: [
-            /* @__PURE__ */ jsx("div", { className: "w-10 h-10 sm:w-14 sm:h-14 bg-[#f9f5f0] dark:bg-white/5 border border-[#d9c5b2]/40 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md flex-shrink-0", children: /* @__PURE__ */ jsx(MapPin, { className: "text-[#c5a386] w-5 h-5 sm:w-7 sm:h-7" }) }),
-            /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
-              /* @__PURE__ */ jsx("h4", { className: "font-serif text-lg sm:text-2xl text-[#4a3f35] dark:text-stone-200 italic transition-colors leading-tight", children: ev.venue.name }),
-              /* @__PURE__ */ jsx("p", { className: "font-serif text-sm sm:text-lg text-slate-500 dark:text-stone-400 italic transition-colors leading-snug", children: ev.venue.address })
+        /* @__PURE__ */ jsxs("div", { className: "border-t border-[#f9f5f0] dark:border-white/5 p-3 sm:p-10 md:p-14 space-y-4 sm:space-y-10", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-2 sm:gap-6", children: [
+            /* @__PURE__ */ jsx("div", { className: "w-8 h-8 sm:w-14 sm:h-14 bg-[#f9f5f0] dark:bg-white/5 border border-[#d9c5b2]/40 rounded-lg sm:rounded-2xl flex items-center justify-center shadow-md flex-shrink-0", children: /* @__PURE__ */ jsx(MapPin, { className: "text-[#c5a386] w-4 h-4 sm:w-7 sm:h-7" }) }),
+            /* @__PURE__ */ jsxs("div", { className: "space-y-0.5 min-w-0", children: [
+              /* @__PURE__ */ jsx("h4", { className: "font-serif text-[10px] sm:text-2xl text-[#4a3f35] dark:text-stone-200 italic transition-colors leading-tight truncate", children: ev.venue.name }),
+              /* @__PURE__ */ jsx("p", { className: "font-serif text-[8px] sm:text-lg text-slate-500 dark:text-stone-400 italic transition-colors leading-snug line-clamp-2", children: ev.venue.address })
             ] })
           ] }),
-          /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-3 sm:gap-4", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex gap-1.5 sm:gap-4", children: [
             /* @__PURE__ */ jsxs(
               "button",
               {
                 onClick: () => copyToClipboard(ev.venue.address, ev.id),
-                className: "flex-1 py-3 sm:py-4 border border-[#d9c5b2] dark:border-white/10 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300 transition-all hover:bg-[#f9f5f0] dark:hover:bg-white/5 flex items-center justify-center gap-2",
+                className: "flex-1 py-1.5 sm:py-4 border border-[#d9c5b2] dark:border-white/10 rounded-lg sm:rounded-2xl text-[7px] sm:text-[10px] font-black tracking-widest uppercase text-[#4a3f35] dark:text-stone-300 transition-all hover:bg-[#f9f5f0] dark:hover:bg-white/5 flex items-center justify-center gap-1",
                 children: [
-                  copiedEvent === ev.id ? /* @__PURE__ */ jsx(Check, { size: 14, className: "sm:size-4 text-green-500" }) : /* @__PURE__ */ jsx(Copy, { size: 14, className: "sm:size-4 text-[#c5a386]" }),
-                  copiedEvent === ev.id ? "Berhasil!" : "Salin Alamat"
+                  copiedEvent === ev.id ? /* @__PURE__ */ jsx(Check, { size: 10, className: "sm:size-4 text-green-500" }) : /* @__PURE__ */ jsx(Copy, { size: 10, className: "sm:size-4 text-[#c5a386]" }),
+                  copiedEvent === ev.id ? "OK" : "Salin"
                 ]
               }
             ),
@@ -3045,15 +3043,15 @@ const EventDetails$9 = () => {
                 href: ev.venue.mapsEmbedUrl.replace("&output=embed", ""),
                 target: "_blank",
                 rel: "noopener noreferrer",
-                className: "flex-1 py-3 sm:py-4 bg-[#c5a386] rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black tracking-widest uppercase text-white shadow-lg transition-all hover:bg-[#8c7851] flex items-center justify-center gap-2",
+                className: "flex-1 py-1.5 sm:py-4 bg-[#c5a386] rounded-lg sm:rounded-2xl text-[7px] sm:text-[10px] font-black tracking-widest uppercase text-white shadow-lg transition-all hover:bg-[#8c7851] flex items-center justify-center gap-1",
                 children: [
-                  /* @__PURE__ */ jsx(ExternalLink, { size: 14, className: "sm:size-4" }),
-                  "Petunjuk Jalan"
+                  /* @__PURE__ */ jsx(ExternalLink, { size: 10, className: "sm:size-4" }),
+                  "Maps"
                 ]
               }
             )
           ] }),
-          /* @__PURE__ */ jsx("div", { className: "relative h-48 sm:h-64 md:h-80 rounded-xl sm:rounded-3xl overflow-hidden border border-[#d9c5b2]/40 shadow-xl", children: /* @__PURE__ */ jsx(
+          /* @__PURE__ */ jsx("div", { className: "relative h-24 sm:h-64 md:h-80 rounded-lg sm:rounded-3xl overflow-hidden border border-[#d9c5b2]/40 shadow-xl", children: /* @__PURE__ */ jsx(
             "iframe",
             {
               src: ev.venue.mapsEmbedUrl,
@@ -3075,10 +3073,15 @@ const Gallery$9 = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedImg, setSelectedImg] = useState(null);
   const [isClosing, setIsClosing] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((current) => (current + 1) % config.galleryImages.length);
-    }, 3e3);
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+        setIsTransitioning(false);
+      }, 400);
+    }, 5e3);
     return () => clearInterval(interval);
   }, [config.galleryImages.length]);
   const openLightbox = (index) => {
@@ -3097,17 +3100,25 @@ const Gallery$9 = () => {
   const navigate = (direction, e) => {
     e?.stopPropagation();
     if (selectedImg !== null) {
-      if (direction === "prev") {
-        setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
-      } else {
-        setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
-      }
+      setIsTransitioning(true);
+      setTimeout(() => {
+        if (direction === "prev") {
+          setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
+        } else {
+          setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
+        }
+        setIsTransitioning(false);
+      }, 400);
     } else {
-      if (direction === "prev") {
-        setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
-      } else {
-        setActiveIndex((activeIndex + 1) % config.galleryImages.length);
-      }
+      setIsTransitioning(true);
+      setTimeout(() => {
+        if (direction === "prev") {
+          setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+        } else {
+          setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+        }
+        setIsTransitioning(false);
+      }, 400);
     }
   };
   useEffect(() => {
@@ -3128,20 +3139,20 @@ const Gallery$9 = () => {
         /* @__PURE__ */ jsx("h2", { className: "font-serif text-4xl sm:text-6xl md:text-7xl text-[#4a3f35] dark:text-stone-200 italic leading-tight transition-colors", children: "Galeri" }),
         /* @__PURE__ */ jsx("div", { className: "w-12 h-[1px] bg-[#d9c5b2] mx-auto opacity-50" })
       ] }) }),
-      /* @__PURE__ */ jsx(Reveal$9, { delay: 0.2, children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 sm:gap-4 justify-center px-4", children: [
+      /* @__PURE__ */ jsx(Reveal$9, { delay: 0.2, children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-1 sm:gap-4 justify-center px-2", children: [
         /* @__PURE__ */ jsx(
           "button",
           {
             onClick: () => navigate("prev"),
-            className: "w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[#d9c5b2] dark:border-white/10 flex items-center justify-center text-[#8c7851] hover:bg-[#c5a386] hover:text-white transition-all shadow-sm",
+            className: "w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[#d9c5b2] dark:border-white/10 flex items-center justify-center text-[#8c7851] hover:bg-[#c5a386] hover:text-white transition-all shadow-sm active:scale-90",
             children: /* @__PURE__ */ jsx(ChevronLeft, { size: 16 })
           }
         ),
-        /* @__PURE__ */ jsx("div", { className: "flex gap-2 sm:gap-3 overflow-x-auto no-scrollbar py-2 px-1", children: config.galleryImages.map((img, idx) => /* @__PURE__ */ jsx(
+        /* @__PURE__ */ jsx("div", { className: "flex gap-1.5 sm:gap-3 overflow-x-auto no-scrollbar py-2 px-1", children: config.galleryImages.map((img, idx) => /* @__PURE__ */ jsx(
           "button",
           {
             onClick: () => setActiveIndex(idx),
-            className: `relative flex-shrink-0 w-16 h-12 sm:w-24 sm:h-16 rounded-lg overflow-hidden border-2 transition-all duration-500 ${activeIndex === idx ? "border-[#c5a386] scale-105 shadow-md" : "border-transparent opacity-50 grayscale hover:opacity-100"}`,
+            className: `relative flex-shrink-0 w-12 h-10 sm:w-24 sm:h-16 rounded-xl overflow-hidden border-2 transition-all duration-500 ${activeIndex === idx ? "border-[#c5a386] scale-105 shadow-md" : "border-transparent opacity-50 grayscale hover:opacity-100"}`,
             children: /* @__PURE__ */ jsx("img", { src: img, className: "w-full h-full object-cover", alt: `Thumb ${idx}` })
           },
           idx
@@ -3150,35 +3161,31 @@ const Gallery$9 = () => {
           "button",
           {
             onClick: () => navigate("next"),
-            className: "w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[#d9c5b2] dark:border-white/10 flex items-center justify-center text-[#8c7851] hover:bg-[#c5a386] hover:text-white transition-all shadow-sm",
+            className: "w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[#d9c5b2] dark:border-white/10 flex items-center justify-center text-[#8c7851] hover:bg-[#c5a386] hover:text-white transition-all shadow-sm active:scale-90",
             children: /* @__PURE__ */ jsx(ChevronRight, { size: 16 })
           }
         )
       ] }) }),
-      /* @__PURE__ */ jsx(Reveal$9, { delay: 0.4, children: /* @__PURE__ */ jsxs("div", { className: "relative aspect-[9/16] w-full max-w-[450px] mx-auto rounded-[2rem] sm:rounded-[3rem] overflow-hidden border border-[#d9c5b2] dark:border-white/5 shadow-2xl group", children: [
-        /* @__PURE__ */ jsx(AnimatePresence, { children: /* @__PURE__ */ jsx(
-          motion.img,
+      /* @__PURE__ */ jsx(Reveal$9, { delay: 0.4, children: /* @__PURE__ */ jsxs("div", { className: "relative aspect-[9/16] w-full max-w-[450px] mx-auto rounded-[2.5rem] sm:rounded-[4rem] overflow-hidden border border-[#d9c5b2] dark:border-white/5 shadow-2xl group transition-all duration-1000", children: [
+        config.galleryImages.map((img, idx) => /* @__PURE__ */ jsx(
+          "img",
           {
-            initial: { opacity: 0, scale: 1.1 },
-            animate: { opacity: 1, scale: 1 },
-            exit: { opacity: 0, scale: 0.95 },
-            transition: { duration: 1.2, ease: "easeInOut" },
-            src: config.galleryImages[activeIndex],
-            className: "absolute inset-0 w-full h-full object-cover cursor-pointer",
-            alt: "Featured Gallery",
+            src: img,
+            className: `absolute inset-0 w-full h-full object-cover cursor-pointer transition-opacity duration-[1000ms] ease-in-out ${idx === activeIndex ? "opacity-100 z-10" : "opacity-0 z-0"}`,
+            alt: `Featured ${idx}`,
             onClick: () => openLightbox(activeIndex)
           },
-          activeIndex
-        ) }),
+          idx
+        )),
         /* @__PURE__ */ jsx("div", { className: "absolute bottom-6 right-6 z-20", children: /* @__PURE__ */ jsx(
           "button",
           {
             onClick: () => openLightbox(activeIndex),
-            className: "w-12 h-12 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110",
-            children: /* @__PURE__ */ jsx(Maximize2, { size: 20 })
+            className: "w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110",
+            children: /* @__PURE__ */ jsx(Maximize2, { size: 18, className: "sm:size-6" })
           }
         ) }),
-        /* @__PURE__ */ jsx("div", { className: "absolute inset-0 pointer-events-none bg-gradient-to-t from-black/20 to-transparent" })
+        /* @__PURE__ */ jsx("div", { className: "absolute inset-0 pointer-events-none bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" })
       ] }) })
     ] }),
     /* @__PURE__ */ jsx(AnimatePresence, { children: selectedImg !== null && /* @__PURE__ */ jsxs(
@@ -3313,48 +3320,82 @@ const GiftInfo$9 = () => {
   ] }) });
 };
 const Navbar$9 = ({ theme, toggleTheme }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const navItems = [
+    { id: "hero", icon: Home, label: "Home" },
+    { id: "couple", icon: Heart, label: "Couple" },
+    { id: "event", icon: Calendar, label: "Event" },
+    { id: "gallery", icon: Camera, label: "Gallery" },
+    { id: "rsvp", icon: MessageCircle, label: "RSVP" },
+    { id: "gift", icon: Gift, label: "Gift" }
+  ];
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 500);
+      setScrolled(window.scrollY > 500);
+      const sections = navItems.map((item) => item.id);
+      for (const sectionId of sections.reverse()) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 200) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const navItems = [
-    { icon: Home, label: "Home", href: "#hero" },
-    { icon: Heart, label: "Couple", href: "#couple" },
-    { icon: Calendar, label: "Event", href: "#event" },
-    { icon: Camera, label: "Gallery", href: "#gallery" },
-    { icon: MessageCircle, label: "RSVP", href: "#rsvp" },
-    { icon: Gift, label: "Gift", href: "#gift" }
-  ];
-  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-[#4a3f35]/95 backdrop-blur-md px-3 py-2 sm:px-6 sm:py-4 rounded-full border border-white/10 shadow-2xl flex items-center gap-3 sm:gap-6 md:gap-10", children: [
-    navItems.map((item, idx) => /* @__PURE__ */ jsxs(
-      "a",
-      {
-        href: item.href,
-        className: "group relative flex flex-col items-center gap-0.5 sm:gap-1 text-[#d9c5b2] hover:text-white transition-colors",
-        children: [
-          /* @__PURE__ */ jsx(item.icon, { size: 14, className: "sm:size-5 transition-transform group-hover:-translate-y-0.5 sm:group-hover:-translate-y-1" }),
-          /* @__PURE__ */ jsx("span", { className: "text-[7px] sm:text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity absolute -top-6 sm:-top-8 bg-[#4a3f35] px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md text-white whitespace-nowrap", children: item.label })
-        ]
-      },
-      idx
-    )),
-    /* @__PURE__ */ jsxs(
-      "button",
-      {
-        onClick: toggleTheme,
-        className: "group relative flex flex-col items-center gap-0.5 sm:gap-1 text-[#d9c5b2] hover:text-white transition-colors",
-        "aria-label": "Toggle theme",
-        children: [
-          theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 14, className: "sm:size-5" }) : /* @__PURE__ */ jsx(Sun, { size: 14, className: "sm:size-5" }),
-          /* @__PURE__ */ jsx("span", { className: "text-[7px] sm:text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity absolute -top-6 sm:-top-8 bg-[#4a3f35] px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md whitespace-nowrap text-white", children: theme === "light" ? "Dark Mode" : "Light Mode" })
-        ]
-      }
-    )
-  ] }) });
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  return /* @__PURE__ */ jsx(
+    "nav",
+    {
+      className: `fixed bottom-6 left-1/2 z-[1100] -translate-x-1/2 transition-all duration-700 ${scrolled ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"}`,
+      children: /* @__PURE__ */ jsxs("div", { className: "bg-[#4a3f35]/95 backdrop-blur-md px-3 py-2 rounded-full border border-white/10 shadow-2xl flex items-center gap-2 sm:px-4 sm:py-2.5 sm:gap-3 md:px-5 md:py-3 md:gap-4", children: [
+        navItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = activeSection === item.id;
+          return /* @__PURE__ */ jsxs(
+            "a",
+            {
+              href: `#${item.id}`,
+              onClick: (e) => {
+                e.preventDefault();
+                scrollToSection(item.id);
+              },
+              className: `group relative flex flex-col items-center gap-0.5 px-1.5 py-1 transition-all duration-300 sm:px-2 md:gap-1 ${isActive ? "text-white scale-110" : "text-[#d9c5b2]/60 hover:text-white"}`,
+              children: [
+                /* @__PURE__ */ jsx(Icon, { size: 18, className: `transition-transform duration-300 sm:size-[20px] md:size-[22px] ${isActive ? "" : "group-hover:-translate-y-1"}` }),
+                /* @__PURE__ */ jsx("span", { className: "text-[7px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-8 bg-[#4a3f35] px-2 py-1 rounded-full whitespace-nowrap text-white border border-white/10 shadow-xl pointer-events-none sm:-top-9 sm:text-[8px] sm:px-2.5 sm:py-1.5", children: item.label }),
+                isActive && /* @__PURE__ */ jsx("div", { className: "bg-white absolute -bottom-0.5 h-0.5 w-0.5 rounded-full sm:h-1 sm:w-1" })
+              ]
+            },
+            item.id
+          );
+        }),
+        /* @__PURE__ */ jsx("div", { className: "mx-0.5 h-4 w-[1px] bg-white/10 sm:mx-1 sm:h-5 md:h-6" }),
+        /* @__PURE__ */ jsxs(
+          "button",
+          {
+            onClick: toggleTheme,
+            className: "group relative flex flex-col items-center gap-0.5 px-1.5 py-1 text-[#d9c5b2]/60 hover:text-white transition-all duration-300 sm:px-2 md:gap-1",
+            "aria-label": "Toggle theme",
+            children: [
+              theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 18, className: "transition-transform duration-500 group-hover:rotate-12 sm:size-[20px] md:size-[22px]" }) : /* @__PURE__ */ jsx(Sun, { size: 18, className: "transition-transform duration-500 group-hover:rotate-90 sm:size-[20px] md:size-[22px]" }),
+              /* @__PURE__ */ jsx("span", { className: "text-[7px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-8 bg-[#4a3f35] px-2 py-1 rounded-full whitespace-nowrap text-white border border-white/10 shadow-xl pointer-events-none sm:-top-9 sm:text-[8px] sm:px-2.5 sm:py-1.5", children: theme === "light" ? "Dark" : "Light" })
+            ]
+          }
+        )
+      ] })
+    }
+  );
 };
 const RSVPForm$9 = () => {
   const { invitationId, config } = useSettings();
@@ -4057,11 +4098,11 @@ const Envelope$8 = ({ onOpen }) => {
                 "button",
                 {
                   onClick: handleOpenClick,
-                  className: "group relative inline-flex items-center justify-center gap-3 px-12 py-5 bg-[#db7093] text-white rounded-full transition-all hover:scale-105 active:scale-95 shadow-xl shadow-[#db7093]/20",
+                  className: "group relative inline-flex items-center justify-center gap-4 px-12 py-6 bg-[#db7093] text-white rounded-[2.8rem] transition-all hover:scale-105 active:scale-95 shadow-xl shadow-[#db7093]/20",
                   children: [
-                    /* @__PURE__ */ jsx("span", { className: "relative z-10 font-bold tracking-widest text-[11px] uppercase", children: "Open Invitation" }),
-                    /* @__PURE__ */ jsx(Heart, { className: "relative z-10 h-4 w-4 fill-white" }),
-                    /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-[#c71585] rounded-full scale-0 transition-transform group-hover:scale-100 origin-center" })
+                    /* @__PURE__ */ jsx("span", { className: "relative z-10 font-bold tracking-[0.3em] text-[10px] md:text-[12px] uppercase", children: "Buka Undangan" }),
+                    /* @__PURE__ */ jsx(Mail, { className: "relative z-10 h-4 w-4 fill-white" }),
+                    /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-[#c71585] rounded-[2.8rem] scale-x-0 transition-transform group-hover:scale-x-100 origin-left" })
                   ]
                 }
               ),
@@ -4142,14 +4183,24 @@ const Hero$8 = () => {
           /* @__PURE__ */ jsx("p", { className: "text-[9px] font-black text-[#db7093] dark:text-[#ff8da1] tracking-widest uppercase", children: label })
         ] })
       ] }, label)) }) }),
-      /* @__PURE__ */ jsx(Reveal$8, { delay: 0.6, children: /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ jsx(Reveal$8, { delay: 0.6, children: /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
         /* @__PURE__ */ jsx("p", { className: "font-serif text-2xl md:text-3xl text-[#4a4a4a] dark:text-stone-300 italic transition-colors", children: config.hero.date }),
         /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-center gap-4 text-[#db7093] dark:text-[#ff8da1]", children: [
           /* @__PURE__ */ jsx("div", { className: "h-[1px] w-12 bg-current opacity-30" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs font-bold tracking-[0.4em] uppercase", children: config.hero.city }),
+          /* @__PURE__ */ jsx("p", { className: "text-[9px] md:text-[13px] font-black tracking-[0.4em] uppercase", children: config.hero.city }),
           /* @__PURE__ */ jsx("div", { className: "h-[1px] w-12 bg-current opacity-30" })
         ] })
-      ] }) })
+      ] }) }),
+      /* @__PURE__ */ jsx(Reveal$8, { delay: 0.8, children: /* @__PURE__ */ jsx(
+        motion.button,
+        {
+          animate: { y: [0, 10, 0] },
+          transition: { duration: 2, repeat: Infinity },
+          onClick: () => document.getElementById("couple")?.scrollIntoView({ behavior: "smooth" }),
+          className: "mt-12 md:mt-20 w-12 h-12 md:w-16 md:h-16 rounded-full border border-[#db7093]/20 flex items-center justify-center text-[#db7093] hover:bg-[#db7093] hover:text-white transition-all shadow-lg",
+          children: /* @__PURE__ */ jsx(ArrowDown, { className: "h-5 w-5 md:h-6 md:w-6" })
+        }
+      ) })
     ] })
   ] });
 };
@@ -4169,14 +4220,18 @@ const CoupleProfile$8 = () => {
       /* @__PURE__ */ jsx("div", { className: "text-center space-y-8 max-w-3xl mx-auto", children: /* @__PURE__ */ jsx(Reveal$8, { children: /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
         /* @__PURE__ */ jsx(Heart, { className: "text-[#db7093] dark:text-[#ff8da1] h-8 w-8 mx-auto animate-pulse fill-[#db7093] dark:fill-[#ff8da1] opacity-20 transition-colors" }),
         /* @__PURE__ */ jsx("p", { className: "font-serif text-lg md:text-xl text-[#db7093] dark:text-[#ff8da1] tracking-widest uppercase mb-4", children: "The Holy Matrimony" }),
-        /* @__PURE__ */ jsx("h3", { className: "font-serif text-2xl md:text-3xl text-[#4a4a4a] dark:text-stone-200 italic leading-relaxed transition-colors", children: '"And among His Signs is this, that He created for you mates from among yourselves, that ye may dwell in tranquillity with them, and He has put love and mercy between your (hearts): verily in that are Signs for those who reflect."' }),
-        /* @__PURE__ */ jsx("p", { className: "text-[10px] tracking-[0.4em] font-black text-[#db7093] dark:text-[#ff8da1] uppercase transition-colors", children: "— QS. AR-RUM: 21 —" })
+        /* @__PURE__ */ jsxs("div", { className: "relative", children: [
+          /* @__PURE__ */ jsx(Quote, { className: "absolute -top-6 -left-6 h-12 w-12 text-[#db7093]/10 dark:text-white/5 -scale-x-100" }),
+          /* @__PURE__ */ jsx("h3", { className: "font-serif text-2xl md:text-3xl text-[#4a4a4a] dark:text-stone-200 italic leading-relaxed transition-colors px-4", children: '"And among His Signs is this, that He created for you mates from among yourselves, that ye may dwell in tranquillity with them, and He has put love and mercy between your (hearts): verily in that are Signs for those who reflect."' }),
+          /* @__PURE__ */ jsx(Quote, { className: "absolute -bottom-6 -right-6 h-12 w-12 text-[#db7093]/10 dark:text-white/5" })
+        ] }),
+        /* @__PURE__ */ jsx("p", { className: "text-[10px] md:text-[12px] tracking-[0.4em] font-black text-[#db7093] dark:text-[#ff8da1] uppercase transition-colors", children: "— QS. AR-RUM: 21 —" })
       ] }) }) }),
       /* @__PURE__ */ jsxs("div", { className: "grid md:grid-cols-2 gap-20 items-center", children: [
         /* @__PURE__ */ jsx(Reveal$8, { delay: 0.2, children: /* @__PURE__ */ jsxs("div", { className: "space-y-10 text-center group", children: [
           /* @__PURE__ */ jsxs("div", { className: "relative inline-block mx-auto", children: [
             /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-[#ffd1dc] rounded-full blur-[60px] opacity-0 group-hover:opacity-40 transition-opacity duration-1000" }),
-            /* @__PURE__ */ jsx("div", { className: "relative z-10 w-64 md:w-80 h-64 md:h-80 mx-auto rounded-full p-2 border border-[#ffd1dc] shadow-2xl overflow-hidden", children: /* @__PURE__ */ jsx(
+            /* @__PURE__ */ jsx("div", { className: "relative z-10 w-64 h-64 md:w-[24rem] md:h-[24rem] mx-auto rounded-full p-2 border border-[#ffd1dc] shadow-2xl overflow-hidden", children: /* @__PURE__ */ jsx(
               "img",
               {
                 src: firstCouple.image,
@@ -4187,16 +4242,16 @@ const CoupleProfile$8 = () => {
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
             /* @__PURE__ */ jsx("h3", { className: "font-serif text-4xl md:text-5xl text-[#4a4a4a] dark:text-stone-100 italic transition-colors", children: firstCouple.fullName }),
-            /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
-              /* @__PURE__ */ jsx("p", { className: "text-xs font-bold text-[#db7093] dark:text-[#ff8da1] tracking-widest uppercase transition-colors", children: "Putra Kedua Dari:" }),
-              /* @__PURE__ */ jsx("p", { className: "text-slate-400 dark:text-stone-400 italic text-sm transition-colors", children: firstCouple.parents })
+            /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
+              /* @__PURE__ */ jsx("p", { className: "text-[10px] md:text-[12px] font-bold text-[#db7093] dark:text-[#ff8da1] tracking-widest uppercase transition-colors", children: "Putra Kedua Dari:" }),
+              /* @__PURE__ */ jsx("p", { className: "text-slate-400 dark:text-stone-400 italic text-sm md:text-base transition-colors", children: firstCouple.parents })
             ] })
           ] })
         ] }) }),
         /* @__PURE__ */ jsx(Reveal$8, { delay: 0.4, children: /* @__PURE__ */ jsxs("div", { className: "space-y-10 text-center group", children: [
           /* @__PURE__ */ jsxs("div", { className: "relative inline-block mx-auto", children: [
             /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-[#ffd1dc] rounded-full blur-[60px] opacity-0 group-hover:opacity-40 transition-opacity duration-1000" }),
-            /* @__PURE__ */ jsx("div", { className: "relative z-10 w-64 md:w-80 h-64 md:h-80 mx-auto rounded-full p-2 border border-[#ffd1dc] shadow-2xl overflow-hidden", children: /* @__PURE__ */ jsx(
+            /* @__PURE__ */ jsx("div", { className: "relative z-10 w-64 h-64 md:w-[24rem] md:h-[24rem] mx-auto rounded-full p-2 border border-[#ffd1dc] shadow-2xl overflow-hidden", children: /* @__PURE__ */ jsx(
               "img",
               {
                 src: secondCouple.image,
@@ -4207,9 +4262,9 @@ const CoupleProfile$8 = () => {
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
             /* @__PURE__ */ jsx("h3", { className: "font-serif text-4xl md:text-5xl text-[#4a4a4a] dark:text-stone-100 italic transition-colors", children: secondCouple.fullName }),
-            /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
-              /* @__PURE__ */ jsx("p", { className: "text-xs font-bold text-[#db7093] dark:text-[#ff8da1] tracking-widest uppercase transition-colors", children: "Putri Pertama Dari:" }),
-              /* @__PURE__ */ jsx("p", { className: "text-slate-400 dark:text-stone-400 italic text-sm transition-colors", children: secondCouple.parents })
+            /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
+              /* @__PURE__ */ jsx("p", { className: "text-[10px] md:text-[12px] font-bold text-[#db7093] dark:text-[#ff8da1] tracking-widest uppercase transition-colors", children: "Putri Pertama Dari:" }),
+              /* @__PURE__ */ jsx("p", { className: "text-slate-400 dark:text-stone-400 italic text-sm md:text-base transition-colors", children: secondCouple.parents })
             ] })
           ] })
         ] }) })
@@ -4220,10 +4275,12 @@ const CoupleProfile$8 = () => {
 const LoveStory$8 = () => {
   const { config } = useSettings();
   return /* @__PURE__ */ jsxs("section", { id: "story", className: "bg-[#fffafa] dark:bg-slate-950 py-24 md:py-40 px-6 relative overflow-hidden transition-colors duration-1000", children: [
+    /* @__PURE__ */ jsx("div", { className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none overflow-hidden opacity-5 whitespace-nowrap", children: /* @__PURE__ */ jsx("h2", { className: "font-serif text-[20vw] italic text-[#db7093] leading-none", children: "Our Story" }) }),
     /* @__PURE__ */ jsx("div", { className: "absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-white dark:from-slate-900 to-transparent transition-colors" }),
     /* @__PURE__ */ jsx("div", { className: "absolute -left-32 top-1/2 w-96 h-96 bg-[#ffd1dc] opacity-10 rounded-full blur-[100px]" }),
     /* @__PURE__ */ jsxs("div", { className: "container mx-auto max-w-5xl space-y-32 relative z-10", children: [
-      /* @__PURE__ */ jsxs("div", { className: "text-center space-y-6", children: [
+      /* @__PURE__ */ jsxs("div", { className: "text-center space-y-6 relative", children: [
+        /* @__PURE__ */ jsx("div", { className: "absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none", children: /* @__PURE__ */ jsx("h2", { className: "font-serif text-[12rem] md:text-[20rem] italic whitespace-nowrap", children: "Our Story" }) }),
         /* @__PURE__ */ jsx(Star, { className: "text-[#db7093] dark:text-[#ff8da1] h-8 w-8 mx-auto opacity-30 animate-spin-slow transition-colors" }),
         /* @__PURE__ */ jsx("h2", { className: "font-serif text-5xl md:text-9xl text-[#4a4a4a] dark:text-stone-200 italic leading-tight transition-colors", children: "Our Love Story" }),
         /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-center gap-4", children: [
@@ -4270,38 +4327,41 @@ const EventDetails$8 = () => {
         /* @__PURE__ */ jsx("h2", { className: "font-serif text-5xl md:text-9xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors", children: "The Wedding Event" }),
         /* @__PURE__ */ jsx("p", { className: "tracking-[0.5em] text-[11px] font-black text-[#db7093] dark:text-[#ff8da1] uppercase transition-colors", children: "Blessing & Reception" })
       ] }) }) }),
-      /* @__PURE__ */ jsx("div", { className: "grid md:grid-cols-2 gap-12 lg:gap-20", children: config.events.map((event, idx) => /* @__PURE__ */ jsx(Reveal$8, { delay: idx * 0.2, children: /* @__PURE__ */ jsxs("div", { className: "group relative", children: [
-        /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-white dark:bg-slate-900 rounded-[4rem] shadow-2xl transition-all group-hover:shadow-[#ffd1dc]/40 group-hover:-translate-y-2 duration-1000 overflow-hidden border border-[#ffd1dc]/20 dark:border-white/5", children: /* @__PURE__ */ jsx("div", { className: "absolute -top-20 -right-20 w-40 h-40 bg-[#ffd1dc] opacity-10 rounded-full blur-[50px]" }) }),
-        /* @__PURE__ */ jsxs("div", { className: "relative p-12 md:p-20 space-y-12 text-center", children: [
-          /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
-            /* @__PURE__ */ jsx("p", { className: "text-xs font-black text-[#db7093] dark:text-[#ff8da1] tracking-[0.4em] uppercase transition-colors", children: idx === 0 ? "Holy Matrimony" : "Grand Reception" }),
-            /* @__PURE__ */ jsx("h3", { className: "font-serif text-4xl md:text-5xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors", children: event.title })
+      /* @__PURE__ */ jsx("div", { className: `grid ${config.events.length === 1 ? "grid-cols-1 max-w-2xl mx-auto" : "grid-cols-2"} gap-3 sm:gap-6 md:gap-12 lg:gap-20`, children: config.events.map((event, idx) => /* @__PURE__ */ jsx(Reveal$8, { delay: idx * 0.2, children: /* @__PURE__ */ jsxs("div", { className: "group relative h-full", children: [
+        /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-white dark:bg-slate-900 rounded-xl sm:rounded-2xl md:rounded-[4rem] shadow-2xl transition-all group-hover:shadow-[#ffd1dc]/40 group-hover:-translate-y-2 duration-1000 overflow-hidden border border-[#ffd1dc]/20 dark:border-white/5", children: /* @__PURE__ */ jsx("div", { className: "absolute -top-10 -right-10 w-24 h-24 bg-[#ffd1dc] opacity-10 rounded-full blur-[30px]" }) }),
+        /* @__PURE__ */ jsxs("div", { className: "relative p-3 sm:p-6 md:p-12 lg:p-20 space-y-4 sm:space-y-8 md:space-y-12 text-center h-full flex flex-col justify-between", children: [
+          /* @__PURE__ */ jsxs("div", { className: "space-y-2 sm:space-y-4", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-1", children: [
+              idx === 0 ? /* @__PURE__ */ jsx(Heart, { className: "text-[#db7093] h-3 w-3 sm:h-5 sm:w-5 md:h-6 md:w-6" }) : /* @__PURE__ */ jsx(Sparkles, { className: "text-[#db7093] h-3 w-3 sm:h-5 sm:w-5 md:h-6 md:w-6" }),
+              /* @__PURE__ */ jsx("p", { className: "text-[7px] sm:text-[9px] md:text-xs font-black text-[#db7093] dark:text-[#ff8da1] tracking-[0.2em] uppercase transition-colors", children: idx === 0 ? "Akad Nikah" : "Resepsi" })
+            ] }),
+            /* @__PURE__ */ jsx("h3", { className: "font-serif text-sm sm:text-2xl md:text-4xl lg:text-5xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors leading-tight", children: event.title })
           ] }),
-          /* @__PURE__ */ jsxs("div", { className: "space-y-10", children: [
-            /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
-              /* @__PURE__ */ jsx(Calendar, { className: "text-[#db7093] h-6 w-6 mx-auto opacity-40" }),
-              /* @__PURE__ */ jsxs("p", { className: "font-serif text-3xl text-[#4a4a4a] dark:text-stone-200 italic leading-none transition-colors", children: [
+          /* @__PURE__ */ jsxs("div", { className: "space-y-3 sm:space-y-6 md:space-y-10", children: [
+            /* @__PURE__ */ jsxs("div", { className: "space-y-1 sm:space-y-3", children: [
+              /* @__PURE__ */ jsx(Calendar, { className: "text-[#db7093] h-3 w-3 sm:h-5 sm:w-5 md:h-6 md:w-6 mx-auto opacity-40" }),
+              /* @__PURE__ */ jsxs("p", { className: "font-serif text-[10px] sm:text-lg md:text-3xl text-[#4a4a4a] dark:text-stone-200 italic leading-none transition-colors", children: [
                 event.day,
                 ", ",
                 event.date
               ] })
             ] }),
-            /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
-              /* @__PURE__ */ jsx(Clock, { className: "text-[#db7093] h-6 w-6 mx-auto opacity-40" }),
-              /* @__PURE__ */ jsxs("p", { className: "text-[12px] font-black text-[#db7093] dark:text-[#ff8da1] tracking-[0.2em] uppercase transition-colors", children: [
+            /* @__PURE__ */ jsxs("div", { className: "space-y-1 sm:space-y-3", children: [
+              /* @__PURE__ */ jsx(Clock, { className: "text-[#db7093] h-3 w-3 sm:h-5 sm:w-5 md:h-6 md:w-6 mx-auto opacity-40" }),
+              /* @__PURE__ */ jsxs("p", { className: "text-[8px] sm:text-[10px] md:text-[12px] font-black text-[#db7093] dark:text-[#ff8da1] tracking-[0.2em] uppercase transition-colors", children: [
                 event.startTime,
                 " — ",
                 event.endTime,
                 " WIB"
               ] })
             ] }),
-            /* @__PURE__ */ jsxs("div", { className: "pt-10 border-t border-[#ffd1dc]/30 dark:border-white/5 space-y-4 transition-colors", children: [
-              /* @__PURE__ */ jsx(MapPin, { className: "text-[#db7093] h-6 w-6 mx-auto opacity-40" }),
-              /* @__PURE__ */ jsx("h4", { className: "font-serif text-2xl text-[#4a4a4a] dark:text-stone-200 font-bold transition-colors", children: event.venue.name }),
-              /* @__PURE__ */ jsx("p", { className: "text-sm text-slate-400 dark:text-stone-400 max-w-[250px] mx-auto italic leading-relaxed transition-colors", children: event.venue.address })
+            /* @__PURE__ */ jsxs("div", { className: "pt-3 sm:pt-6 md:pt-10 border-t border-[#ffd1dc]/30 dark:border-white/5 space-y-1 sm:space-y-4 transition-colors", children: [
+              /* @__PURE__ */ jsx(MapPin, { className: "text-[#db7093] h-3 w-3 sm:h-5 sm:w-5 md:h-6 md:w-6 mx-auto opacity-40" }),
+              /* @__PURE__ */ jsx("h4", { className: "font-serif text-[10px] sm:text-lg md:text-2xl text-[#4a4a4a] dark:text-stone-200 font-bold transition-colors leading-tight", children: event.venue.name }),
+              /* @__PURE__ */ jsx("p", { className: "text-[7px] sm:text-xs md:text-sm text-slate-400 dark:text-stone-400 max-w-[150px] sm:max-w-[250px] mx-auto italic leading-relaxed transition-colors line-clamp-2 md:line-clamp-none", children: event.venue.address })
             ] })
           ] }),
-          /* @__PURE__ */ jsx("div", { className: "rounded-[2.5rem] overflow-hidden border border-[#ffd1dc]/20 dark:border-white/5 h-64 relative group/map", children: /* @__PURE__ */ jsx(
+          /* @__PURE__ */ jsx("div", { className: "rounded-lg sm:rounded-2xl md:rounded-[2.5rem] overflow-hidden border border-[#ffd1dc]/20 dark:border-white/5 h-[120px] sm:h-[160px] md:h-[200px] lg:h-64 relative group/map", children: /* @__PURE__ */ jsx(
             "iframe",
             {
               src: event.venue.mapsEmbedUrl,
@@ -4309,99 +4369,101 @@ const EventDetails$8 = () => {
               loading: "lazy"
             }
           ) }),
-          /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
-            /* @__PURE__ */ jsxs("div", { className: "relative", children: [
-              /* @__PURE__ */ jsxs(
+          /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-2 sm:gap-4", children: [
+            /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 gap-2 sm:gap-4", children: [
+              /* @__PURE__ */ jsxs("div", { className: "relative", children: [
+                /* @__PURE__ */ jsxs(
+                  "button",
+                  {
+                    onClick: () => setShowCalendar(showCalendar === event.id ? null : event.id),
+                    className: "w-full py-2 sm:py-3 md:py-5 px-1 sm:px-4 bg-white dark:bg-slate-800 border border-[#ffd1dc] dark:border-white/10 text-[#db7093] dark:text-[#ff8da1] rounded-full text-[7px] sm:text-[9px] md:text-[10px] font-black tracking-widest uppercase flex items-center justify-center gap-1 sm:gap-2 hover:bg-[#db7093] hover:text-white transition-all active:scale-95",
+                    children: [
+                      /* @__PURE__ */ jsx(CalendarPlus, { className: "h-2.5 w-2.5 sm:h-3.5 sm:w-3.5" }),
+                      " Save Date"
+                    ]
+                  }
+                ),
+                /* @__PURE__ */ jsx(AnimatePresence, { children: showCalendar === event.id && /* @__PURE__ */ jsxs(
+                  motion.div,
+                  {
+                    initial: { opacity: 0, y: 10, scale: 0.95 },
+                    animate: { opacity: 1, y: 0, scale: 1 },
+                    exit: { opacity: 0, y: 10, scale: 0.95 },
+                    className: "absolute bottom-full left-0 right-0 mb-2 sm:mb-4 bg-white dark:bg-slate-800 border border-[#ffd1dc] dark:border-white/10 rounded-xl sm:rounded-[2rem] shadow-2xl overflow-hidden z-[50]",
+                    children: [
+                      /* @__PURE__ */ jsxs(
+                        "button",
+                        {
+                          onClick: () => {
+                            window.open(generateGoogleCalendarUrl({
+                              title: event.title,
+                              description: `The Wedding of ${config.couple.groom.name} & ${config.couple.bride.name}`,
+                              location: `${event.venue.name}, ${event.venue.address}`,
+                              startTime: event.startDateTime,
+                              endTime: event.endDateTime
+                            }), "_blank");
+                            setShowCalendar(null);
+                          },
+                          className: "w-full p-2 sm:p-4 md:p-6 text-left hover:bg-[#fffafa] dark:hover:bg-white/5 flex items-center gap-2 sm:gap-4 transition-colors",
+                          children: [
+                            /* @__PURE__ */ jsx("div", { className: "w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-[#db7093]/10 flex items-center justify-center", children: /* @__PURE__ */ jsx(Star, { size: 10, className: "text-[#db7093] sm:size-14" }) }),
+                            /* @__PURE__ */ jsx("span", { className: "text-[6px] sm:text-[9px] md:text-[10px] font-black tracking-widest uppercase", children: "Google" })
+                          ]
+                        }
+                      ),
+                      /* @__PURE__ */ jsxs(
+                        "button",
+                        {
+                          onClick: () => {
+                            downloadICS({
+                              title: event.title,
+                              description: `The Wedding of ${config.couple.groom.name} & ${config.couple.bride.name}`,
+                              location: `${event.venue.name}, ${event.venue.address}`,
+                              startTime: event.startDateTime,
+                              endTime: event.endDateTime
+                            });
+                            setShowCalendar(null);
+                          },
+                          className: "w-full p-2 sm:p-4 md:p-6 text-left hover:bg-[#fffafa] dark:hover:bg-white/5 flex items-center gap-2 sm:gap-4 border-t border-[#ffd1dc]/10 transition-colors",
+                          children: [
+                            /* @__PURE__ */ jsx("div", { className: "w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-[#db7093]/10 flex items-center justify-center", children: /* @__PURE__ */ jsx(Clock, { size: 10, className: "text-[#db7093] sm:size-14" }) }),
+                            /* @__PURE__ */ jsx("span", { className: "text-[6px] sm:text-[9px] md:text-[10px] font-black tracking-widest uppercase", children: "iCal" })
+                          ]
+                        }
+                      )
+                    ]
+                  }
+                ) })
+              ] }),
+              /* @__PURE__ */ jsx(
                 "button",
                 {
-                  onClick: () => setShowCalendar(showCalendar === event.id ? null : event.id),
-                  className: "w-full py-5 px-4 bg-white dark:bg-slate-800 border border-[#ffd1dc] dark:border-white/10 text-[#db7093] dark:text-[#ff8da1] rounded-full text-[10px] font-black tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-[#db7093] hover:text-white transition-all active:scale-95",
-                  children: [
-                    /* @__PURE__ */ jsx(CalendarPlus, { size: 14 }),
-                    " Save Date"
-                  ]
+                  onClick: () => copyAddress(event.venue.address, event.id),
+                  className: "w-full py-2 sm:py-3 md:py-5 px-1 sm:px-4 bg-[#db7093] text-white rounded-full text-[7px] sm:text-[9px] md:text-[10px] font-black tracking-widest uppercase flex items-center justify-center gap-1 sm:gap-2 hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 active:scale-95",
+                  children: copiedId === event.id ? /* @__PURE__ */ jsxs(Fragment, { children: [
+                    /* @__PURE__ */ jsx(Check, { size: 10, className: "sm:size-14" }),
+                    " COPIED"
+                  ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
+                    /* @__PURE__ */ jsx(Copy, { size: 10, className: "sm:size-14" }),
+                    " COPY"
+                  ] })
                 }
-              ),
-              /* @__PURE__ */ jsx(AnimatePresence, { children: showCalendar === event.id && /* @__PURE__ */ jsxs(
-                motion.div,
-                {
-                  initial: { opacity: 0, y: 10, scale: 0.95 },
-                  animate: { opacity: 1, y: 0, scale: 1 },
-                  exit: { opacity: 0, y: 10, scale: 0.95 },
-                  className: "absolute bottom-full left-0 right-0 mb-4 bg-white dark:bg-slate-800 border border-[#ffd1dc] dark:border-white/10 rounded-[2rem] shadow-2xl overflow-hidden z-[50]",
-                  children: [
-                    /* @__PURE__ */ jsxs(
-                      "button",
-                      {
-                        onClick: () => {
-                          window.open(generateGoogleCalendarUrl({
-                            title: event.title,
-                            description: `The Wedding of ${config.couple.groom.name} & ${config.couple.bride.name}`,
-                            location: `${event.venue.name}, ${event.venue.address}`,
-                            startTime: event.startDateTime,
-                            endTime: event.endDateTime
-                          }), "_blank");
-                          setShowCalendar(null);
-                        },
-                        className: "w-full p-6 text-left hover:bg-[#fffafa] dark:hover:bg-white/5 flex items-center gap-4 transition-colors",
-                        children: [
-                          /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-full bg-[#db7093]/10 flex items-center justify-center", children: /* @__PURE__ */ jsx(Star, { size: 14, className: "text-[#db7093]" }) }),
-                          /* @__PURE__ */ jsx("span", { className: "text-[10px] font-black tracking-widest uppercase", children: "Google Calendar" })
-                        ]
-                      }
-                    ),
-                    /* @__PURE__ */ jsxs(
-                      "button",
-                      {
-                        onClick: () => {
-                          downloadICS({
-                            title: event.title,
-                            description: `The Wedding of ${config.couple.groom.name} & ${config.couple.bride.name}`,
-                            location: `${event.venue.name}, ${event.venue.address}`,
-                            startTime: event.startDateTime,
-                            endTime: event.endDateTime
-                          });
-                          setShowCalendar(null);
-                        },
-                        className: "w-full p-6 text-left hover:bg-[#fffafa] dark:hover:bg-white/5 flex items-center gap-4 border-t border-[#ffd1dc]/10 transition-colors",
-                        children: [
-                          /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-full bg-[#db7093]/10 flex items-center justify-center", children: /* @__PURE__ */ jsx(Clock, { size: 14, className: "text-[#db7093]" }) }),
-                          /* @__PURE__ */ jsx("span", { className: "text-[10px] font-black tracking-widest uppercase", children: "iCal / Outlook" })
-                        ]
-                      }
-                    )
-                  ]
-                }
-              ) })
+              )
             ] }),
-            /* @__PURE__ */ jsx(
-              "button",
+            /* @__PURE__ */ jsxs(
+              "a",
               {
-                onClick: () => copyAddress(event.venue.address, event.id),
-                className: "w-full py-5 px-4 bg-[#db7093] text-white rounded-full text-[10px] font-black tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 active:scale-95",
-                children: copiedId === event.id ? /* @__PURE__ */ jsxs(Fragment, { children: [
-                  /* @__PURE__ */ jsx(Check, { size: 14 }),
-                  " COPIED"
-                ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-                  /* @__PURE__ */ jsx(Copy, { size: 14 }),
-                  " COPY ADDRESS"
-                ] })
+                href: event.venue.mapsEmbedUrl.replace("&output=embed", ""),
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "w-full py-2.5 sm:py-4 md:py-6 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-full text-[8px] sm:text-[10px] md:text-[11px] font-black tracking-[0.2em] uppercase flex items-center justify-center gap-2 sm:gap-4 transition-all hover:shadow-2xl active:scale-95",
+                children: [
+                  /* @__PURE__ */ jsx(Map, { size: 14, className: "sm:size-18" }),
+                  " GOOGLE MAPS"
+                ]
               }
             )
-          ] }),
-          /* @__PURE__ */ jsxs(
-            "a",
-            {
-              href: event.venue.mapsEmbedUrl.replace("&output=embed", ""),
-              target: "_blank",
-              rel: "noopener noreferrer",
-              className: "w-full py-6 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-full text-[11px] font-black tracking-[0.2em] uppercase flex items-center justify-center gap-4 transition-all hover:shadow-2xl active:scale-95",
-              children: [
-                /* @__PURE__ */ jsx(Map, { size: 18 }),
-                " OPEN IN GOOGLE MAPS"
-              ]
-            }
-          )
+          ] })
         ] })
       ] }) }, event.id)) })
     ] })
@@ -4415,7 +4477,7 @@ const Gallery$8 = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((current) => (current + 1) % config.galleryImages.length);
-    }, 3e3);
+    }, 5e3);
     return () => clearInterval(interval);
   }, [config.galleryImages.length]);
   const openLightbox = (index) => {
@@ -4495,22 +4557,32 @@ const Gallery$8 = () => {
         )
       ] }) }),
       /* @__PURE__ */ jsx(Reveal$8, { delay: 0.4, children: /* @__PURE__ */ jsxs("div", { className: "relative aspect-[9/16] w-full max-w-[450px] mx-auto rounded-[3rem] sm:rounded-[4rem] overflow-hidden border border-[#ffd1dc]/30 dark:border-white/5 shadow-2xl group", children: [
-        /* @__PURE__ */ jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsx(
+        config.galleryImages.map((img, idx) => /* @__PURE__ */ jsx(
           motion.img,
           {
-            initial: { opacity: 0, filter: "blur(10px)" },
-            animate: { opacity: 1, filter: "blur(0px)" },
-            exit: { opacity: 0, filter: "blur(10px)" },
-            transition: { duration: 1, ease: "easeInOut" },
-            src: config.galleryImages[activeIndex],
+            initial: { opacity: 0 },
+            animate: {
+              opacity: activeIndex === idx ? 1 : 0,
+              scale: activeIndex === idx ? 1 : 1.1,
+              filter: activeIndex === idx ? "blur(0px)" : "blur(10px)"
+            },
+            transition: { duration: 1.5, ease: "easeInOut" },
+            src: img,
             className: "absolute inset-0 w-full h-full object-cover cursor-pointer",
-            alt: "Featured Moment",
-            onClick: () => openLightbox(activeIndex)
+            alt: `Slide ${idx}`,
+            onClick: () => openLightbox(idx)
           },
-          activeIndex
-        ) }),
+          idx
+        )),
         /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-[#db7093]/5 group-hover:bg-transparent transition-colors duration-700 pointer-events-none" }),
-        /* @__PURE__ */ jsx("div", { className: "absolute bottom-8 right-8 z-20", children: /* @__PURE__ */ jsx(
+        /* @__PURE__ */ jsx("div", { className: "absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 z-20", children: config.galleryImages.map((_, i) => /* @__PURE__ */ jsx(
+          "div",
+          {
+            className: `h-1 rounded-full transition-all duration-500 ${activeIndex === i ? "w-8 bg-white" : "w-2 bg-white/30"}`
+          },
+          i
+        )) }),
+        /* @__PURE__ */ jsx("div", { className: "absolute bottom-12 right-12 z-20", children: /* @__PURE__ */ jsx(
           "button",
           {
             onClick: () => openLightbox(activeIndex),
@@ -4640,7 +4712,7 @@ const GiftInfo$8 = () => {
             }
           )
         ] }) }, idx)),
-        config.giftAddress && /* @__PURE__ */ jsx(Reveal$8, { delay: 0.4, children: /* @__PURE__ */ jsxs("div", { className: "h-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 border border-white/10 dark:border-black/5 p-12 rounded-[4rem] shadow-2xl flex flex-col justify-center text-center space-y-10 group hover:shadow-2xl transition-all duration-1000", children: [
+        config.giftAddress ? /* @__PURE__ */ jsx(Reveal$8, { delay: 0.4, children: /* @__PURE__ */ jsxs("div", { className: "h-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 border border-white/10 dark:border-black/5 p-12 rounded-[4rem] shadow-2xl flex flex-col justify-center text-center space-y-10 group hover:shadow-2xl transition-all duration-1000", children: [
           /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
             /* @__PURE__ */ jsx("div", { className: "w-20 h-20 bg-white/10 dark:bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all shadow-inner", children: /* @__PURE__ */ jsx(Home, { className: "text-[#db7093] h-8 w-8" }) }),
             /* @__PURE__ */ jsx("p", { className: "text-[10px] font-black tracking-[0.4em] uppercase opacity-60", children: "Physical Gift Address" }),
@@ -4668,27 +4740,42 @@ const GiftInfo$8 = () => {
               ]
             }
           )
-        ] }) })
+        ] }) }) : /* @__PURE__ */ jsx(Reveal$8, { delay: 0.4, children: /* @__PURE__ */ jsx("div", { className: "h-full bg-white dark:bg-slate-900 border border-[#ffd1dc]/40 dark:border-white/5 p-12 rounded-[4rem] shadow-2xl flex flex-col justify-center text-center space-y-10 group transition-all duration-1000", children: /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
+          /* @__PURE__ */ jsxs("div", { className: "relative w-24 h-24 mx-auto mb-6", children: [
+            /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-[#ffd1dc]/20 rounded-full blur-xl group-hover:scale-125 transition-transform duration-700" }),
+            /* @__PURE__ */ jsx("div", { className: "relative w-full h-full bg-[#fffafa] dark:bg-slate-950 rounded-full flex items-center justify-center border border-[#ffd1dc]/40 group-hover:scale-110 transition-all", children: /* @__PURE__ */ jsx(Package, { className: "text-[#db7093] h-10 w-10" }) })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-serif text-3xl text-[#4a4a4a] dark:text-stone-200 font-bold transition-colors", children: "Physical Gifts" }),
+            /* @__PURE__ */ jsx("p", { className: "text-sm text-slate-400 dark:text-stone-400 italic leading-relaxed", children: "Please contact us directly if you wish to send a physical gift or visit us in person." })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "pt-8 flex justify-center gap-4", children: [
+            /* @__PURE__ */ jsx("div", { className: "w-2 h-2 rounded-full bg-[#db7093]/20" }),
+            /* @__PURE__ */ jsx("div", { className: "w-2 h-2 rounded-full bg-[#db7093]/40" }),
+            /* @__PURE__ */ jsx("div", { className: "w-2 h-2 rounded-full bg-[#db7093]/20" })
+          ] })
+        ] }) }) })
       ] })
     ] })
   ] });
 };
 const Navbar$8 = ({ theme, toggleTheme }) => {
-  const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const navItems = [
-    { id: "hero", icon: Home, label: "Home" },
-    { id: "couple", icon: Heart, label: "Couple" },
-    { id: "event", icon: Calendar, label: "Event" },
-    { id: "gallery", icon: Camera, label: "Gallery" },
-    { id: "gift", icon: Gift, label: "Gift" },
-    { id: "rsvp", icon: MessageCircle, label: "RSVP" }
+    { icon: Home, label: "INFO", href: "#hero", id: "hero" },
+    { icon: Heart, label: "LOVE", href: "#couple", id: "couple" },
+    { icon: Star, label: "STORY", href: "#story", id: "story" },
+    { icon: Calendar, label: "DATE", href: "#event", id: "event" },
+    { icon: ImageIcon, label: "SHOTS", href: "#gallery", id: "gallery" },
+    { icon: Gift, label: "GIFT", href: "#gift", id: "gift" },
+    { icon: MessageCircle, label: "RSVP", href: "#rsvp", id: "rsvp" }
   ];
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 400);
+      setIsVisible(window.scrollY > 400);
       const sections = navItems.map((item) => item.id);
-      for (const sectionId of sections.reverse()) {
+      for (const sectionId of [...sections].reverse()) {
         const element = document.getElementById(sectionId);
         if (element) {
           const rect = element.getBoundingClientRect();
@@ -4708,39 +4795,41 @@ const Navbar$8 = ({ theme, toggleTheme }) => {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-8 left-1/2 -translate-x-1/2 z-[1100] transition-all duration-1000 ${scrolled ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl px-4 py-3 rounded-full border border-[#ffd1dc]/40 dark:border-white/10 shadow-2xl flex items-center gap-2 md:gap-6", children: [
-    navItems.map((item) => {
+  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-75 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-white/80 dark:bg-slate-900/95 backdrop-blur-2xl border border-[#ffd1dc]/40 dark:border-white/5 px-4 py-3 rounded-full shadow-2xl flex items-center gap-3 sm:px-8 sm:py-5 sm:gap-6 md:gap-10 transition-all duration-500", children: [
+    navItems.map((item, idx) => {
       const isActive = activeSection === item.id;
-      const Icon = item.icon;
       return /* @__PURE__ */ jsxs(
         "a",
         {
-          href: `#${item.id}`,
+          href: item.href,
           onClick: (e) => {
             e.preventDefault();
             scrollToSection(item.id);
           },
-          className: `group relative flex flex-col items-center gap-1 p-2 transition-all duration-300 ${isActive ? "text-[#db7093] scale-110" : "text-slate-400 dark:text-stone-500 hover:text-[#db7093]"}`,
+          className: `group relative transition-all duration-300 ${isActive ? "text-[#db7093] dark:text-[#ff8da1] scale-125" : "text-slate-300 dark:text-slate-600 hover:text-[#db7093] dark:hover:text-[#ff8da1] hover:scale-125"}`,
           children: [
-            /* @__PURE__ */ jsx(Icon, { size: 18, className: `transition-transform duration-300 ${isActive ? "" : "group-hover:-translate-y-1"}` }),
-            /* @__PURE__ */ jsx("span", { className: "text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-12 bg-[#db7093] text-white px-3 py-2 rounded-full whitespace-nowrap shadow-lg pointer-events-none", children: item.label }),
-            isActive && /* @__PURE__ */ jsx(motion.div, { layoutId: "nav-active", className: "absolute -bottom-1 w-1 h-1 bg-[#db7093] rounded-full" })
+            /* @__PURE__ */ jsx(item.icon, { size: 20, className: "sm:size-[22px]" }),
+            /* @__PURE__ */ jsx("span", { className: "absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-[#db7093] dark:bg-[#ff8da1] text-white dark:text-slate-950 text-[9px] font-black tracking-widest px-5 py-3 rounded-full hidden group-hover:block whitespace-nowrap italic pointer-events-none", children: item.label }),
+            isActive && /* @__PURE__ */ jsx(
+              motion.div,
+              {
+                layoutId: "active-nav",
+                className: "absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-[#db7093] dark:bg-[#ff8da1] rounded-full sm:w-1.5 sm:h-1.5"
+              }
+            )
           ]
         },
-        item.id
+        idx
       );
     }),
-    /* @__PURE__ */ jsx("div", { className: "w-[1px] h-6 bg-[#ffd1dc]/40 dark:bg-white/10 mx-1 md:mx-2" }),
-    /* @__PURE__ */ jsxs(
+    /* @__PURE__ */ jsx("div", { className: "w-[1px] h-6 bg-[#ffd1dc]/30 mx-1 hidden sm:block" }),
+    /* @__PURE__ */ jsx(
       "button",
       {
         onClick: toggleTheme,
-        className: "group relative flex flex-col items-center gap-1 p-2 text-slate-400 dark:text-stone-500 hover:text-[#db7093] transition-all duration-300",
-        "aria-label": "Toggle theme",
-        children: [
-          theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 18 }) : /* @__PURE__ */ jsx(Sun, { size: 18 }),
-          /* @__PURE__ */ jsx("span", { className: "text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-12 bg-[#db7093] text-white px-3 py-2 rounded-full whitespace-nowrap shadow-lg pointer-events-none", children: theme === "light" ? "Dark Mode" : "Light Mode" })
-        ]
+        className: "text-slate-300 dark:text-slate-600 hover:text-[#db7093] dark:hover:text-[#ff8da1] transition-all hover:scale-125",
+        "aria-label": "Toggle Theme",
+        children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 20, className: "sm:size-[22px]" }) : /* @__PURE__ */ jsx(Sun, { size: 20, className: "sm:size-[22px]" })
       }
     )
   ] }) });
@@ -4756,6 +4845,7 @@ const Footer$1 = () => {
   })();
   return /* @__PURE__ */ jsxs("footer", { className: "bg-white dark:bg-slate-950 py-24 md:py-40 px-6 relative overflow-hidden transition-colors duration-1000 border-t border-[#ffd1dc]/20", children: [
     /* @__PURE__ */ jsx("div", { className: "absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none", style: { backgroundImage: "radial-gradient(#db7093 0.5px, transparent 0.5px)", backgroundSize: "30px 30px" } }),
+    /* @__PURE__ */ jsx("div", { className: "absolute bottom-0 right-1/2 translate-x-1/2 pointer-events-none select-none overflow-hidden opacity-5", children: /* @__PURE__ */ jsx(Heart, { size: 400, className: "text-[#db7093]" }) }),
     /* @__PURE__ */ jsxs("div", { className: "container mx-auto max-w-4xl relative z-10 flex flex-col items-center text-center space-y-20", children: [
       /* @__PURE__ */ jsxs(
         "button",
@@ -4886,273 +4976,275 @@ const RSVPForm$8 = () => {
         /* @__PURE__ */ jsx("h2", { className: "font-serif text-5xl md:text-8xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors", children: "RSVP & Wishes" }),
         /* @__PURE__ */ jsx("p", { className: "tracking-[0.6em] text-[10px] font-bold text-[#db7093] dark:text-[#ff8da1] uppercase transition-colors", children: "Join our celebration" })
       ] }) }) }),
-      /* @__PURE__ */ jsx("div", { className: "lg:col-span-5", children: /* @__PURE__ */ jsx(Reveal$8, { children: /* @__PURE__ */ jsx("div", { className: "bg-white dark:bg-slate-900 p-10 md:p-14 rounded-[4rem] border border-[#ffd1dc]/40 dark:border-white/5 shadow-2xl space-y-14 relative overflow-hidden transition-all duration-1000 min-h-[600px] flex flex-col justify-between", children: submitted ? /* @__PURE__ */ jsxs("div", { className: "text-center py-20 space-y-8 animate-reveal flex flex-col items-center justify-center flex-grow", children: [
-        /* @__PURE__ */ jsxs("div", { className: "relative", children: [
-          /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-[#db7093]/20 rounded-full blur-2xl animate-pulse" }),
-          /* @__PURE__ */ jsx(CheckCircle2, { className: "text-[#db7093] h-24 w-24 relative z-10" })
-        ] }),
-        /* @__PURE__ */ jsx("h3", { className: "font-serif text-4xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors", children: "See You There!" }),
-        /* @__PURE__ */ jsx("p", { className: "text-slate-400 dark:text-stone-400 italic text-xl transition-colors", children: "Your presence will make our day complete." }),
-        /* @__PURE__ */ jsx("button", { onClick: () => setSubmitted(false), className: "px-12 py-5 bg-[#db7093] text-white rounded-full text-[10px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20", children: "SEND ANOTHER RESPONSE" })
-      ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between px-4 pb-10 border-b border-[#ffd1dc]/20", children: formSteps.map((s, i) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
-          /* @__PURE__ */ jsx("div", { className: `w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${step > i + 1 ? "bg-[#db7093] text-white" : step === i + 1 ? "bg-[#db7093] text-white shadow-lg scale-110" : "bg-slate-100 dark:bg-slate-800 text-slate-300"}`, children: step > i + 1 ? /* @__PURE__ */ jsx(Check, { size: 16, strokeWidth: 3 }) : /* @__PURE__ */ jsx(s.icon, { size: 16 }) }),
-          i < 2 && /* @__PURE__ */ jsx("div", { className: `w-8 h-[1px] ${step > i + 1 ? "bg-[#db7093]" : "bg-slate-200"}` })
-        ] }, i)) }),
-        /* @__PURE__ */ jsxs("form", { onSubmit: handleSubmit, className: "space-y-10 flex-grow pt-10", children: [
-          /* @__PURE__ */ jsxs(AnimatePresence, { mode: "wait", children: [
-            step === 1 && /* @__PURE__ */ jsxs(
-              motion.div,
-              {
-                initial: { opacity: 0, x: 20 },
-                animate: { opacity: 1, x: 0 },
-                exit: { opacity: 0, x: -20 },
-                className: "space-y-8",
-                children: [
-                  /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
-                    /* @__PURE__ */ jsx("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase", children: "Your Name" }),
-                    /* @__PURE__ */ jsx(
-                      "input",
-                      {
-                        required: true,
-                        disabled: isNameLocked,
-                        placeholder: "Type your name...",
-                        className: "w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-full px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 focus:ring-4 focus:ring-[#db7093]/20 outline-none transition-all",
-                        value: formData.guest_name,
-                        onChange: (e) => setFormData({ ...formData, guest_name: e.target.value })
-                      }
-                    )
-                  ] }),
-                  /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
-                    /* @__PURE__ */ jsx("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase", children: "Phone Number (Optional)" }),
-                    /* @__PURE__ */ jsx(
-                      "input",
-                      {
-                        placeholder: "0812...",
-                        className: "w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-full px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 focus:ring-4 focus:ring-[#db7093]/20 outline-none transition-all",
-                        value: formData.phone,
-                        onChange: (e) => setFormData({ ...formData, phone: e.target.value })
-                      }
-                    )
-                  ] })
-                ]
-              },
-              "step1"
-            ),
-            step === 2 && /* @__PURE__ */ jsxs(
-              motion.div,
-              {
-                initial: { opacity: 0, x: 20 },
-                animate: { opacity: 1, x: 0 },
-                exit: { opacity: 0, x: -20 },
-                className: "space-y-12",
-                children: [
-                  /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
-                    /* @__PURE__ */ jsx("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase", children: "Will you attend?" }),
-                    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-2 gap-4", children: [AttendanceStatus.HADIR, AttendanceStatus.TIDAK_HADIR].map((status) => /* @__PURE__ */ jsx(
-                      "button",
-                      {
-                        type: "button",
-                        onClick: () => setFormData({ ...formData, attendance: status }),
-                        className: `py-6 rounded-3xl border text-[10px] font-black tracking-widest uppercase transition-all ${formData.attendance === status ? "bg-[#db7093] border-[#db7093] text-white shadow-xl shadow-[#db7093]/20 scale-[1.02]" : "bg-white dark:bg-slate-800 border-[#ffd1dc]/20 text-[#db7093]"}`,
-                        children: status === AttendanceStatus.HADIR ? "YES, I WILL" : "NO, I CAN'T"
-                      },
-                      status
-                    )) })
-                  ] }),
-                  formData.attendance === AttendanceStatus.HADIR && /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
-                    /* @__PURE__ */ jsxs("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase flex items-center justify-between", children: [
-                      "Guest Count ",
-                      /* @__PURE__ */ jsxs("span", { children: [
-                        formData.guest_count,
-                        " Person"
-                      ] })
+      /* @__PURE__ */ jsx("div", { className: "lg:col-span-12 lg:sticky lg:top-32 h-fit", children: /* @__PURE__ */ jsxs("div", { className: "grid lg:grid-cols-12 gap-16 items-start", children: [
+        /* @__PURE__ */ jsx("div", { className: "lg:col-span-5", children: /* @__PURE__ */ jsx(Reveal$8, { children: /* @__PURE__ */ jsx("div", { className: "bg-white dark:bg-slate-900 p-10 md:p-14 rounded-[4rem] border border-[#ffd1dc]/40 dark:border-white/5 shadow-2xl space-y-14 relative overflow-hidden transition-all duration-1000 min-h-[600px] flex flex-col justify-between", children: submitted ? /* @__PURE__ */ jsxs("div", { className: "text-center py-20 space-y-8 animate-reveal flex flex-col items-center justify-center flex-grow", children: [
+          /* @__PURE__ */ jsxs("div", { className: "relative", children: [
+            /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-[#db7093]/20 rounded-full blur-2xl animate-pulse" }),
+            /* @__PURE__ */ jsx(CheckCircle2, { className: "text-[#db7093] h-24 w-24 relative z-10" })
+          ] }),
+          /* @__PURE__ */ jsx("h3", { className: "font-serif text-4xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors", children: "See You There!" }),
+          /* @__PURE__ */ jsx("p", { className: "text-slate-400 dark:text-stone-400 italic text-xl transition-colors", children: "Your presence will make our day complete." }),
+          /* @__PURE__ */ jsx("button", { onClick: () => setSubmitted(false), className: "px-12 py-5 bg-[#db7093] text-white rounded-full text-[10px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20", children: "SEND ANOTHER RESPONSE" })
+        ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
+          /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between px-4 pb-10 border-b border-[#ffd1dc]/20", children: formSteps.map((s, i) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
+            /* @__PURE__ */ jsx("div", { className: `w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${step > i + 1 ? "bg-[#db7093] text-white" : step === i + 1 ? "bg-[#db7093] text-white shadow-lg scale-110" : "bg-slate-100 dark:bg-slate-800 text-slate-300"}`, children: step > i + 1 ? /* @__PURE__ */ jsx(Check, { size: 16, strokeWidth: 3 }) : /* @__PURE__ */ jsx(s.icon, { size: 16 }) }),
+            i < 2 && /* @__PURE__ */ jsx("div", { className: `w-8 h-[1px] ${step > i + 1 ? "bg-[#db7093]" : "bg-slate-200"}` })
+          ] }, i)) }),
+          /* @__PURE__ */ jsxs("form", { onSubmit: handleSubmit, className: "space-y-10 flex-grow pt-10", children: [
+            /* @__PURE__ */ jsxs(AnimatePresence, { mode: "wait", children: [
+              step === 1 && /* @__PURE__ */ jsxs(
+                motion.div,
+                {
+                  initial: { opacity: 0, x: 20 },
+                  animate: { opacity: 1, x: 0 },
+                  exit: { opacity: 0, x: -20 },
+                  className: "space-y-8",
+                  children: [
+                    /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
+                      /* @__PURE__ */ jsx("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase", children: "Your Name" }),
+                      /* @__PURE__ */ jsx(
+                        "input",
+                        {
+                          required: true,
+                          disabled: isNameLocked,
+                          placeholder: "Type your name...",
+                          className: "w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-full px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 focus:ring-4 focus:ring-[#db7093]/20 outline-none transition-all",
+                          value: formData.guest_name,
+                          onChange: (e) => setFormData({ ...formData, guest_name: e.target.value })
+                        }
+                      )
                     ] }),
-                    /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-6", children: [
+                    /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
+                      /* @__PURE__ */ jsx("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase", children: "Phone Number (Optional)" }),
                       /* @__PURE__ */ jsx(
-                        "button",
+                        "input",
                         {
-                          type: "button",
-                          onClick: () => setFormData((prev) => ({ ...prev, guest_count: Math.max(1, prev.guest_count - 1) })),
-                          className: "w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[#db7093] hover:bg-[#db7093] hover:text-white transition-all",
-                          children: /* @__PURE__ */ jsx(Minus, { size: 20 })
-                        }
-                      ),
-                      /* @__PURE__ */ jsx("div", { className: "flex-grow h-2 bg-[#ffd1dc]/30 rounded-full relative overflow-hidden", children: /* @__PURE__ */ jsx(
-                        motion.div,
-                        {
-                          className: "absolute left-0 top-0 bottom-0 bg-[#db7093]",
-                          animate: { width: `${formData.guest_count / config.maxGuests * 100}%` }
-                        }
-                      ) }),
-                      /* @__PURE__ */ jsx(
-                        "button",
-                        {
-                          type: "button",
-                          onClick: () => setFormData((prev) => ({ ...prev, guest_count: Math.min(config.maxGuests, prev.guest_count + 1) })),
-                          className: "w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[#db7093] hover:bg-[#db7093] hover:text-white transition-all",
-                          children: /* @__PURE__ */ jsx(Plus, { size: 20 })
+                          placeholder: "0812...",
+                          className: "w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-full px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 focus:ring-4 focus:ring-[#db7093]/20 outline-none transition-all",
+                          value: formData.phone,
+                          onChange: (e) => setFormData({ ...formData, phone: e.target.value })
                         }
                       )
                     ] })
-                  ] })
-                ]
-              },
-              "step2"
-            ),
-            step === 3 && /* @__PURE__ */ jsxs(
-              motion.div,
-              {
-                initial: { opacity: 0, x: 20 },
-                animate: { opacity: 1, x: 0 },
-                exit: { opacity: 0, x: -20 },
-                className: "space-y-8",
-                children: [
-                  /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
-                    /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
-                      /* @__PURE__ */ jsx("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase italic", children: "Add a Sticker" }),
-                      /* @__PURE__ */ jsx(
+                  ]
+                },
+                "step1"
+              ),
+              step === 2 && /* @__PURE__ */ jsxs(
+                motion.div,
+                {
+                  initial: { opacity: 0, x: 20 },
+                  animate: { opacity: 1, x: 0 },
+                  exit: { opacity: 0, x: -20 },
+                  className: "space-y-12",
+                  children: [
+                    /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
+                      /* @__PURE__ */ jsx("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase", children: "Will you attend?" }),
+                      /* @__PURE__ */ jsx("div", { className: "grid grid-cols-2 gap-4", children: [AttendanceStatus.HADIR, AttendanceStatus.TIDAK_HADIR].map((status) => /* @__PURE__ */ jsx(
                         "button",
                         {
                           type: "button",
+                          onClick: () => setFormData({ ...formData, attendance: status }),
+                          className: `py-6 rounded-3xl border text-[10px] font-black tracking-widest uppercase transition-all ${formData.attendance === status ? "bg-[#db7093] border-[#db7093] text-white shadow-xl shadow-[#db7093]/20 scale-[1.02]" : "bg-white dark:bg-slate-800 border-[#ffd1dc]/20 text-[#db7093]"}`,
+                          children: status === AttendanceStatus.HADIR ? "YES, I WILL" : "NO, I CAN'T"
+                        },
+                        status
+                      )) })
+                    ] }),
+                    formData.attendance === AttendanceStatus.HADIR && /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
+                      /* @__PURE__ */ jsxs("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase flex items-center justify-between", children: [
+                        "Guest Count ",
+                        /* @__PURE__ */ jsxs("span", { children: [
+                          formData.guest_count,
+                          " Person"
+                        ] })
+                      ] }),
+                      /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-6", children: [
+                        /* @__PURE__ */ jsx(
+                          "button",
+                          {
+                            type: "button",
+                            onClick: () => setFormData((prev) => ({ ...prev, guest_count: Math.max(1, prev.guest_count - 1) })),
+                            className: "w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[#db7093] hover:bg-[#db7093] hover:text-white transition-all",
+                            children: /* @__PURE__ */ jsx(Minus, { size: 20 })
+                          }
+                        ),
+                        /* @__PURE__ */ jsx("div", { className: "flex-grow h-2 bg-[#ffd1dc]/30 rounded-full relative overflow-hidden", children: /* @__PURE__ */ jsx(
+                          motion.div,
+                          {
+                            className: "absolute left-0 top-0 bottom-0 bg-[#db7093]",
+                            animate: { width: `${formData.guest_count / config.maxGuests * 100}%` }
+                          }
+                        ) }),
+                        /* @__PURE__ */ jsx(
+                          "button",
+                          {
+                            type: "button",
+                            onClick: () => setFormData((prev) => ({ ...prev, guest_count: Math.min(config.maxGuests, prev.guest_count + 1) })),
+                            className: "w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[#db7093] hover:bg-[#db7093] hover:text-white transition-all",
+                            children: /* @__PURE__ */ jsx(Plus, { size: 20 })
+                          }
+                        )
+                      ] })
+                    ] })
+                  ]
+                },
+                "step2"
+              ),
+              step === 3 && /* @__PURE__ */ jsxs(
+                motion.div,
+                {
+                  initial: { opacity: 0, x: 20 },
+                  animate: { opacity: 1, x: 0 },
+                  exit: { opacity: 0, x: -20 },
+                  className: "space-y-8",
+                  children: [
+                    /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
+                      /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
+                        /* @__PURE__ */ jsx("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase italic", children: "Add a Sticker" }),
+                        /* @__PURE__ */ jsx(
+                          "button",
+                          {
+                            type: "button",
+                            onClick: () => setShowStickerPicker(true),
+                            className: "text-[#db7093] hover:rotate-12 transition-transform",
+                            children: /* @__PURE__ */ jsx(Smile, { size: 24 })
+                          }
+                        )
+                      ] }),
+                      formData.sticker ? /* @__PURE__ */ jsxs("div", { className: "relative inline-block group", children: [
+                        /* @__PURE__ */ jsx("img", { src: formData.sticker.src, className: "w-24 h-24 object-contain animate-bounce-slow" }),
+                        /* @__PURE__ */ jsx(
+                          "button",
+                          {
+                            type: "button",
+                            onClick: () => setFormData({ ...formData, sticker: null }),
+                            className: "absolute -top-2 -right-2 w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity",
+                            children: /* @__PURE__ */ jsx(X, { size: 14 })
+                          }
+                        )
+                      ] }) : /* @__PURE__ */ jsxs(
+                        "div",
+                        {
                           onClick: () => setShowStickerPicker(true),
-                          className: "text-[#db7093] hover:rotate-12 transition-transform",
-                          children: /* @__PURE__ */ jsx(Smile, { size: 24 })
+                          className: "w-full h-32 border-2 border-dashed border-[#ffd1dc] rounded-3xl flex flex-col items-center justify-center gap-3 text-slate-300 cursor-pointer hover:border-[#db7093] hover:text-[#db7093] transition-all",
+                          children: [
+                            /* @__PURE__ */ jsx(Smile, { size: 32 }),
+                            /* @__PURE__ */ jsx("span", { className: "text-[10px] font-black tracking-widest uppercase", children: "Pick a Sticker" })
+                          ]
                         }
                       )
                     ] }),
-                    formData.sticker ? /* @__PURE__ */ jsxs("div", { className: "relative inline-block group", children: [
-                      /* @__PURE__ */ jsx("img", { src: formData.sticker.src, className: "w-24 h-24 object-contain animate-bounce-slow" }),
+                    /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
+                      /* @__PURE__ */ jsx("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase", children: "Message" }),
                       /* @__PURE__ */ jsx(
-                        "button",
+                        "textarea",
                         {
-                          type: "button",
-                          onClick: () => setFormData({ ...formData, sticker: null }),
-                          className: "absolute -top-2 -right-2 w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity",
-                          children: /* @__PURE__ */ jsx(X, { size: 14 })
+                          rows: 4,
+                          placeholder: "Write a beautiful message...",
+                          className: "w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-[2.5rem] px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 outline-none focus:ring-4 focus:ring-[#db7093]/20 transition-all resize-none",
+                          value: formData.message,
+                          onChange: (e) => setFormData({ ...formData, message: e.target.value })
                         }
                       )
-                    ] }) : /* @__PURE__ */ jsxs(
-                      "div",
-                      {
-                        onClick: () => setShowStickerPicker(true),
-                        className: "w-full h-32 border-2 border-dashed border-[#ffd1dc] rounded-3xl flex flex-col items-center justify-center gap-3 text-slate-300 cursor-pointer hover:border-[#db7093] hover:text-[#db7093] transition-all",
-                        children: [
-                          /* @__PURE__ */ jsx(Smile, { size: 32 }),
-                          /* @__PURE__ */ jsx("span", { className: "text-[10px] font-black tracking-widest uppercase", children: "Pick a Sticker" })
-                        ]
-                      }
-                    )
+                    ] })
+                  ]
+                },
+                "step3"
+              )
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "flex gap-4 pt-10", children: [
+              step > 1 && /* @__PURE__ */ jsx(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setStep(step - 1),
+                  className: "w-20 py-2 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] hover:bg-slate-50 active:scale-95 transition-all",
+                  children: /* @__PURE__ */ jsx(ChevronLeft, { size: 24 })
+                }
+              ),
+              step < 3 ? /* @__PURE__ */ jsxs(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setStep(step + 1),
+                  disabled: step === 1 && !formData.guest_name,
+                  className: "flex-grow bg-[#db7093] text-white py-6 rounded-full text-[11px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 disabled:opacity-30 flex items-center justify-center gap-4 active:scale-95",
+                  children: [
+                    "NEXT STEP ",
+                    /* @__PURE__ */ jsx(ChevronRight, { size: 18 })
+                  ]
+                }
+              ) : /* @__PURE__ */ jsxs(
+                "button",
+                {
+                  type: "submit",
+                  disabled: isSubmitting,
+                  className: "flex-grow bg-[#db7093] text-white py-6 rounded-full text-[11px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 flex items-center justify-center gap-4 active:scale-95",
+                  children: [
+                    isSubmitting ? "SENDING..." : "CONFIRM RSVP",
+                    /* @__PURE__ */ jsx(Send, { size: 18 })
+                  ]
+                }
+              )
+            ] })
+          ] })
+        ] }) }) }) }),
+        /* @__PURE__ */ jsxs("div", { className: "lg:col-span-7 space-y-12", children: [
+          /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-4 md:gap-8", children: [
+            { label: "Attending", count: stats.hadir, color: "text-[#db7093]", bg: "bg-white" },
+            { label: "Unsure", count: stats.ragu, color: "text-slate-400", bg: "bg-white/50" },
+            { label: "Absent", count: stats.tidak, color: "text-[#ffd1dc]", bg: "bg-white/30" }
+          ].map((stat, i) => /* @__PURE__ */ jsx(Reveal$8, { delay: i * 0.1, children: /* @__PURE__ */ jsxs("div", { className: `${stat.bg} dark:bg-slate-900 border border-[#ffd1dc]/20 dark:border-white/5 p-8 rounded-[3rem] text-center space-y-2 shadow-xl hover:-translate-y-2 transition-all duration-500`, children: [
+            /* @__PURE__ */ jsx("p", { className: `font-serif text-4xl md:text-6xl font-bold ${stat.color}`, children: stat.count }),
+            /* @__PURE__ */ jsx("p", { className: "text-[9px] font-black tracking-widest text-[#db7093] uppercase italic", children: stat.label })
+          ] }) }, i)) }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-8", children: [
+            /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 gap-6", children: currentRSVPs.map((rsvp, idx) => /* @__PURE__ */ jsx(Reveal$8, { delay: idx * 0.05, children: /* @__PURE__ */ jsxs("div", { className: "p-8 bg-white dark:bg-slate-900 rounded-[3rem] border border-[#ffd1dc]/10 dark:border-white/5 shadow-lg group hover:shadow-2xl transition-all duration-500 min-h-[160px] flex flex-col justify-between", children: [
+              /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
+                /* @__PURE__ */ jsxs("div", { className: "flex items-start justify-between", children: [
+                  /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+                    /* @__PURE__ */ jsx("p", { className: "font-serif text-2xl text-[#4a4a4a] dark:text-stone-200 italic leading-none", children: rsvp.guest_name }),
+                    /* @__PURE__ */ jsx("p", { className: "text-[10px] font-black tracking-widest text-[#db7093] uppercase opacity-40", children: rsvp.attendance === AttendanceStatus.HADIR ? `Hadir • ${rsvp.guest_count} Orang` : "Tidak Hadir" })
                   ] }),
-                  /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
-                    /* @__PURE__ */ jsx("label", { className: "text-[10px] font-black text-[#db7093] tracking-widest uppercase", children: "Message" }),
-                    /* @__PURE__ */ jsx(
-                      "textarea",
-                      {
-                        rows: 4,
-                        placeholder: "Write a beautiful message...",
-                        className: "w-full bg-[#fffafa] dark:bg-slate-800 border border-[#ffd1dc]/30 dark:border-white/10 rounded-[2.5rem] px-8 py-5 font-serif text-2xl italic text-[#4a4a4a] dark:text-stone-200 outline-none focus:ring-4 focus:ring-[#db7093]/20 transition-all resize-none",
-                        value: formData.message,
-                        onChange: (e) => setFormData({ ...formData, message: e.target.value })
-                      }
-                    )
-                  ] })
-                ]
-              },
-              "step3"
-            )
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "flex gap-4 pt-10", children: [
-            step > 1 && /* @__PURE__ */ jsx(
-              "button",
-              {
-                type: "button",
-                onClick: () => setStep(step - 1),
-                className: "w-20 py-2 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] hover:bg-slate-50 active:scale-95 transition-all",
-                children: /* @__PURE__ */ jsx(ChevronLeft, { size: 24 })
-              }
-            ),
-            step < 3 ? /* @__PURE__ */ jsxs(
-              "button",
-              {
-                type: "button",
-                onClick: () => setStep(step + 1),
-                disabled: step === 1 && !formData.guest_name,
-                className: "flex-grow bg-[#db7093] text-white py-6 rounded-full text-[11px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 disabled:opacity-30 flex items-center justify-center gap-4 active:scale-95",
-                children: [
-                  "NEXT STEP ",
-                  /* @__PURE__ */ jsx(ChevronRight, { size: 18 })
-                ]
-              }
-            ) : /* @__PURE__ */ jsxs(
-              "button",
-              {
-                type: "submit",
-                disabled: isSubmitting,
-                className: "flex-grow bg-[#db7093] text-white py-6 rounded-full text-[11px] font-black tracking-widest uppercase hover:bg-[#c71585] transition-all shadow-xl shadow-[#db7093]/20 flex items-center justify-center gap-4 active:scale-95",
-                children: [
-                  isSubmitting ? "SENDING..." : "CONFIRM RSVP",
-                  /* @__PURE__ */ jsx(Send, { size: 18 })
-                ]
-              }
-            )
-          ] })
-        ] })
-      ] }) }) }) }),
-      /* @__PURE__ */ jsxs("div", { className: "lg:col-span-7 space-y-12", children: [
-        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-4 md:gap-8", children: [
-          { label: "Attending", count: stats.hadir, color: "text-[#db7093]", bg: "bg-white" },
-          { label: "Unsure", count: stats.ragu, color: "text-slate-400", bg: "bg-white/50" },
-          { label: "Absent", count: stats.tidak, color: "text-[#ffd1dc]", bg: "bg-white/30" }
-        ].map((stat, i) => /* @__PURE__ */ jsx(Reveal$8, { delay: i * 0.1, children: /* @__PURE__ */ jsxs("div", { className: `${stat.bg} dark:bg-slate-900 border border-[#ffd1dc]/20 dark:border-white/5 p-8 rounded-[3rem] text-center space-y-2 shadow-xl hover:-translate-y-2 transition-all duration-500`, children: [
-          /* @__PURE__ */ jsx("p", { className: `font-serif text-4xl md:text-6xl font-bold ${stat.color}`, children: stat.count }),
-          /* @__PURE__ */ jsx("p", { className: "text-[9px] font-black tracking-widest text-[#db7093] uppercase italic", children: stat.label })
-        ] }) }, i)) }),
-        /* @__PURE__ */ jsxs("div", { className: "space-y-8", children: [
-          /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 gap-6", children: currentRSVPs.map((rsvp, idx) => /* @__PURE__ */ jsx(Reveal$8, { delay: idx * 0.05, children: /* @__PURE__ */ jsxs("div", { className: "p-8 bg-white dark:bg-slate-900 rounded-[3rem] border border-[#ffd1dc]/10 dark:border-white/5 shadow-lg group hover:shadow-2xl transition-all duration-500 min-h-[160px] flex flex-col justify-between", children: [
-            /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
-              /* @__PURE__ */ jsxs("div", { className: "flex items-start justify-between", children: [
-                /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
-                  /* @__PURE__ */ jsx("p", { className: "font-serif text-2xl text-[#4a4a4a] dark:text-stone-200 italic leading-none", children: rsvp.guest_name }),
-                  /* @__PURE__ */ jsx("p", { className: "text-[10px] font-black tracking-widest text-[#db7093] uppercase opacity-40", children: rsvp.attendance === AttendanceStatus.HADIR ? `Hadir • ${rsvp.guest_count} Orang` : "Tidak Hadir" })
+                  rsvp.sticker && /* @__PURE__ */ jsx("img", { src: `/stickers/${rsvp.sticker}.webp`, className: "w-12 h-12 object-contain" })
                 ] }),
-                rsvp.sticker && /* @__PURE__ */ jsx("img", { src: `/stickers/${rsvp.sticker}.webp`, className: "w-12 h-12 object-contain" })
+                /* @__PURE__ */ jsxs("p", { className: "text-slate-400 text-sm italic leading-relaxed line-clamp-3", children: [
+                  '"',
+                  rsvp.message || "Sending love and prayers...",
+                  '"'
+                ] })
               ] }),
-              /* @__PURE__ */ jsxs("p", { className: "text-slate-400 text-sm italic leading-relaxed line-clamp-3", children: [
-                '"',
-                rsvp.message || "Sending love and prayers...",
-                '"'
-              ] })
-            ] }),
-            /* @__PURE__ */ jsx("div", { className: "pt-4 flex justify-end", children: /* @__PURE__ */ jsx("p", { className: "text-[9px] text-slate-200 dark:text-stone-700 font-bold uppercase tracking-widest", children: new Date(rsvp.created_at).toLocaleDateString() }) })
-          ] }) }, rsvp.id)) }),
-          totalPages > 1 && /* @__PURE__ */ jsxs("div", { className: "flex justify-center items-center gap-6 pt-10", children: [
-            /* @__PURE__ */ jsx(
-              "button",
-              {
-                onClick: () => setCurrentPage((p) => Math.max(1, p - 1)),
-                disabled: currentPage === 1,
-                className: "w-12 h-12 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] disabled:opacity-20 transition-all hover:bg-[#db7093] hover:text-white",
-                children: /* @__PURE__ */ jsx(ChevronLeft, { size: 20 })
-              }
-            ),
-            /* @__PURE__ */ jsxs("span", { className: "font-serif text-xl italic text-[#db7093]", children: [
-              currentPage,
-              " / ",
-              totalPages
-            ] }),
-            /* @__PURE__ */ jsx(
-              "button",
-              {
-                onClick: () => setCurrentPage((p) => Math.min(totalPages, p + 1)),
-                disabled: currentPage === totalPages,
-                className: "w-12 h-12 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] disabled:opacity-20 transition-all hover:bg-[#db7093] hover:text-white",
-                children: /* @__PURE__ */ jsx(ChevronRight, { size: 20 })
-              }
-            )
+              /* @__PURE__ */ jsx("div", { className: "pt-4 flex justify-end", children: /* @__PURE__ */ jsx("p", { className: "text-[9px] text-slate-200 dark:text-stone-700 font-bold uppercase tracking-widest", children: new Date(rsvp.created_at).toLocaleDateString() }) })
+            ] }) }, rsvp.id)) }),
+            totalPages > 1 && /* @__PURE__ */ jsxs("div", { className: "flex justify-center items-center gap-6 pt-10", children: [
+              /* @__PURE__ */ jsx(
+                "button",
+                {
+                  onClick: () => setCurrentPage((p) => Math.max(1, p - 1)),
+                  disabled: currentPage === 1,
+                  className: "w-12 h-12 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] disabled:opacity-20 transition-all hover:bg-[#db7093] hover:text-white",
+                  children: /* @__PURE__ */ jsx(ChevronLeft, { size: 20 })
+                }
+              ),
+              /* @__PURE__ */ jsxs("span", { className: "font-serif text-xl italic text-[#db7093]", children: [
+                currentPage,
+                " / ",
+                totalPages
+              ] }),
+              /* @__PURE__ */ jsx(
+                "button",
+                {
+                  onClick: () => setCurrentPage((p) => Math.min(totalPages, p + 1)),
+                  disabled: currentPage === totalPages,
+                  className: "w-12 h-12 rounded-full border border-[#ffd1dc] flex items-center justify-center text-[#db7093] disabled:opacity-20 transition-all hover:bg-[#db7093] hover:text-white",
+                  children: /* @__PURE__ */ jsx(ChevronRight, { size: 20 })
+                }
+              )
+            ] })
           ] })
         ] })
-      ] })
+      ] }) })
     ] }) }),
     /* @__PURE__ */ jsx(
       StickerPicker,
@@ -5219,14 +5311,14 @@ const Wishes$8 = () => {
   }, [wishes, currentPage]);
   return /* @__PURE__ */ jsxs("section", { id: "wishes", className: "bg-white dark:bg-slate-950 py-24 md:py-40 px-6 relative overflow-hidden transition-colors duration-1000", children: [
     /* @__PURE__ */ jsx("div", { className: "absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ffd1dc] to-transparent opacity-30" }),
-    /* @__PURE__ */ jsxs("div", { className: "container mx-auto max-w-6xl relative z-10 space-y-24", children: [
+    /* @__PURE__ */ jsxs("div", { className: "container mx-auto max-w-7xl relative z-10 space-y-24", children: [
       /* @__PURE__ */ jsx("div", { className: "text-center space-y-6", children: /* @__PURE__ */ jsx(Reveal$8, { children: /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
         /* @__PURE__ */ jsx(Sparkles, { className: "text-[#db7093] h-10 w-10 mx-auto opacity-30 animate-pulse" }),
         /* @__PURE__ */ jsx("h2", { className: "font-serif text-5xl md:text-9xl text-[#4a4a4a] dark:text-stone-200 italic leading-tight transition-colors", children: "Digital Guestbook" }),
         /* @__PURE__ */ jsx("p", { className: "max-w-xl mx-auto text-slate-400 dark:text-stone-400 italic font-serif text-xl transition-colors", children: '"Your prayers and warm wishes mean the world to us as we begin this new journey together."' })
       ] }) }) }),
       /* @__PURE__ */ jsxs("div", { className: "grid lg:grid-cols-12 gap-16 items-start", children: [
-        /* @__PURE__ */ jsx("div", { className: "lg:col-span-5", children: /* @__PURE__ */ jsx(Reveal$8, { children: /* @__PURE__ */ jsxs("div", { className: "bg-[#fffafa] dark:bg-slate-900 p-12 md:p-16 rounded-[4rem] border border-[#ffd1dc]/40 dark:border-white/5 shadow-2xl space-y-12 transition-all duration-1000", children: [
+        /* @__PURE__ */ jsx("div", { className: "lg:col-span-5 lg:sticky lg:top-32 h-fit", children: /* @__PURE__ */ jsx(Reveal$8, { children: /* @__PURE__ */ jsxs("div", { className: "bg-white dark:bg-slate-900 p-10 md:p-14 rounded-[4rem] border border-[#ffd1dc]/40 dark:border-white/5 shadow-2xl space-y-12 transition-all duration-1000", children: [
           /* @__PURE__ */ jsxs("div", { className: "space-y-4 text-center", children: [
             /* @__PURE__ */ jsx("h3", { className: "font-serif text-4xl text-[#4a4a4a] dark:text-stone-200 italic transition-colors", children: "Send a Wish" }),
             /* @__PURE__ */ jsx("div", { className: "h-[1px] w-12 bg-[#db7093] opacity-30 mx-auto" })
@@ -5278,15 +5370,18 @@ const Wishes$8 = () => {
         ] }) }) }),
         /* @__PURE__ */ jsxs("div", { className: "lg:col-span-7 space-y-12", children: [
           /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 gap-8", children: currentWishes.map((wish, idx) => /* @__PURE__ */ jsx(Reveal$8, { delay: idx * 0.1, children: /* @__PURE__ */ jsxs("div", { className: "relative group p-10 bg-[#fffafa] dark:bg-slate-900 rounded-[3.5rem] border border-[#ffd1dc]/10 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-1000 flex flex-col gap-6 min-h-[240px]", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
+              /* @__PURE__ */ jsx("div", { className: "w-12 h-12 rounded-full bg-[#db7093] text-white flex items-center justify-center font-bold text-lg shadow-lg", children: wish.name.charAt(0).toUpperCase() }),
+              /* @__PURE__ */ jsxs("div", { className: "flex-grow", children: [
+                /* @__PURE__ */ jsx("p", { className: "text-[11px] font-black tracking-[0.3em] text-[#db7093] dark:text-[#ff8da1] uppercase italic transition-colors truncate", children: wish.name }),
+                /* @__PURE__ */ jsx("p", { className: "text-[9px] text-slate-300 dark:text-stone-600 font-bold uppercase tracking-widest mt-1", children: new Date(wish.created_at).toLocaleDateString(void 0, { month: "long", day: "numeric", year: "numeric" }) })
+              ] })
+            ] }),
             /* @__PURE__ */ jsx("div", { className: "absolute top-8 right-8 text-[#db7093]/10 dark:text-white/5 group-hover:text-[#db7093] transition-colors", children: /* @__PURE__ */ jsx(Quote, { size: 40 }) }),
             /* @__PURE__ */ jsxs("p", { className: "font-serif text-2xl text-[#4a4a4a] dark:text-stone-200 italic leading-relaxed flex-grow transition-colors", children: [
               '"',
               wish.message,
               '"'
-            ] }),
-            /* @__PURE__ */ jsxs("div", { className: "pt-6 border-t border-[#fffafa] dark:border-white/5", children: [
-              /* @__PURE__ */ jsx("p", { className: "text-[11px] font-black tracking-[0.3em] text-[#db7093] dark:text-[#ff8da1] uppercase italic transition-colors truncate", children: wish.name }),
-              /* @__PURE__ */ jsx("p", { className: "text-[9px] text-slate-300 dark:text-stone-600 font-bold uppercase tracking-widest mt-1", children: new Date(wish.created_at).toLocaleDateString(void 0, { month: "long", day: "numeric", year: "numeric" }) })
             ] })
           ] }) }, wish.id)) }),
           totalPages > 1 && /* @__PURE__ */ jsxs("div", { className: "flex justify-center items-center gap-8 pt-10", children: [
@@ -5379,6 +5474,7 @@ const FloralTheme = ({ theme, toggleTheme, isOpened, onOpen }) => {
   return /* @__PURE__ */ jsxs("div", { className: `floral-theme ${theme === "dark" ? "dark" : ""}`, children: [
     !isOpened && /* @__PURE__ */ jsx(Envelope$8, { onOpen }),
     /* @__PURE__ */ jsxs("main", { className: `transition-all duration-1000 ${isOpened ? "opacity-100" : "opacity-0 blur-lg scale-95 pointer-events-none"}`, children: [
+      /* @__PURE__ */ jsx(FloatingPetals, {}),
       /* @__PURE__ */ jsx(Hero$8, {}),
       /* @__PURE__ */ jsx(CoupleProfile$8, {}),
       /* @__PURE__ */ jsx(LoveStory$8, {}),
@@ -5857,51 +5953,17 @@ const GiftInfo$7 = () => {
 const Navbar$7 = ({ theme, toggleTheme }) => {
   const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(window.scrollY > 500);
-    };
+    const handleScroll = () => setIsVisible(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const navItems = [
-    { icon: Home, label: "Home", href: "#hero" },
-    { icon: Heart, label: "Couple", href: "#couple" },
-    { icon: Calendar, label: "Dates", href: "#event" },
-    { icon: Camera, label: "Gallery", href: "#gallery" },
-    { icon: Gift, label: "Gifts", href: "#gift" },
-    { icon: MessageCircle, label: "RSVP", href: "#rsvp" }
-  ];
-  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-24 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-[#4a4a4a]/95 backdrop-blur-xl px-8 py-4 rounded-3xl border border-white/10 shadow-2xl flex items-center gap-6 md:gap-10", children: [
-    navItems.map((item, idx) => /* @__PURE__ */ jsxs(
-      "a",
-      {
-        href: item.href,
-        className: "group relative flex flex-col items-center gap-1 text-[#c19a6b] hover:text-[#e2725b] transition-all",
-        children: [
-          /* @__PURE__ */ jsx(item.icon, { size: 20, className: "transition-transform group-hover:-translate-y-1" }),
-          /* @__PURE__ */ jsx("div", { className: "absolute -top-12 opacity-0 group-hover:opacity-100 transition-all pointer-events-none scale-50 group-hover:scale-100", children: /* @__PURE__ */ jsxs("div", { className: "bg-[#e2725b] text-[#faf7f2] text-[9px] font-black tracking-widest uppercase px-3 py-1.5 rounded-lg whitespace-nowrap shadow-xl", children: [
-            item.label,
-            /* @__PURE__ */ jsx("div", { className: "absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#e2725b] rotate-45" })
-          ] }) })
-        ]
-      },
-      idx
-    )),
-    /* @__PURE__ */ jsxs(
-      "button",
-      {
-        onClick: toggleTheme,
-        className: "group relative flex flex-col items-center gap-1 text-[#c19a6b] hover:text-[#e2725b] transition-all",
-        "aria-label": "Toggle theme",
-        children: [
-          theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 20 }) : /* @__PURE__ */ jsx(Sun, { size: 20 }),
-          /* @__PURE__ */ jsx("div", { className: "absolute -top-12 opacity-0 group-hover:opacity-100 transition-all pointer-events-none scale-50 group-hover:scale-100", children: /* @__PURE__ */ jsxs("div", { className: "bg-[#e2725b] text-[#faf7f2] text-[9px] font-black tracking-widest uppercase px-3 py-1.5 rounded-lg whitespace-nowrap shadow-xl", children: [
-            theme === "light" ? "Dark Spirit" : "Light Spirit",
-            /* @__PURE__ */ jsx("div", { className: "absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#e2725b] rotate-45" })
-          ] }) })
-        ]
-      }
-    )
+  const navItems = [{ icon: Home, label: "Home", href: "#hero" }, { icon: Heart, label: "Couple", href: "#couple" }, { icon: Calendar, label: "Dates", href: "#event" }, { icon: Camera, label: "Gallery", href: "#gallery" }, { icon: Gift, label: "Gifts", href: "#gift" }, { icon: MessageCircle, label: "RSVP", href: "#rsvp" }];
+  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-[1.5s] ease-in-out ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-20 scale-95 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-white/95 dark:bg-stone-900/95 backdrop-blur-2xl border border-[#c19a6b]/10 dark:border-white/5 px-8 py-5 rounded-full shadow-2xl flex items-center gap-6 sm:gap-10", children: [
+    navItems.map((item, idx) => /* @__PURE__ */ jsxs("a", { href: item.href, className: "group relative text-[#c19a6b]/60 hover:text-[#e2725b] transition-all", children: [
+      /* @__PURE__ */ jsx(item.icon, { size: 22 }),
+      /* @__PURE__ */ jsx("span", { className: "absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-[#4a4a4a] text-white text-[9px] font-black tracking-widest px-5 py-3 rounded-full hidden group-hover:block whitespace-nowrap", children: item.label })
+    ] }, idx)),
+    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-[#c19a6b]/60 hover:text-[#e2725b] transition-all", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 22 }) : /* @__PURE__ */ jsx(Sun, { size: 22 }) })
   ] }) });
 };
 const RSVPForm$7 = () => {
@@ -6891,46 +6953,17 @@ const GiftInfo$6 = () => {
 const Navbar$6 = ({ theme, toggleTheme }) => {
   const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(window.scrollY > 400);
-    };
+    const handleScroll = () => setIsVisible(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const navItems = [
-    { icon: Home, label: "Intro", href: "#hero" },
-    { icon: Heart, label: "Couple", href: "#couple" },
-    { icon: Calendar, label: "Time", href: "#event" },
-    { icon: Camera, label: "Frames", href: "#gallery" },
-    { icon: Gift, label: "Token", href: "#gift" },
-    { icon: MessageCircle, label: "RSVP", href: "#rsvp" }
-  ];
-  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-20 scale-90 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 px-6 py-4 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.4)] flex items-center gap-6 md:gap-10 transition-colors duration-1000", children: [
-    navItems.map((item, idx) => /* @__PURE__ */ jsxs(
-      "a",
-      {
-        href: item.href,
-        className: "group relative flex flex-col items-center gap-1 text-zinc-400 hover:text-black dark:hover:text-white transition-all duration-300",
-        children: [
-          /* @__PURE__ */ jsx(item.icon, { size: 20, className: "transition-transform group-hover:-translate-y-1" }),
-          /* @__PURE__ */ jsx("span", { className: "absolute -top-12 opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap bg-black dark:bg-white text-white dark:text-black text-[9px] font-black tracking-widest uppercase px-3 py-1.5 rounded transition-transform group-hover:translate-y-0 translate-y-2", children: item.label })
-        ]
-      },
-      idx
-    )),
-    /* @__PURE__ */ jsx("div", { className: "w-[1px] h-6 bg-zinc-200 dark:bg-zinc-800 mx-1" }),
-    /* @__PURE__ */ jsxs(
-      "button",
-      {
-        onClick: toggleTheme,
-        className: "group relative flex flex-col items-center gap-1 text-zinc-400 hover:text-black dark:hover:text-white transition-all duration-300",
-        "aria-label": "Toggle theme",
-        children: [
-          theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 20 }) : /* @__PURE__ */ jsx(Sun, { size: 20 }),
-          /* @__PURE__ */ jsx("span", { className: "absolute -top-12 opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap bg-black dark:bg-white text-white dark:text-black text-[9px] font-black tracking-widest uppercase px-3 py-1.5 rounded transition-transform group-hover:translate-y-0 translate-y-2", children: theme === "light" ? "Dark Mode" : "Light Mode" })
-        ]
-      }
-    )
+  const navItems = [{ icon: Home, label: "Intro", href: "#hero" }, { icon: Heart, label: "Couple", href: "#couple" }, { icon: Calendar, label: "Time", href: "#event" }, { icon: Camera, label: "Frames", href: "#gallery" }, { icon: Gift, label: "Token", href: "#gift" }, { icon: MessageCircle, label: "RSVP", href: "#rsvp" }];
+  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-[1s] ease-in-out ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-20 scale-95 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-zinc-200 dark:border-white/10 px-8 py-5 rounded-full shadow-2xl flex items-center gap-6 sm:gap-10", children: [
+    navItems.map((item, idx) => /* @__PURE__ */ jsxs("a", { href: item.href, className: "group relative text-zinc-400 hover:text-black dark:hover:text-white transition-all", children: [
+      /* @__PURE__ */ jsx(item.icon, { size: 22 }),
+      /* @__PURE__ */ jsx("span", { className: "absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-black dark:bg-white text-white dark:text-black text-[9px] font-black tracking-widest px-5 py-3 rounded-full hidden group-hover:block whitespace-nowrap", children: item.label })
+    ] }, idx)),
+    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-zinc-400 hover:text-black dark:hover:text-white transition-all", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 22 }) : /* @__PURE__ */ jsx(Sun, { size: 22 }) })
   ] }) });
 };
 const RSVPForm$6 = () => {
@@ -7857,46 +7890,17 @@ const GiftInfo$5 = () => {
 const Navbar$5 = ({ theme, toggleTheme }) => {
   const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(window.scrollY > 400);
-    };
+    const handleScroll = () => setIsVisible(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const navItems = [
-    { icon: Home, label: "INFO", href: "#hero" },
-    { icon: Heart, label: "COUPLE", href: "#couple" },
-    { icon: PartyPopper, label: "STORY", href: "#story" },
-    { icon: Calendar, label: "DATES", href: "#event" },
-    { icon: Camera, label: "SHOTS", href: "#gallery" },
-    { icon: Gift, label: "TOKEN", href: "#gift" },
-    { icon: MessageCircle, label: "RSVP", href: "#rsvp" }
-  ];
-  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-50 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-black border-4 border-white px-8 py-5 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex items-center gap-6 md:gap-10", children: [
-    navItems.map((item, idx) => /* @__PURE__ */ jsxs(
-      "a",
-      {
-        href: item.href,
-        className: "group relative flex flex-col items-center gap-1 text-white hover:text-yellow-400 transition-all",
-        children: [
-          /* @__PURE__ */ jsx(item.icon, { size: 22, className: "transition-transform group-hover:-translate-y-2 group-hover:scale-125" }),
-          /* @__PURE__ */ jsx("span", { className: "absolute -top-16 opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap bg-pink-500 text-white text-[9px] font-black tracking-widest uppercase px-4 py-2 rounded-xl italic border-2 border-black rotate-3 group-hover:block hidden", children: item.label })
-        ]
-      },
-      idx
-    )),
-    /* @__PURE__ */ jsxs(
-      "button",
-      {
-        onClick: toggleTheme,
-        className: "group relative flex flex-col items-center gap-1 text-white hover:text-yellow-400 transition-all",
-        "aria-label": "Toggle theme",
-        children: [
-          theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 22 }) : /* @__PURE__ */ jsx(Sun, { size: 22 }),
-          /* @__PURE__ */ jsx("span", { className: "absolute -top-16 opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap bg-pink-500 text-white text-[9px] font-black tracking-widest uppercase px-4 py-2 rounded-xl italic border-2 border-black rotate-3 group-hover:block hidden", children: theme === "light" ? "Night Mode" : "Day Mode" })
-        ]
-      }
-    )
+  const navItems = [{ icon: Home, label: "INFO", href: "#hero" }, { icon: Heart, label: "COUPLE", href: "#couple" }, { icon: Sparkles, label: "STORY", href: "#story" }, { icon: Calendar, label: "DATES", href: "#event" }, { icon: Camera, label: "SHOTS", href: "#gallery" }, { icon: Gift, label: "TOKEN", href: "#gift" }, { icon: MessageCircle, label: "RSVP", href: "#rsvp" }];
+  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-75 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-black/95 dark:bg-white/95 backdrop-blur-2xl border-4 border-black dark:border-white/20 px-8 py-5 rounded-full shadow-[12px_12px_0_rgba(0,0,0,0.1)] dark:shadow-[12px_12px_0_rgba(255,255,255,0.05)] flex items-center gap-6 md:gap-10", children: [
+    navItems.map((item, idx) => /* @__PURE__ */ jsxs("a", { href: item.href, className: "group relative text-white/40 dark:text-black/30 hover:text-yellow-400 dark:hover:text-blue-600 transition-all hover:scale-125", children: [
+      /* @__PURE__ */ jsx(item.icon, { size: 22, strokeWidth: 3 }),
+      /* @__PURE__ */ jsx("span", { className: "absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-black dark:bg-white text-white dark:text-black text-[9px] font-black tracking-widest px-5 py-3 rounded-xl border-4 border-current hidden group-hover:block whitespace-nowrap", children: item.label })
+    ] }, idx)),
+    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-white/40 dark:text-black/30 hover:text-yellow-400 dark:hover:text-blue-600 transition-all hover:scale-125", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 22, strokeWidth: 3 }) : /* @__PURE__ */ jsx(Sun, { size: 22, strokeWidth: 3 }) })
   ] }) });
 };
 const RSVPForm$5 = () => {
@@ -8770,12 +8774,12 @@ const Navbar$4 = ({ theme, toggleTheme }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   const navItems = [{ icon: Home, label: "Aura", href: "#hero" }, { icon: Heart, label: "Ones", href: "#couple" }, { icon: Star, label: "Log", href: "#story" }, { icon: Calendar, label: "Time", href: "#event" }, { icon: Camera, label: "Frames", href: "#gallery" }, { icon: Gift, label: "Token", href: "#gift" }, { icon: MessageCircle, label: "RSVP", href: "#rsvp" }];
-  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-32 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-[#0f0f11]/80 backdrop-blur-3xl border border-white/10 px-8 py-5 rounded-[2.5rem] shadow-2xl flex items-center gap-6 md:gap-10", children: [
+  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-32 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-[#0f0f11]/80 backdrop-blur-3xl border border-white/10 px-8 py-5 rounded-[2.5rem] shadow-2xl flex items-center gap-6 sm:gap-10", children: [
     navItems.map((item, idx) => /* @__PURE__ */ jsxs("a", { href: item.href, className: "group relative text-white/40 hover:text-emerald-400 transition-all", children: [
-      /* @__PURE__ */ jsx(item.icon, { size: 20 }),
-      /* @__PURE__ */ jsx("span", { className: "absolute -top-14 opacity-0 group-hover:opacity-100 transition-all bg-emerald-500/20 backdrop-blur-xl border border-emerald-500/30 text-emerald-400 text-[10px] px-4 py-2 rounded-full hidden group-hover:block", children: item.label })
+      /* @__PURE__ */ jsx(item.icon, { size: 22 }),
+      /* @__PURE__ */ jsx("span", { className: "absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-emerald-500/20 backdrop-blur-xl border border-emerald-500/30 text-emerald-400 text-[10px] px-5 py-3 rounded-full hidden group-hover:block whitespace-nowrap", children: item.label })
     ] }, idx)),
-    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-white/40 hover:text-emerald-400 transition-all", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 20 }) : /* @__PURE__ */ jsx(Sun, { size: 20 }) })
+    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-white/40 hover:text-emerald-400 transition-all", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 22 }) : /* @__PURE__ */ jsx(Sun, { size: 22 }) })
   ] }) });
 };
 const DarkElegantTheme = ({ theme, toggleTheme, isOpened, onOpen }) => {
@@ -9359,12 +9363,12 @@ const Navbar$3 = ({ theme, toggleTheme }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   const navItems = [{ icon: Home, label: "Home", href: "#hero" }, { icon: Heart, label: "Mempelai", href: "#couple" }, { icon: Star, label: "Kisah", href: "#story" }, { icon: Calendar, label: "Acara", href: "#event" }, { icon: Camera, label: "Galeri", href: "#gallery" }, { icon: Gift, label: "Kado", href: "#gift" }, { icon: MessageCircle, label: "RSVP", href: "#rsvp" }];
-  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-50 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-[#4a0404]/80 backdrop-blur-3xl border border-[#d4af37]/30 px-8 py-5 rounded-full flex items-center gap-6 md:gap-10 shadow-2xl", children: [
+  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-50 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-[#4a0404]/80 backdrop-blur-3xl border border-[#d4af37]/30 px-8 py-5 rounded-full flex items-center gap-6 sm:gap-10 shadow-2xl", children: [
     navItems.map((item, idx) => /* @__PURE__ */ jsxs("a", { href: item.href, className: "group relative text-[#d4af37]/40 hover:text-[#d4af37] transition-all", children: [
-      /* @__PURE__ */ jsx(item.icon, { size: 20 }),
-      /* @__PURE__ */ jsx("span", { className: "absolute -top-14 opacity-0 group-hover:opacity-100 transition-all bg-[#d4af37] text-maroon-900 text-[9px] font-black px-4 py-2 rounded-md hidden group-hover:block whitespace-nowrap", children: item.label })
+      /* @__PURE__ */ jsx(item.icon, { size: 22 }),
+      /* @__PURE__ */ jsx("span", { className: "absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-[#d4af37] text-maroon-900 text-[9px] font-black px-5 py-3 rounded-md hidden group-hover:block whitespace-nowrap", children: item.label })
     ] }, idx)),
-    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-[#d4af37]/40 hover:text-[#d4af37] transition-all", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 20 }) : /* @__PURE__ */ jsx(Sun, { size: 20 }) })
+    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-[#d4af37]/40 hover:text-[#d4af37] transition-all", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 22 }) : /* @__PURE__ */ jsx(Sun, { size: 22 }) })
   ] }) });
 };
 const RoyalTheme = ({ theme, toggleTheme, isOpened, onOpen }) => {
@@ -9938,12 +9942,12 @@ const Navbar$2 = ({ theme, toggleTheme }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   const navItems = [{ icon: Home, label: "Awal", href: "#hero" }, { icon: Heart, label: "Mempelai", href: "#couple" }, { icon: Star, label: "Kisah", href: "#story" }, { icon: Calendar, label: "Agenda", href: "#event" }, { icon: Camera, label: "Galeri", href: "#gallery" }, { icon: Gift, label: "Kado", href: "#gift" }, { icon: MessageCircle, label: "RSVP", href: "#rsvp" }];
-  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-75 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-white/80 backdrop-blur-2xl border border-[#2d4a3e]/5 px-10 py-6 rounded-full shadow-2xl flex items-center gap-8 md:gap-12", children: [
+  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-75 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-white/80 backdrop-blur-2xl border border-[#2d4a3e]/5 px-8 py-5 rounded-full shadow-2xl flex items-center gap-6 sm:gap-10", children: [
     navItems.map((item, idx) => /* @__PURE__ */ jsxs("a", { href: item.href, className: "group relative text-[#2d4a3e]/40 hover:text-[#c5a059] transition-all", children: [
-      /* @__PURE__ */ jsx(item.icon, { size: 20 }),
-      /* @__PURE__ */ jsx("span", { className: "absolute -top-16 opacity-0 group-hover:opacity-100 transition-all bg-[#2d4a3e] text-white text-[9px] font-black px-5 py-3 rounded-full hidden group-hover:block whitespace-nowrap", children: item.label })
+      /* @__PURE__ */ jsx(item.icon, { size: 22 }),
+      /* @__PURE__ */ jsx("span", { className: "absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-[#2d4a3e] text-white text-[9px] font-black px-5 py-3 rounded-full hidden group-hover:block whitespace-nowrap", children: item.label })
     ] }, idx)),
-    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-[#2d4a3e]/40 hover:text-[#c5a059] transition-all", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 20 }) : /* @__PURE__ */ jsx(Sun, { size: 20 }) })
+    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-[#2d4a3e]/40 hover:text-[#c5a059] transition-all", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 22 }) : /* @__PURE__ */ jsx(Sun, { size: 22 }) })
   ] }) });
 };
 const IslamicTheme = ({ theme, toggleTheme, isOpened, onOpen }) => {
@@ -10535,12 +10539,12 @@ const Navbar$1 = ({ theme, toggleTheme }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   const navItems = [{ icon: Home, label: "Rewind", href: "#hero" }, { icon: Heart, label: "Couples", href: "#couple" }, { icon: Star, label: "History", href: "#story" }, { icon: Calendar, label: "Dockets", href: "#event" }, { icon: Camera, label: "Archives", href: "#gallery" }, { icon: Gift, label: "Tokens", href: "#gift" }, { icon: MessageCircle, label: "Signals", href: "#rsvp" }];
-  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-50 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-[#f4ecd8]/90 backdrop-blur-md border-x-4 border-[#5c4033]/20 px-8 py-5 shadow-2xl flex items-center gap-6 md:gap-10", children: [
+  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-50 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-[#f4ecd8]/90 backdrop-blur-md border-x-4 border-[#5c4033]/20 px-8 py-5 shadow-2xl flex items-center gap-6 sm:gap-10", children: [
     navItems.map((item, idx) => /* @__PURE__ */ jsxs("a", { href: item.href, className: "group relative text-[#5c4033]/40 hover:text-[#5c4033] transition-all", children: [
-      /* @__PURE__ */ jsx(item.icon, { size: 20 }),
-      /* @__PURE__ */ jsx("span", { className: "absolute -top-16 opacity-0 group-hover:opacity-100 transition-all bg-[#5c4033] text-[#f4ecd8] text-[9px] font-mono px-5 py-3 hidden group-hover:block whitespace-nowrap", children: item.label })
+      /* @__PURE__ */ jsx(item.icon, { size: 22 }),
+      /* @__PURE__ */ jsx("span", { className: "absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-[#5c4033] text-[#f4ecd8] text-[9px] font-mono px-5 py-3 hidden group-hover:block whitespace-nowrap", children: item.label })
     ] }, idx)),
-    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-[#5c4033]/40 hover:text-[#5c4033] transition-all", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 20 }) : /* @__PURE__ */ jsx(Sun, { size: 20 }) })
+    /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-[#5c4033]/40 hover:text-[#5c4033] transition-all", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 22 }) : /* @__PURE__ */ jsx(Sun, { size: 22 }) })
   ] }) });
 };
 const VintageTheme = ({ theme, toggleTheme, isOpened, onOpen }) => {
@@ -11092,10 +11096,10 @@ const Navbar = ({ theme, toggleTheme }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   const navItems = [{ icon: Home, label: "Intro", href: "#hero" }, { icon: Heart, label: "Heroes", href: "#couple" }, { icon: Star, label: "History", href: "#story" }, { icon: Calendar, label: "Agenda", href: "#event" }, { icon: Camera, label: "Panels", href: "#gallery" }, { icon: Gift, label: "Tokens", href: "#gift" }, { icon: MessageCircle, label: "Log", href: "#rsvp" }];
-  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-75 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-[4px] border-[#2d2d2d] dark:border-blue-500 px-8 py-5 shadow-2xl flex items-center gap-6 md:gap-10", children: [
+  return /* @__PURE__ */ jsx("nav", { className: `fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-32 scale-75 pointer-events-none"}`, children: /* @__PURE__ */ jsxs("div", { className: "bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-[4px] border-[#2d2d2d] dark:border-blue-500 px-8 py-5 shadow-2xl flex items-center gap-6 sm:gap-10", children: [
     navItems.map((item, idx) => /* @__PURE__ */ jsxs("a", { href: item.href, className: "group relative text-[#2d2d2d]/30 hover:text-[#2196f3] transition-all", children: [
       /* @__PURE__ */ jsx(item.icon, { size: 22 }),
-      /* @__PURE__ */ jsx("span", { className: "absolute -top-16 opacity-0 group-hover:opacity-100 transition-all bg-[#ffeb3b] text-[#2d2d2d] text-[10px] font-black px-5 py-3 border-[3px] border-[#2d2d2d] hidden group-hover:block whitespace-nowrap italic", children: item.label })
+      /* @__PURE__ */ jsx("span", { className: "absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-[#ffeb3b] text-[#2d2d2d] text-[10px] font-black px-5 py-3 border-[3px] border-[#2d2d2d] hidden group-hover:block whitespace-nowrap italic", children: item.label })
     ] }, idx)),
     /* @__PURE__ */ jsx("button", { onClick: toggleTheme, className: "text-[#2d2d2d]/30 hover:text-[#2196f3] transition-all", children: theme === "light" ? /* @__PURE__ */ jsx(Moon, { size: 22 }) : /* @__PURE__ */ jsx(Sun, { size: 22 }) })
   ] }) });
@@ -11146,7 +11150,7 @@ const AVAILABLE_THEMES = [
     id: "luxury",
     name: "Luxury Premium",
     preview: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=600&auto=format&fit=crop",
-    description: "Desain elegan dengan glassmorphism dan animasi mewah."
+    description: "Desain elegan dengan glassmorphis dan animasi mewah."
   },
   {
     id: "minimalist",
@@ -11188,13 +11192,13 @@ const AVAILABLE_THEMES = [
     id: "dark-elegant",
     name: "Dark Elegant",
     preview: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=600&auto=format&fit=crop",
-    description: "Kemewahan emerald dan emas dalam balutan dark mode premium."
+    description: "Kemewahan emerald dan emas dalam dark mode premium."
   },
   {
     id: "royal",
     name: "Royal Heritage",
     preview: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=600&auto=format&fit=crop",
-    description: "Keagungan warisan budaya dengan motif Batik dan warna emas."
+    description: "Keagungan warisan budaya motif Batik dan warna emas."
   },
   {
     id: "islamic",

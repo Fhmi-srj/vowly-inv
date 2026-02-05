@@ -1,8 +1,8 @@
 import { e as createAstro, f as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead, l as renderScript, h as addAttribute } from '../../chunks/astro/server_izSyb1tO.mjs';
 import 'piccolore';
-import { $ as $$Layout } from '../../chunks/Layout_DcQtjN1d.mjs';
+import { $ as $$Layout } from '../../chunks/Layout_C3XU2xVI.mjs';
 import { ChevronLeft, Zap } from 'lucide-react';
-import { A as AVAILABLE_THEMES } from '../../chunks/index_CLWR17k7.mjs';
+import { A as AVAILABLE_THEMES } from '../../chunks/index_DEFKcdjj.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro = createAstro("https://undangan-pernikahan.vercel.app");

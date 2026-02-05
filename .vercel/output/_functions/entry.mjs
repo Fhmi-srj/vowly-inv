@@ -1,6 +1,6 @@
 import { renderers } from './renderers.mjs';
 import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_DfcoQak6.mjs';
-import { manifest } from './manifest_BB3NODGs.mjs';
+import { manifest } from './manifest_CH4FR2hA.mjs';
 
 const serverIslandMap = new Map();;
 
@@ -21,16 +21,17 @@ const _page13 = () => import('./pages/api/auth/register.astro.mjs');
 const _page14 = () => import('./pages/api/debug-db.astro.mjs');
 const _page15 = () => import('./pages/api/export-rsvp.astro.mjs');
 const _page16 = () => import('./pages/api/export-wishes.astro.mjs');
-const _page17 = () => import('./pages/api/invitations.astro.mjs');
-const _page18 = () => import('./pages/api/rsvp.astro.mjs');
-const _page19 = () => import('./pages/api/settings.astro.mjs');
-const _page20 = () => import('./pages/api/upload.astro.mjs');
-const _page21 = () => import('./pages/api/wishes.astro.mjs');
-const _page22 = () => import('./pages/dashboard/manage/_id_.astro.mjs');
-const _page23 = () => import('./pages/dashboard.astro.mjs');
-const _page24 = () => import('./pages/qrcode.astro.mjs');
-const _page25 = () => import('./pages/_slug_.astro.mjs');
-const _page26 = () => import('./pages/index.astro.mjs');
+const _page17 = () => import('./pages/api/init-db.astro.mjs');
+const _page18 = () => import('./pages/api/invitations.astro.mjs');
+const _page19 = () => import('./pages/api/rsvp.astro.mjs');
+const _page20 = () => import('./pages/api/settings.astro.mjs');
+const _page21 = () => import('./pages/api/upload.astro.mjs');
+const _page22 = () => import('./pages/api/wishes.astro.mjs');
+const _page23 = () => import('./pages/dashboard/manage/_id_.astro.mjs');
+const _page24 = () => import('./pages/dashboard.astro.mjs');
+const _page25 = () => import('./pages/qrcode.astro.mjs');
+const _page26 = () => import('./pages/_slug_.astro.mjs');
+const _page27 = () => import('./pages/index.astro.mjs');
 const pageMap = new Map([
     ["node_modules/astro/dist/assets/endpoint/generic.js", _page0],
     ["src/pages/404.astro", _page1],
@@ -49,16 +50,17 @@ const pageMap = new Map([
     ["src/pages/api/debug-db.ts", _page14],
     ["src/pages/api/export-rsvp.ts", _page15],
     ["src/pages/api/export-wishes.ts", _page16],
-    ["src/pages/api/invitations.ts", _page17],
-    ["src/pages/api/rsvp.ts", _page18],
-    ["src/pages/api/settings.ts", _page19],
-    ["src/pages/api/upload.ts", _page20],
-    ["src/pages/api/wishes.ts", _page21],
-    ["src/pages/dashboard/manage/[id].astro", _page22],
-    ["src/pages/dashboard/index.astro", _page23],
-    ["src/pages/qrcode.astro", _page24],
-    ["src/pages/[slug].astro", _page25],
-    ["src/pages/index.astro", _page26]
+    ["src/pages/api/init-db.ts", _page17],
+    ["src/pages/api/invitations.ts", _page18],
+    ["src/pages/api/rsvp.ts", _page19],
+    ["src/pages/api/settings.ts", _page20],
+    ["src/pages/api/upload.ts", _page21],
+    ["src/pages/api/wishes.ts", _page22],
+    ["src/pages/dashboard/manage/[id].astro", _page23],
+    ["src/pages/dashboard/index.astro", _page24],
+    ["src/pages/qrcode.astro", _page25],
+    ["src/pages/[slug].astro", _page26],
+    ["src/pages/index.astro", _page27]
 ]);
 
 const _manifest = Object.assign(manifest, {
@@ -69,7 +71,7 @@ const _manifest = Object.assign(manifest, {
     middleware: () => import('./_noop-middleware.mjs')
 });
 const _args = {
-    "middlewareSecret": "a9aff9e7-45e2-4e70-82ed-1d3d63550e6a",
+    "middlewareSecret": "da5348cd-55b4-469b-b044-8ec52417e24f",
     "skewProtection": false
 };
 const _exports = createExports(_manifest, _args);

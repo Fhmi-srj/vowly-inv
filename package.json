@@ -29,6 +29,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/file-saver": "^2.0.7",
     "@types/papaparse": "^5.5.2",
+    "@vercel/analytics": "^1.6.1",
     "astro": "^5.16.6",
     "bcryptjs": "^3.0.3",
     "cookie": "^1.1.1",
