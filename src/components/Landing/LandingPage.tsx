@@ -560,42 +560,102 @@ const LandingPage: React.FC = () => {
                 <div className="container mx-auto px-4 sm:px-6 text-center">
                     <h2 className="font-serif text-2xl sm:text-4xl md:text-7xl italic mb-8 md:mb-20">Pilih Paket Sesuai Kebutuhan</h2>
 
-                    <div className="max-w-5xl mx-auto grid grid-cols-2 gap-3 md:gap-8 items-stretch">
-                        {/* Basic Plan */}
-                        <div className="bg-white p-4 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-pink-100 flex flex-col items-center backdrop-blur-sm shadow-xl">
-                            <span className="px-2 py-1 md:px-4 md:py-1.5 bg-pink-50 rounded-full text-[8px] md:text-[10px] font-bold tracking-widest uppercase mb-3 md:mb-8 text-pink-600">Basic</span>
-                            <div className="text-xl md:text-5xl font-bold mb-1 md:mb-4 text-slate-900">Gratis</div>
-                            <p className="text-slate-500 text-[10px] md:text-base mb-4 md:mb-10 text-center leading-tight">Coba fitur dasar</p>
-                            <ul className="space-y-1.5 md:space-y-4 text-left w-full mb-4 md:mb-12">
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm text-slate-600"><Zap className="h-3 w-3 md:h-4 md:w-4 text-pink-500 flex-shrink-0 mt-0.5" /> <span className="leading-tight">Desain Standar</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm text-slate-600"><Zap className="h-3 w-3 md:h-4 md:w-4 text-pink-500 flex-shrink-0 mt-0.5" /> <span className="leading-tight">RSVP Management</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm text-slate-600"><Zap className="h-3 w-3 md:h-4 md:w-4 text-pink-500 flex-shrink-0 mt-0.5" /> <span className="leading-tight">Aktif 7 Hari</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm opacity-20 line-through grayscale"><Zap className="h-3 w-3 md:h-4 md:w-4 text-slate-300 flex-shrink-0 mt-0.5" /> <span className="leading-tight">Music</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm opacity-20 line-through grayscale"><Zap className="h-3 w-3 md:h-4 md:w-4 text-slate-300 flex-shrink-0 mt-0.5" /> <span className="leading-tight">Gallery</span></li>
-                            </ul>
-                            <a href="/admin" className="w-full py-2.5 md:py-4 text-xs md:text-base rounded-xl md:rounded-2xl border border-pink-200 font-bold hover:bg-pink-50 transition-all mt-auto text-pink-600 text-center">Pilih</a>
-                        </div>
-
-                        {/* Premium Plan */}
-                        <div className="bg-gradient-to-br from-pink-500 to-pink-600 p-4 md:p-12 rounded-2xl md:rounded-[3.5rem] text-white flex flex-col items-center relative overflow-hidden shadow-2xl shadow-pink-200 scale-[1.02] md:scale-105">
-                            <div className="absolute top-0 right-0 bg-white/20 px-2 md:px-6 py-0.5 md:py-2 rounded-bl-xl md:rounded-bl-3xl text-[8px] md:text-[10px] font-black tracking-widest uppercase">Best</div>
-                            <span className="px-2 py-1 md:px-4 md:py-1.5 bg-white/20 rounded-full text-[8px] md:text-[10px] font-bold tracking-widest uppercase mb-3 md:mb-8">Premium</span>
-                            <div className="text-xl md:text-5xl font-bold mb-1 md:mb-4">149K</div>
-                            <p className="text-white/70 text-[10px] md:text-base mb-4 md:mb-10 text-center leading-tight">Fitur lengkap</p>
-                            <ul className="space-y-1.5 md:space-y-4 text-left w-full mb-4 md:mb-12">
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm"><Star className="h-3 w-3 md:h-4 md:w-4 fill-white flex-shrink-0 mt-0.5" /> <span className="leading-tight">Semua Basic</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm"><Star className="h-3 w-3 md:h-4 md:w-4 fill-white flex-shrink-0 mt-0.5" /> <span className="leading-tight">Music</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm"><Star className="h-3 w-3 md:h-4 md:w-4 fill-white flex-shrink-0 mt-0.5" /> <span className="leading-tight">Gallery Unlimited</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm"><Star className="h-3 w-3 md:h-4 md:w-4 fill-white flex-shrink-0 mt-0.5" /> <span className="leading-tight">Wedding Gift</span></li>
-                                <li className="flex items-start gap-1.5 md:gap-3 text-[10px] md:text-sm"><Star className="h-3 w-3 md:h-4 md:w-4 fill-white flex-shrink-0 mt-0.5" /> <span className="leading-tight">Aktif Selamanya</span></li>
-                            </ul>
-                            <button
-                                onClick={() => openRegister()}
-                                className="w-full py-2.5 md:py-4 text-xs md:text-base bg-white text-pink-600 rounded-xl md:rounded-2xl font-bold hover:shadow-xl transition-all hover:scale-[1.02] mt-auto cursor-pointer"
+                    <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 items-stretch px-2 md:px-0">
+                        {[
+                            {
+                                id: "lite",
+                                name: "Lite",
+                                price: "Gratis",
+                                priceNum: 0,
+                                originalPrice: "50k",
+                                features: ["1 Tema Pilihan", "Masa Aktif 3 Hari", "RSVP Dasar", "Maksimal 20 Tamu"],
+                                color: "slate",
+                                badge: "Trial"
+                            },
+                            {
+                                id: "basic",
+                                name: "Basic",
+                                price: "49k",
+                                priceNum: 49000,
+                                originalPrice: "99k",
+                                features: ["3 Tema Pilihan", "Masa Aktif 1 Tahun", "RSVP & Ucapan Dasar", "Galeri Foto (5)"],
+                                color: "blue",
+                                badge: "Hemat"
+                            },
+                            {
+                                id: "premium",
+                                name: "Premium",
+                                price: "149k",
+                                priceNum: 149000,
+                                originalPrice: "249k",
+                                features: ["Semua Tema Pilihan", "Masa Aktif Selamanya", "RSVP & Ucapan Pro", "Galeri Foto & Video", "Musik Latar Custom"],
+                                color: "pink",
+                                badge: "Populer"
+                            },
+                            {
+                                id: "royal",
+                                name: "Royal",
+                                price: "299k",
+                                priceNum: 299000,
+                                originalPrice: "499k",
+                                features: ["Semua Fitur Premium+", "Domain Custom .com*", "QR Code Check-in", "Prioritas Support", "Desain Eksklusif"],
+                                color: "amber",
+                                badge: "VIP"
+                            }
+                        ].map((pkg) => (
+                            <div
+                                key={pkg.id}
+                                className={`group relative p-4 md:p-10 rounded-2xl md:rounded-[3rem] border transition-all duration-500 flex flex-col items-center text-center overflow-hidden hover:-translate-y-2 hover:shadow-2xl ${pkg.id === 'premium'
+                                    ? 'bg-gradient-to-br from-pink-500 to-pink-600 border-transparent text-white shadow-xl shadow-pink-200 lg:scale-[1.05]'
+                                    : 'bg-white border-pink-100 text-slate-900 shadow-lg'
+                                    }`}
                             >
-                                Mulai
-                            </button>
-                        </div>
+                                {/* Badge */}
+                                <div className={`absolute top-0 right-0 px-2.5 py-1 md:px-5 md:py-2 rounded-bl-xl md:rounded-bl-2xl text-[7px] md:text-[10px] font-black tracking-widest uppercase ${pkg.id === 'premium' ? 'bg-white/20' : 'bg-pink-50 text-pink-500'
+                                    }`}>
+                                    {pkg.badge}
+                                </div>
+
+                                <span className={`px-2 py-0.5 md:px-4 md:py-1.5 rounded-full text-[8px] md:text-[10px] font-bold tracking-widest uppercase mb-4 md:mb-8 ${pkg.id === 'premium' ? 'bg-white/20' : 'bg-pink-50 text-pink-600'
+                                    }`}>
+                                    {pkg.name}
+                                </span>
+
+                                <div className="mb-4 md:mb-10">
+                                    <div className={`text-[9px] md:text-sm font-bold line-through mb-0.5 md:mb-1 ${pkg.id === 'premium' ? 'text-white/50 decoration-white/40' : 'text-slate-300 decoration-pink-300'
+                                        }`}>
+                                        Rp {pkg.originalPrice}
+                                    </div>
+                                    <div className="flex items-baseline justify-center gap-0.5 md:gap-1">
+                                        <span className="text-lg md:text-5xl font-black">
+                                            {pkg.priceNum === 0 ? "Gratis" : pkg.price}
+                                        </span>
+                                        {pkg.priceNum > 0 && <span className={`text-[8px] md:text-sm font-bold opacity-70`}>/unit</span>}
+                                    </div>
+                                </div>
+
+                                <ul className="space-y-1.5 md:space-y-4 text-left w-full mb-6 md:mb-12">
+                                    {pkg.features.map((feat, i) => (
+                                        <li key={i} className={`flex items-start gap-1.5 md:gap-3 text-[9px] md:text-sm ${pkg.id === 'premium' ? 'text-white/90' : 'text-slate-600'
+                                            }`}>
+                                            <Zap className={`h-2.5 w-2.5 md:h-4 md:w-4 flex-shrink-0 mt-0.5 ${pkg.id === 'premium' ? 'text-white' : 'text-pink-500'
+                                                }`} />
+                                            <span className="leading-snug md:leading-tight">{feat}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <button
+                                    onClick={() => openRegister()}
+                                    className={`w-full py-2.5 md:py-4 text-[10px] md:text-base rounded-xl md:rounded-2xl font-bold transition-all mt-auto cursor-pointer ${pkg.id === 'premium'
+                                        ? 'bg-white text-pink-600 hover:shadow-xl hover:scale-[1.02]'
+                                        : 'border border-pink-200 text-pink-600 hover:bg-pink-50'
+                                        }`}
+                                >
+                                    Pilih {pkg.name}
+                                </button>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -624,7 +684,7 @@ const LandingPage: React.FC = () => {
                             },
                             {
                                 q: "Bagaimana cara membuat undangan digital?",
-                                a: "Cukup pilih tema yang Anda sukai, lengkapi data pernikahan, dan undangan Anda siap dibagikan."
+                                a: "Cukup pilih tema yang Anda sukai, lengkapi data pendaftaran, selesaikan pembayaran (jika berbayar), dan undangan Anda siap dikelola dari dashboard."
                             },
                             {
                                 q: "Apakah saya bisa mengubah tema setelah memilih?",
@@ -632,11 +692,11 @@ const LandingPage: React.FC = () => {
                             },
                             {
                                 q: "Apakah ada biaya tambahan untuk fitur premium?",
-                                a: "Tidak ada. Sekali bayar untuk paket Premium, Anda mendapatkan akses ke semua fitur tanpa biaya tersembunyi."
+                                a: "Tidak ada. Sekali bayar untuk paket Premium atau Royal, Anda mendapatkan akses ke semua fitur yang dijanjikan tanpa biaya tersembunyi."
                             },
                             {
                                 q: "Berapa lama undangan saya akan aktif?",
-                                a: "Untuk paket Gratis aktif selama 7 hari. Paket Premium akan aktif selamanya."
+                                a: "Untuk paket Lite aktif selama 3 hari. Paket Basic aktif 1 tahun, sedangkan paket Premium dan Royal aktif selamanya."
                             },
                             {
                                 q: "Bagaimana cara membagikan undangan?",

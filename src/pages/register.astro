@@ -1,0 +1,34 @@
+---
+import Layout from "../layouts/Layout.astro";
+import RegistrationPage from "../components/Landing/RegistrationPage";
+import { Heart } from "lucide-react";
+
+// Register page is client-only because it manages complex state
+---
+
+<Layout title="Daftar - Vowly | Undangan Digital Premium">
+    <main class="bg-white selection:bg-pink-200/50 selection:text-pink-700">
+        {/* Simple Branding Navbar */}
+        <nav class="sticky top-0 left-0 right-0 z-[100] backdrop-blur-md bg-white/80 border-b border-pink-100/50">
+            <div class="container mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
+                <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <img src="/logo-vowly.png" alt="Vowly Logo" class="h-8 md:h-10 w-auto object-contain" />
+                    <span class="font-serif text-xl md:text-2xl italic font-bold tracking-tighter text-pink-600">Vowly</span>
+                </a>
+                
+                <div class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-slate-400">
+                    Proses Pendaftaran
+                </div>
+            </div>
+        </nav>
+
+        <RegistrationPage client:load />
+    </main>
+</Layout>
+
+<style is:global>
+    /* Ensure smooth transitions for framer-motion */
+    .framer-motion-container {
+        overflow-x: hidden;
+    }
+</style>

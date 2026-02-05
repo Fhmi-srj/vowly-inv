@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { X, Loader2, Heart, Smartphone, Lock, User, Globe } from "lucide-react";
+import { X, Loader2, Heart, Smartphone, Lock, User, Globe, ArrowRight, LogIn, UserPlus } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface RegisterModalProps {
     isOpen: boolean;
@@ -9,11 +10,12 @@ interface RegisterModalProps {
 }
 
 const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selectedTheme }) => {
-    const [mode, setMode] = useState<"register" | "login">("register");
+    const [view, setView] = useState<"selection" | "auth">("selection");
+    const [mode, setMode] = useState<"login">("login");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const [isVisible, setIsVisible] = useState(false);
-    const [isAnimating, setIsAnimating] = useState(false);
+    const [direction, setDirection] = useState(0);
 
     const [formData, setFormData] = useState({
         fullName: "",
@@ -34,13 +36,16 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
 
     if (!isVisible) return null;
 
-    const handleModeSwitch = (newMode: "register" | "login") => {
-        setIsAnimating(true);
-        setTimeout(() => {
-            setMode(newMode);
-            setError("");
-            setTimeout(() => setIsAnimating(false), 50);
-        }, 200);
+    const handleShowLogin = () => {
+        setDirection(1);
+        setView("auth");
+        setError("");
+    };
+
+    const handleBackToSelection = () => {
+        setDirection(-1);
+        setView("selection");
+        setError("");
     };
 
     const handleClose = () => {
@@ -53,10 +58,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
         setError("");
 
         try {
-            const endpoint = mode === "register" ? "/api/auth/register" : "/api/auth/login";
-            const payload = mode === "register"
-                ? { ...formData, themeId: selectedTheme }
-                : { phone: formData.phone, password: formData.password };
+            const endpoint = "/api/auth/login";
+            const payload = { phone: formData.phone, password: formData.password };
 
             const res = await fetch(endpoint, {
                 method: "POST",
@@ -139,118 +142,130 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, selected
                         <X className="h-4 w-4 sm:h-5 sm:w-5 text-slate-400" />
                     </button>
 
-                    <div className="p-6 sm:p-8 md:p-12">
-                        <div className={`flex flex-col items-center text-center mb-8 sm:mb-10 transition-all duration-300 ${isAnimating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
-                            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-pink-50 rounded-3xl flex items-center justify-center p-2 mb-4 sm:mb-6">
-                                <img src="/logo-vowly.png" alt="Vowly Logo" className="w-full h-full object-contain" />
-                            </div>
-                            <h2 className="text-2xl sm:text-3xl font-serif italic font-bold mb-2">
-                                {mode === "register" ? "Mulailah Kebahagiaan Anda" : "Selamat Datang Kembali"}
-                            </h2>
-                            <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 px-2">
-                                {mode === "register"
-                                    ? "Daftar sekarang untuk membuat undangan digital impian Anda."
-                                    : "Masuk untuk mengelola undangan Anda."}
-                            </p>
-                        </div>
-
-                        <form onSubmit={handleSubmit} className={`space-y-4 sm:space-y-5 transition-all duration-300 ${isAnimating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
-                            {error && (
-                                <div className="p-3 sm:p-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs sm:text-sm rounded-xl border border-red-100 dark:border-red-900/30 animate-shake">
-                                    {error}
-                                </div>
-                            )}
-
-                            {mode === "register" && (
-                                <div className="space-y-1.5 animate-fadeIn">
-                                    <label className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1">Nama Lengkap</label>
-                                    <div className="relative group">
-                                        <User className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-pink-500 transition-colors" />
-                                        <input
-                                            type="text"
-                                            name="fullName"
-                                            required
-                                            value={formData.fullName}
-                                            onChange={handleChange}
-                                            placeholder="Nama Anda"
-                                            className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-pink-50/50 border border-pink-100 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
-                                        />
-                                    </div>
-                                </div>
-                            )}
-
-                            <div className="space-y-1.5 animate-fadeIn" style={{ animationDelay: mode === "register" ? "50ms" : "0ms" }}>
-                                <label className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1">Nomor HP (WhatsApp)</label>
-                                <div className="relative group">
-                                    <Smartphone className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-pink-500 transition-colors" />
-                                    <input
-                                        type="tel"
-                                        name="phone"
-                                        required
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        placeholder="081234567890"
-                                        className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-pink-50/50 border border-pink-100 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
-                                    />
-                                </div>
-                            </div>
-
-                            {mode === "register" && (
-                                <div className="space-y-1.5 animate-fadeIn" style={{ animationDelay: "100ms" }}>
-                                    <label className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1">Subdomain / Slug</label>
-                                    <div className="relative group">
-                                        <Globe className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-pink-500 transition-colors" />
-                                        <input
-                                            type="text"
-                                            name="slug"
-                                            required
-                                            value={formData.slug}
-                                            onChange={handleChange}
-                                            placeholder="nama-pasangan"
-                                            className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-pink-50/50 border border-pink-100 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
-                                        />
-                                    </div>
-                                    <p className="text-[9px] sm:text-[10px] text-slate-400 ml-1 mt-1 italic">Hasilnya akan: vowly.com/nama-pasangan</p>
-                                </div>
-                            )}
-
-                            <div className="space-y-1.5 animate-fadeIn" style={{ animationDelay: mode === "register" ? "150ms" : "50ms" }}>
-                                <label className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1">Password</label>
-                                <div className="relative group">
-                                    <Lock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-pink-500 transition-colors" />
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        required
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        placeholder="••••••••"
-                                        className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-pink-50/50 border border-pink-100 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
-                                    />
-                                </div>
-                            </div>
-
-                            <button
-                                type="submit"
-                                disabled={isLoading}
-                                className="w-full py-4 sm:py-5 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl sm:rounded-2xl font-bold tracking-widest uppercase text-xs sm:text-sm shadow-lg shadow-pink-200 hover:shadow-2xl hover:shadow-pink-300 hover:-translate-y-1 transition-all active:scale-95 disabled:opacity-50 disabled:translate-y-0 flex items-center justify-center gap-2 sm:gap-3 animate-fadeIn cursor-pointer"
-                                style={{ animationDelay: mode === "register" ? "200ms" : "100ms" }}
-                            >
-                                {isLoading ? <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" /> : mode === "register" ? "DAFTAR SEKARANG" : "MASUK KE DASHBOARD"}
-                            </button>
-                        </form>
-
-                        <div className={`mt-6 sm:mt-8 text-center transition-all duration-300 ${isAnimating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
-                            <p className="text-xs sm:text-sm text-slate-500">
-                                {mode === "register" ? "Sudah memiliki akun?" : "Belum memiliki akun?"}{" "}
-                                <button
-                                    onClick={() => handleModeSwitch(mode === "register" ? "login" : "register")}
-                                    className="text-pink-500 font-bold hover:underline transition-all hover:scale-105 inline-block"
+                    <div className="p-0">
+                        <AnimatePresence mode="wait" initial={false} custom={direction}>
+                            {view === "selection" ? (
+                                <motion.div
+                                    key="selection"
+                                    custom={direction}
+                                    initial={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
+                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                    className="p-6 sm:p-8 md:p-12"
                                 >
-                                    {mode === "register" ? "Masuk di sini" : "Daftar di sini"}
-                                </button>
-                            </p>
-                        </div>
+                                    <div className="flex flex-col items-center text-center mb-8 sm:mb-10">
+                                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-pink-50 rounded-3xl flex items-center justify-center p-2 mb-4 sm:mb-6">
+                                            <img src="/logo-vowly.png" alt="Vowly Logo" className="w-full h-full object-contain" />
+                                        </div>
+                                        <h2 className="text-2xl sm:text-3xl font-serif italic font-bold mb-2">
+                                            Abadikan Momen Cinta
+                                        </h2>
+                                        <p className="text-sm sm:text-base text-slate-500 px-2">
+                                            Pilih langkah Anda untuk memulai kebahagiaan.
+                                        </p>
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <a
+                                            href={`/register${selectedTheme ? `?theme=${selectedTheme}` : ''}`}
+                                            className="w-full py-4 sm:py-5 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl sm:rounded-2xl font-bold tracking-widest uppercase text-xs sm:text-sm shadow-lg shadow-pink-200 hover:shadow-2xl hover:shadow-pink-300 hover:-translate-y-1 transition-all active:scale-95 flex items-center justify-center gap-3 group"
+                                        >
+                                            <UserPlus className="h-4 w-4 sm:h-5 sm:w-5" />
+                                            Belum Punya Akun? Daftar
+                                            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                                        </a>
+
+                                        <button
+                                            onClick={handleShowLogin}
+                                            className="w-full py-4 sm:py-5 bg-white text-pink-500 border-2 border-pink-100 rounded-xl sm:rounded-2xl font-bold tracking-widest uppercase text-xs sm:text-sm hover:bg-pink-50 hover:border-pink-200 transition-all active:scale-95 flex items-center justify-center gap-3 cursor-pointer"
+                                        >
+                                            <LogIn className="h-4 w-4 sm:h-5 sm:w-5" />
+                                            Sudah Punya Akun? Masuk
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            ) : (
+                                <motion.div
+                                    key="auth"
+                                    custom={direction}
+                                    initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    exit={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
+                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                    className="p-6 sm:p-8 md:p-12"
+                                >
+                                    <div className="flex flex-col items-center text-center mb-8 sm:mb-10">
+                                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-pink-50 rounded-3xl flex items-center justify-center p-2 mb-4 sm:mb-6">
+                                            <img src="/logo-vowly.png" alt="Vowly Logo" className="w-full h-full object-contain" />
+                                        </div>
+                                        <h2 className="text-2xl sm:text-3xl font-serif italic font-bold mb-2">
+                                            Selamat Datang Kembali
+                                        </h2>
+                                        <p className="text-sm sm:text-base text-slate-500 px-2">
+                                            Masuk untuk mengelola undangan Anda.
+                                        </p>
+                                    </div>
+
+                                    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                                        {error && (
+                                            <div className="p-3 sm:p-4 bg-red-50 text-red-600 text-xs sm:text-sm rounded-xl border border-red-100 animate-shake">
+                                                {error}
+                                            </div>
+                                        )}
+
+                                        <div className="space-y-1.5">
+                                            <label className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1">Nomor HP (WhatsApp)</label>
+                                            <div className="relative group">
+                                                <Smartphone className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-pink-500 transition-colors" />
+                                                <input
+                                                    type="tel"
+                                                    name="phone"
+                                                    required
+                                                    value={formData.phone}
+                                                    onChange={handleChange}
+                                                    placeholder="081234567890"
+                                                    className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-pink-50/50 border border-pink-100 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-1.5">
+                                            <label className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 ml-1">Password</label>
+                                            <div className="relative group">
+                                                <Lock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-300 group-focus-within:text-pink-500 transition-colors" />
+                                                <input
+                                                    type="password"
+                                                    name="password"
+                                                    required
+                                                    value={formData.password}
+                                                    onChange={handleChange}
+                                                    placeholder="••••••••"
+                                                    className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-pink-50/50 border border-pink-100 rounded-xl sm:rounded-2xl outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <button
+                                            type="submit"
+                                            disabled={isLoading}
+                                            className="w-full py-4 sm:py-5 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl sm:rounded-2xl font-bold tracking-widest uppercase text-xs sm:text-sm shadow-lg shadow-pink-200 hover:shadow-2xl hover:shadow-pink-300 hover:-translate-y-1 transition-all active:scale-95 disabled:opacity-50 disabled:translate-y-0 flex items-center justify-center gap-2 sm:gap-3 cursor-pointer"
+                                        >
+                                            {isLoading ? <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" /> : "MASUK KE DASHBOARD"}
+                                        </button>
+                                    </form>
+
+                                    <div className="mt-6 sm:mt-8 text-center">
+                                        <button
+                                            onClick={handleBackToSelection}
+                                            className="text-pink-500 text-xs sm:text-sm font-bold hover:underline transition-all flex items-center justify-center gap-2 mx-auto"
+                                        >
+                                            <ArrowRight className="h-3 w-3 rotate-180" /> Kembali ke pilihan
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>

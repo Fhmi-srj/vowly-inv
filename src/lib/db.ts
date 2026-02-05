@@ -70,6 +70,7 @@ export async function initializeTables() {
         user_id INTEGER REFERENCES users(id),
         slug VARCHAR(100) UNIQUE NOT NULL,
         theme_id VARCHAR(50) DEFAULT 'luxury',
+        package_id VARCHAR(50) DEFAULT 'basic',
         status VARCHAR(20) DEFAULT 'inactive',
         is_active BOOLEAN DEFAULT TRUE,
         views_count INT DEFAULT 0,
@@ -116,7 +117,22 @@ export async function initializeTables() {
         PRIMARY KEY (invitation_id, setting_key)
       )
     `;
-    console.log("✅ [DB] invitation_settings table ready");
+    // 6. Create payments table (depends on users and invitations)
+    await sql`
+      CREATE TABLE IF NOT EXISTS payments (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id),
+        invitation_id INTEGER REFERENCES invitations(id),
+        order_id VARCHAR(100) UNIQUE NOT NULL,
+        amount INTEGER NOT NULL,
+        package_id VARCHAR(50) NOT NULL,
+        status VARCHAR(20) DEFAULT 'pending',
+        snap_token TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      )
+    `;
+    console.log("✅ [DB] payments table ready");
 
     // Admin Promotion Logic
     const adminPhone = process.env.ADMIN_PHONE;

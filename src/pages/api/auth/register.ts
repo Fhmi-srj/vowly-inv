@@ -4,7 +4,7 @@ import { hashPassword, setSession } from "../../../lib/auth";
 
 export const POST: APIRoute = async ({ request }) => {
     try {
-        const { fullName, phone, password, slug, themeId } = await request.json();
+        const { fullName, phone, password, slug, themeId, package: packageId } = await request.json();
 
         if (!fullName || !phone || !password || !slug) {
             return new Response(JSON.stringify({ error: "Data tidak lengkap" }), { status: 400 });
@@ -35,8 +35,8 @@ export const POST: APIRoute = async ({ request }) => {
 
         // Create Invitation
         const [invitation] = await sql`
-      INSERT INTO invitations (user_id, slug, theme_id, status)
-      VALUES (${user.id}, ${slug}, ${themeId || "luxury"}, 'inactive')
+      INSERT INTO invitations (user_id, slug, theme_id, package_id, status)
+      VALUES (${user.id}, ${slug}, ${themeId || "luxury"}, ${packageId || "basic"}, 'inactive')
       RETURNING id
     `;
 
@@ -54,7 +54,7 @@ export const POST: APIRoute = async ({ request }) => {
         const sessionCookie = setSession(user.id);
 
         return new Response(
-            JSON.stringify({ success: true, invitationId: invitation.id, role: user.role || 'user' }),
+            JSON.stringify({ success: true, invitationId: invitation.id, userId: user.id, role: user.role || 'user' }),
             {
                 status: 200,
                 headers: {
