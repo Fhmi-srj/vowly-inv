@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@tailwindcss/vite";
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 import sitemap from "@astrojs/sitemap";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -9,12 +9,7 @@ export default defineConfig({
   site: "https://undangan-pernikahan.vercel.app",
   integrations: [react(), sitemap()],
   output: "server",
-  adapter: vercel({
-    webAnalytics: {
-      enabled: true,
-    },
-    edge: false, // Ensure standard serverless for better stability with postgres
-  }),
+  adapter: vercel(),
   vite: {
     plugins: [
       tailwind(),
