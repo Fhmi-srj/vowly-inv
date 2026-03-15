@@ -7,9 +7,9 @@ export const POST: APIRoute = async ({ request }) => {
     try {
         const notificationJson = await request.json();
 
-        const isProduction = import.meta.env.MIDTRANS_IS_PRODUCTION === "true";
-        const serverKey = import.meta.env.MIDTRANS_SERVER_KEY || "";
-        const clientKey = import.meta.env.PUBLIC_MIDTRANS_CLIENT_KEY || "";
+        const isProduction = process.env.MIDTRANS_IS_PRODUCTION === "true";
+        const serverKey = process.env.MIDTRANS_SERVER_KEY || "";
+        const clientKey = process.env.PUBLIC_MIDTRANS_CLIENT_KEY || "";
 
         const snap = new midtransClient.Snap({
             isProduction: isProduction,

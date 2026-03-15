@@ -57,9 +57,9 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         // --- PAID PACKAGE LOGIC (MIDTRANS) ---
-        const isProduction = import.meta.env.MIDTRANS_IS_PRODUCTION === "true";
-        const serverKey = import.meta.env.MIDTRANS_SERVER_KEY || "";
-        const clientKey = import.meta.env.PUBLIC_MIDTRANS_CLIENT_KEY || "";
+        const isProduction = process.env.MIDTRANS_IS_PRODUCTION === "true";
+        const serverKey = process.env.MIDTRANS_SERVER_KEY || "";
+        const clientKey = process.env.PUBLIC_MIDTRANS_CLIENT_KEY || "";
 
         if (!serverKey) {
             return new Response(JSON.stringify({ error: "Konfigurasi payment tidak ditemukan" }), { status: 500 });
@@ -95,7 +95,7 @@ export const POST: APIRoute = async ({ request }) => {
                 "indomaret", "alfamart"
             ],
             callbacks: {
-                finish: import.meta.env.MIDTRANS_NEXT_URL || "http://localhost:4321/dashboard"
+                finish: process.env.MIDTRANS_NEXT_URL || "http://localhost:4321/dashboard"
             }
         };
 
