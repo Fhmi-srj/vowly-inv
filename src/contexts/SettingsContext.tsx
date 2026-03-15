@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import type { FC, ReactNode } from "react";
 import { WEDDING_CONFIG, WEDDING_TEXT, BANK_ACCOUNTS, LOVE_STORY, GALLERY_IMAGES, MUSIC_URL, MAX_GUESTS } from "../constants";
+import { getFeatureLimits, type FeatureLimits } from "../lib/packages";
 
 // Settings fetched from database
 export interface DynamicSettings {
@@ -52,6 +53,7 @@ export interface DynamicSettings {
     closing_family: string;
     events_data: string;
     theme_id: string;
+    package_id: string;
 }
 
 // Merged config type that components use
@@ -102,6 +104,8 @@ export interface AppConfig {
     galleryImages: string[];
     closingFamily: string;
     themeId: string;
+    packageId: string;
+    packageLimits: FeatureLimits;
 }
 
 interface SettingsContextType {
@@ -153,6 +157,8 @@ const defaultConfig: AppConfig = {
     galleryImages: GALLERY_IMAGES,
     closingFamily: WEDDING_TEXT.closing.family,
     themeId: "luxury",
+    packageId: "lite",
+    packageLimits: getFeatureLimits("lite"),
 };
 
 const SettingsContext = createContext<SettingsContextType>({
@@ -350,6 +356,8 @@ const settingsToConfig = (settings: Partial<DynamicSettings>): AppConfig => {
         galleryImages: parseJson(settings.gallery_images, GALLERY_IMAGES),
         closingFamily: settings.closing_family || WEDDING_TEXT.closing.family,
         themeId: settings.theme_id || "luxury",
+        packageId: settings.package_id || "lite",
+        packageLimits: getFeatureLimits(settings.package_id || "lite"),
     };
 };
 
@@ -415,6 +423,7 @@ export const SettingsProvider: FC<SettingsProviderProps> = ({ children, invitati
                         closing_family: getSetting("closing_family"),
                         events_data: getSetting("events_data"),
                         theme_id: getSetting("theme_id"),
+                        package_id: getSetting("package_id"),
                     };
 
                     setConfig(settingsToConfig(sideSettings));

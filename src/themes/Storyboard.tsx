@@ -41,6 +41,7 @@ import MusicController from "./Shared/MusicController";
 import AutoScrollController from "./Shared/AutoScrollController";
 import InstallPrompt from "./Shared/InstallPrompt";
 import StickerPicker from "./Shared/StickerPicker";
+import { BrandingWatermark } from "../components/Shared/BrandingWatermark";
 
 import type { ThemeProps } from "./types";
 
@@ -277,13 +278,15 @@ const Gallery: FC = () => {
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
 
+    const images = useMemo(() => config.galleryImages.slice(0, config.packageLimits.maxGalleryImages), [config.galleryImages, config.packageLimits.maxGalleryImages]);
+
     // Auto-play logic: berganti setiap 3 detik
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+            setActiveIndex((current) => (current + 1) % images.length);
         }, 3000);
         return () => clearInterval(interval);
-    }, [config.galleryImages.length]);
+    }, [images.length]);
 
     const openLightbox = (index: number) => {
         setSelectedImg(index);
@@ -304,15 +307,15 @@ const Gallery: FC = () => {
         e?.stopPropagation();
         if (selectedImg !== null) {
             if (direction === "prev") {
-                setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
+                setSelectedImg(selectedImg === 0 ? images.length - 1 : selectedImg - 1);
             } else {
-                setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
+                setSelectedImg(selectedImg === images.length - 1 ? 0 : selectedImg + 1);
             }
         } else {
             if (direction === "prev") {
-                setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+                setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1);
             } else {
-                setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+                setActiveIndex((activeIndex + 1) % images.length);
             }
         }
     };
@@ -354,7 +357,7 @@ const Gallery: FC = () => {
                         </button>
 
                         <div className="flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar py-6 px-2">
-                            {config.galleryImages.map((img, idx) => (
+                            {images.map((img: string, idx: number) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveIndex(idx)}
@@ -387,7 +390,7 @@ const Gallery: FC = () => {
                                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                                 exit={{ opacity: 0, scale: 0.8, rotate: -5 }}
                                 transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-                                src={config.galleryImages[activeIndex]}
+                                src={images[activeIndex]}
                                 className="absolute inset-0 w-full h-full object-cover cursor-pointer grayscale group-hover:grayscale-0 transition-all duration-1000"
                                 alt="Comic Panel"
                                 onClick={() => openLightbox(activeIndex)}
@@ -450,7 +453,7 @@ const Gallery: FC = () => {
                                     className="relative max-h-full max-w-full flex items-center justify-center p-3 sm:p-8 bg-white dark:bg-[#1a1a2e] border-[8px] border-[#2d2d2d] shadow-[30px_30px_0_rgba(33,150,243,0.5)] transform -rotate-1"
                                 >
                                     <img
-                                        src={config.galleryImages[selectedImg]}
+                                        src={images[selectedImg]}
                                         className="max-h-[80vh] w-auto h-auto object-contain border-[2px] border-[#2d2d2d]"
                                         alt="Comic Fullscreen"
                                     />
@@ -458,7 +461,7 @@ const Gallery: FC = () => {
                                     <div className="absolute inset-x-0 -bottom-24 flex items-center justify-center">
                                         <div className="px-12 py-5 bg-[#ffeb3b] border-[4px] border-[#2d2d2d] shadow-[8px_8px_0_#2d2d2d] rotate-2">
                                             <p className="font-black italic text-3xl text-[#2d2d2d] uppercase tracking-tighter">
-                                                Page {selectedImg + 1} // {config.galleryImages.length}
+                                                Page {selectedImg + 1} // {images.length}
                                             </p>
                                         </div>
                                     </div>
@@ -660,6 +663,7 @@ const Navbar: FC<{ theme: "light" | "dark"; toggleTheme: () => void }> = ({ them
 };
 
 const StoryboardTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) => {
+    const { config } = useSettings();
     useEffect(() => { document.body.style.overflow = isOpened ? "auto" : "hidden"; }, [isOpened]);
     return (
         <div className={`storyboard-theme ${theme === "dark" ? "dark" : ""}`}>
@@ -667,8 +671,16 @@ const StoryboardTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen 
             {!isOpened && <Envelope onOpen={onOpen} />}
             <main className={`transition-all duration-[1.5s] ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isOpened ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-90 translate-y-20 pointer-events-none"}`}>
                 <Hero /><CoupleProfile /><LoveStory /><EventDetails /><Gallery /><GiftInfo /><RSVPForm /><Wishes />
+                {config.packageLimits.hasWatermark && (
+                    <div className="pb-32 opacity-20 hover:opacity-100 transition-opacity">
+                        <BrandingWatermark />
+                    </div>
+                )}
             </main>
-            <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4"><MusicController isOpened={isOpened} /><AutoScrollController isOpened={isOpened} /></div>
+            <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4">
+                {config.packageLimits.hasMusic && <MusicController isOpened={isOpened} />}
+                <AutoScrollController isOpened={isOpened} />
+            </div>
             <Navbar theme={theme} toggleTheme={toggleTheme} /><MusicPlayer /><InstallPrompt />
         </div>
     );

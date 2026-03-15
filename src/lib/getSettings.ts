@@ -1,5 +1,6 @@
 import sql from "./db";
 import { WEDDING_CONFIG, WEDDING_TEXT, BANK_ACCOUNTS, LOVE_STORY, GALLERY_IMAGES, MUSIC_URL, MAX_GUESTS } from "../constants";
+import { getFeatureLimits } from "./packages";
 
 export interface WeddingSettings {
     // Hero
@@ -50,6 +51,7 @@ export interface WeddingSettings {
     closing_family: string;
     events_data: string;
     theme_id: string;
+    package_id: string;
 }
 
 // Default settings (fallback)
@@ -96,6 +98,7 @@ export const defaultSettings: WeddingSettings = {
     closing_family: WEDDING_TEXT.closing.family,
     events_data: "",
     theme_id: "luxury",
+    package_id: "lite",
 };
 
 // Formatting helpers
@@ -154,13 +157,14 @@ export async function getSettings(invitationId: number): Promise<WeddingSettings
         });
 
         const [invitation] = await sql`
-            SELECT theme_id FROM invitations WHERE id = ${invitationId}
+            SELECT theme_id, package_id FROM invitations WHERE id = ${invitationId}
         `;
 
         return {
             ...defaultSettings,
             ...dbSettings,
             theme_id: invitation?.theme_id || dbSettings.theme_id || defaultSettings.theme_id,
+            package_id: invitation?.package_id || dbSettings.package_id || defaultSettings.package_id,
         } as WeddingSettings;
     } catch (error) {
         console.error("Failed to fetch settings from DB for invitation", invitationId, error);
@@ -188,6 +192,7 @@ export function settingsToConfig(settings: WeddingSettings) {
                     endTime: e.endTime,
                     startDateTime: e.isoStart ? new Date(e.isoStart) : new Date(),
                     endDateTime: e.isoEnd ? new Date(e.isoEnd) : new Date(),
+                    side: e.side || "both",
                     venue: {
                         name: e.venueName,
                         address: e.venueAddress,
@@ -210,6 +215,7 @@ export function settingsToConfig(settings: WeddingSettings) {
                 endTime: settings.akad_end || WEDDING_CONFIG.events.akad.endTime,
                 startDateTime: syncWithHeroDate(settings.akad_iso_start ? new Date(settings.akad_iso_start) : WEDDING_CONFIG.events.akad.startDateTime, heroDate),
                 endDateTime: syncWithHeroDate(settings.akad_iso_end ? new Date(settings.akad_iso_end) : WEDDING_CONFIG.events.akad.endDateTime, heroDate),
+                side: "both",
                 venue: {
                     name: settings.akad_venue_name || WEDDING_CONFIG.events.akad.venue.name,
                     address: settings.akad_venue_address || WEDDING_CONFIG.events.akad.venue.address,
@@ -228,6 +234,7 @@ export function settingsToConfig(settings: WeddingSettings) {
                 endTime: settings.resepsi_end || WEDDING_CONFIG.events.resepsi.endTime,
                 startDateTime: syncWithHeroDate(settings.resepsi_iso_start ? new Date(settings.resepsi_iso_start) : WEDDING_CONFIG.events.resepsi.startDateTime, heroDate),
                 endDateTime: syncWithHeroDate(settings.resepsi_iso_end ? new Date(settings.resepsi_iso_end) : WEDDING_CONFIG.events.resepsi.endDateTime, heroDate),
+                side: "both",
                 venue: {
                     name: settings.resepsi_venue_name || WEDDING_CONFIG.events.resepsi.venue.name,
                     address: settings.resepsi_venue_address || WEDDING_CONFIG.events.resepsi.venue.address,
@@ -248,6 +255,7 @@ export function settingsToConfig(settings: WeddingSettings) {
             endTime: WEDDING_CONFIG.events.akad.endTime,
             startDateTime: WEDDING_CONFIG.events.akad.startDateTime,
             endDateTime: WEDDING_CONFIG.events.akad.endDateTime,
+            side: "both",
             venue: WEDDING_CONFIG.events.akad.venue,
         });
     }
@@ -285,5 +293,7 @@ export function settingsToConfig(settings: WeddingSettings) {
         galleryImages: parseJson(settings.gallery_images, GALLERY_IMAGES),
         closingFamily: settings.closing_family,
         themeId: settings.theme_id || "luxury",
+        packageId: settings.package_id || "lite",
+        packageLimits: getFeatureLimits(settings.package_id || "lite"),
     };
 }

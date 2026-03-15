@@ -12,18 +12,18 @@ if (!sessionId) {
 
 const userId = parseInt(sessionId);
 const invitations = await sql`
-  SELECT i.*, u.full_name as buyer_name 
+  SELECT i.id, u.full_name as buyer_name 
   FROM invitations i 
   JOIN users u ON i.user_id = u.id 
   WHERE i.user_id = ${userId}
+  LIMIT 1
 `;
 
-if (invitations.length === 0) {
-    // Optionally create one or show an empty state. 
-    // For now, let's assume they have one from registration.
+if (invitations.length > 0) {
+    return Astro.redirect(`/dashboard/manage/${invitations[0].id}`);
 }
 
-const invitation = invitations[0];
+const invitation = null;
 ---
 
 <UserLayout 

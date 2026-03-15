@@ -21,12 +21,13 @@ export const GET: APIRoute = async ({ request }) => {
             settings[row.setting_key] = row.setting_value;
         });
 
-        // Fetch theme_id from invitations table
+        // Fetch theme_id and package_id from invitations table
         const [invitation] = await sql`
-            SELECT theme_id FROM invitations WHERE id = ${parseInt(invitationId)}
+            SELECT theme_id, package_id FROM invitations WHERE id = ${parseInt(invitationId)}
         `;
         if (invitation) {
             settings.theme_id = invitation.theme_id;
+            settings.package_id = invitation.package_id;
         }
 
         return new Response(JSON.stringify(settings), {

@@ -491,7 +491,7 @@ const LandingPage: React.FC = () => {
                                                     <a
                                                         href={`/demo-${theme.id}`}
                                                         target="_blank"
-                                                        className="w-full py-3.5 bg-slate-900 dark:bg-slate-700 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-all hover:shadow-lg active:scale-95"
+                                                        className="w-full py-3.5 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:shadow-lg transition-all active:scale-95"
                                                     >
                                                         Lihat Demo <ExternalLink className="h-4 w-4" />
                                                     </a>

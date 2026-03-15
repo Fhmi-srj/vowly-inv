@@ -11,7 +11,10 @@
   --color-accentDark: #C2185B;
   --color-darkBg: #FFF5F8;
   --color-darkSurface: #FFFFFF;
-  
+
+  /* Custom Shadows */
+  --shadow-editorial: 0 10px 40px rgba(0, 0, 0, 0.2);
+
   /* Text Colors */
   --color-text-primary: #1F2937;
   --color-text-secondary: #6B7280;
@@ -148,7 +151,7 @@
 }
 
 .dark .editorial-card {
-  @apply bg-darkSurface border-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.2)];
+  @apply bg-darkSurface border-white/5 shadow-editorial;
 }
 
 .frosted-glass {

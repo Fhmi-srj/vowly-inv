@@ -31,6 +31,7 @@ import {
 import { useSettings } from "../contexts/SettingsContext";
 import { dbService } from "../services/dbService";
 import { AttendanceStatus, type RSVP, type Wish } from "../types";
+import { BrandingWatermark } from "../components/Shared/BrandingWatermark";
 
 // Shared Components
 import MusicPlayer from "./Shared/MusicPlayer";
@@ -229,7 +230,7 @@ const LoveStory: FC = () => {
                 </div>
 
                 <div className="relative space-y-32 before:absolute before:inset-y-0 before:left-1/2 before:-translate-x-1/2 before:w-[2px] before:bg-[#c19a6b]/10 dark:before:bg-white/5 transition-colors">
-                    {config.loveStory.map((story, idx) => (
+                    {config.loveStory.map((story: any, idx: number) => (
                         <div key={idx} className={`relative flex items-center gap-16 md:gap-32 ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
                             {/* Center Point */}
                             <div className="absolute left-1/2 -translate-x-1/2 z-10 w-6 h-6 rounded-full bg-white dark:bg-stone-800 border-2 border-[#e2725b] shadow-2xl flex items-center justify-center transition-colors">
@@ -276,7 +277,7 @@ const EventDetails: FC = () => {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-16">
-                    {config.events.map((event, idx) => (
+                    {config.events.map((event: any, idx: number) => (
                         <div key={event.id} className="relative group">
                             {/* Organic Shaped Background */}
                             <div className="absolute inset-0 bg-white dark:bg-stone-900 border border-[#c19a6b]/20 dark:border-white/5 rounded-[3rem] shadow-2xl transition-all group-hover:shadow-[#e2725b]/20 group-hover:-translate-y-2 duration-1000"></div>
@@ -328,6 +329,7 @@ const EventDetails: FC = () => {
 
 const Gallery: FC = () => {
     const { config } = useSettings();
+    const images = useMemo(() => config.galleryImages.slice(0, config.packageLimits.maxGalleryImages), [config.galleryImages, config.packageLimits.maxGalleryImages]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
@@ -335,10 +337,10 @@ const Gallery: FC = () => {
     // Auto-play logic: berganti setiap 3 detik
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+            setActiveIndex((current) => (current + 1) % images.length);
         }, 3000);
         return () => clearInterval(interval);
-    }, [config.galleryImages.length]);
+    }, [images.length]);
 
     const openLightbox = (index: number) => {
         setSelectedImg(index);
@@ -359,15 +361,15 @@ const Gallery: FC = () => {
         e?.stopPropagation();
         if (selectedImg !== null) {
             if (direction === "prev") {
-                setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
+                setSelectedImg(selectedImg === 0 ? images.length - 1 : selectedImg - 1);
             } else {
-                setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
+                setSelectedImg(selectedImg === images.length - 1 ? 0 : selectedImg + 1);
             }
         } else {
             if (direction === "prev") {
-                setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+                setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1);
             } else {
-                setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+                setActiveIndex((activeIndex + 1) % images.length);
             }
         }
     };
@@ -409,7 +411,7 @@ const Gallery: FC = () => {
                         </button>
 
                         <div className="flex gap-3 sm:gap-4 overflow-x-auto no-scrollbar py-4 px-2">
-                            {config.galleryImages.map((img, idx) => (
+                            {images.map((img: string, idx: number) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveIndex(idx)}
@@ -442,7 +444,7 @@ const Gallery: FC = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 1.05 }}
                                 transition={{ duration: 0.8, ease: "anticipate" }}
-                                src={config.galleryImages[activeIndex]}
+                                src={images[activeIndex]}
                                 className="absolute inset-0 w-full h-full object-cover cursor-pointer saturate-[0.8] group-hover:saturate-100"
                                 alt="Boho Moment"
                                 onClick={() => openLightbox(activeIndex)}
@@ -501,7 +503,7 @@ const Gallery: FC = () => {
                                     className="relative max-h-full max-w-full flex items-center justify-center"
                                 >
                                     <img
-                                        src={config.galleryImages[selectedImg]}
+                                        src={images[selectedImg]}
                                         className="max-h-[85vh] w-auto h-auto object-contain rounded-[3rem] sm:rounded-[5rem] shadow-[0_40px_80px_-20px_rgba(226,114,91,0.2)] border-2 border-[#c19a6b]/10"
                                         alt="Boho Reel"
                                     />
@@ -509,7 +511,7 @@ const Gallery: FC = () => {
                                     <div className="absolute inset-x-0 -bottom-20 flex items-center justify-center gap-6">
                                         <div className="px-8 py-3 bg-white/40 dark:bg-stone-800/40 backdrop-blur-xl rounded-full border border-[#c19a6b]/20">
                                             <p className="font-serif italic text-2xl text-[#e2725b] dark:text-stone-300">
-                                                Page {selectedImg + 1} / {config.galleryImages.length}
+                                                Page {selectedImg + 1} / {images.length}
                                             </p>
                                         </div>
                                     </div>
@@ -558,7 +560,7 @@ const GiftInfo: FC = () => {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-10 items-stretch">
-                    {config.bankAccounts?.map((account, idx) => (
+                    {config.bankAccounts?.map((account: any, idx: number) => (
                         <div key={idx} className="bg-white dark:bg-stone-900 border border-[#c19a6b]/20 dark:border-white/5 p-12 rounded-[3.5rem] shadow-2xl space-y-10 group hover:shadow-[#e2725b]/20 transition-all duration-1000">
                             <div className="space-y-4">
                                 <div className="w-20 h-20 bg-[#faf7f2] dark:bg-stone-950 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all">
@@ -1016,6 +1018,7 @@ const Wishes: FC = () => {
 // --- Main Theme Component ---
 
 const BohoTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) => {
+    const { config } = useSettings();
     useEffect(() => {
         if (isOpened) {
             document.body.style.overflow = "auto";
@@ -1037,11 +1040,16 @@ const BohoTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) => 
                 <GiftInfo />
                 <RSVPForm />
                 <Wishes />
+                {config.packageLimits.hasWatermark && (
+                    <div className="pb-24 opacity-40 hover:opacity-100 transition-opacity">
+                        <BrandingWatermark />
+                    </div>
+                )}
             </main>
 
             {/* Standardized Floating Utilities */}
             <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4">
-                <MusicController isOpened={isOpened} />
+                {config.packageLimits.hasMusic && <MusicController isOpened={isOpened} />}
                 <AutoScrollController isOpened={isOpened} />
             </div>
 

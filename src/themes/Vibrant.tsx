@@ -35,6 +35,7 @@ import {
 import { useSettings } from "../contexts/SettingsContext";
 import { dbService } from "../services/dbService";
 import { AttendanceStatus, type RSVP, type Wish } from "../types";
+import { BrandingWatermark } from "../components/Shared/BrandingWatermark";
 
 // Shared Components
 import MusicPlayer from "./Shared/MusicPlayer";
@@ -367,6 +368,7 @@ const EventDetails: FC = () => {
 
 const Gallery: FC = () => {
     const { config } = useSettings();
+    const images = useMemo(() => config.galleryImages.slice(0, config.packageLimits.maxGalleryImages), [config.galleryImages, config.packageLimits.maxGalleryImages]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
@@ -374,10 +376,10 @@ const Gallery: FC = () => {
     // Auto-play logic: berganti setiap 3 detik
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+            setActiveIndex((current) => (current + 1) % images.length);
         }, 3000);
         return () => clearInterval(interval);
-    }, [config.galleryImages.length]);
+    }, [images.length]);
 
     const openLightbox = (index: number) => {
         setSelectedImg(index);
@@ -398,15 +400,15 @@ const Gallery: FC = () => {
         e?.stopPropagation();
         if (selectedImg !== null) {
             if (direction === "prev") {
-                setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
+                setSelectedImg(selectedImg === 0 ? images.length - 1 : selectedImg - 1);
             } else {
-                setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
+                setSelectedImg(selectedImg === images.length - 1 ? 0 : selectedImg + 1);
             }
         } else {
             if (direction === "prev") {
-                setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+                setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1);
             } else {
-                setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+                setActiveIndex((activeIndex + 1) % images.length);
             }
         }
     };
@@ -449,7 +451,7 @@ const Gallery: FC = () => {
                         </button>
 
                         <div className="flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar py-4">
-                            {config.galleryImages.map((img, idx) => (
+                            {images.map((img, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveIndex(idx)}
@@ -482,7 +484,7 @@ const Gallery: FC = () => {
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.8, y: -50 }}
                                 transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-                                src={config.galleryImages[activeIndex]}
+                                src={images[activeIndex]}
                                 className="absolute inset-0 w-full h-full object-cover cursor-pointer saturate-[1.2] group-hover:saturate-[1.5] transition-all duration-1000 rounded-[3.5rem]"
                                 alt="Vibrant Memory"
                                 onClick={() => openLightbox(activeIndex)}
@@ -546,7 +548,7 @@ const Gallery: FC = () => {
                                     className="relative max-h-full max-w-full flex items-center justify-center p-3 sm:p-6 bg-white dark:bg-slate-900 border-8 border-black rounded-[5rem] shadow-[30px_30px_0_#000]"
                                 >
                                     <img
-                                        src={config.galleryImages[selectedImg]}
+                                        src={images[selectedImg]}
                                         className="max-h-[75vh] w-auto h-auto object-contain rounded-[3.5rem] border-4 border-black"
                                         alt="Vibrant Fullscreen"
                                     />
@@ -554,7 +556,7 @@ const Gallery: FC = () => {
                                     <div className="absolute inset-x-0 -bottom-24 flex items-center justify-center">
                                         <div className="bg-yellow-400 px-12 py-5 rounded-full border-4 border-black shadow-[8px_8px_0_#000] -rotate-2">
                                             <p className="font-black italic text-3xl text-black uppercase tracking-tighter">
-                                                Moment #{selectedImg + 1}
+                                                Moment #{selectedImg + 1} of {images.length}
                                             </p>
                                         </div>
                                     </div>

@@ -41,6 +41,7 @@ import { useSettings } from "../contexts/SettingsContext";
 import { generateGoogleCalendarUrl, downloadICS } from "../utils/calendarUtils";
 import { dbService } from "../services/dbService";
 import { AttendanceStatus, type RSVP, type Wish } from "../types";
+import { BrandingWatermark } from "../components/Shared/BrandingWatermark";
 
 // Shared Components
 import MusicPlayer from "./Shared/MusicPlayer";
@@ -767,6 +768,7 @@ const EventDetails: FC = () => {
 
 const Gallery: FC = () => {
     const { config } = useSettings();
+    const images = useMemo(() => config.galleryImages.slice(0, config.packageLimits.maxGalleryImages), [config.galleryImages, config.packageLimits.maxGalleryImages]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
@@ -792,7 +794,7 @@ const Gallery: FC = () => {
             }, 400);
         }, 5000);
         return () => clearInterval(interval);
-    }, [config.galleryImages.length]);
+    }, [images.length]);
 
     const openLightbox = (index: number) => {
         setSelectedImg(index);
@@ -813,17 +815,17 @@ const Gallery: FC = () => {
         e?.stopPropagation();
         if (selectedImg !== null) {
             if (direction === "prev") {
-                setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
+                setSelectedImg(selectedImg === 0 ? images.length - 1 : selectedImg - 1);
             } else {
-                setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
+                setSelectedImg(selectedImg === images.length - 1 ? 0 : selectedImg + 1);
             }
         } else {
             setIsTransitioning(true);
             setTimeout(() => {
                 if (direction === "prev") {
-                    setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+                    setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1);
                 } else {
-                    setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+                    setActiveIndex((activeIndex + 1) % images.length);
                 }
                 setIsTransitioning(false);
             }, 400);
@@ -873,7 +875,7 @@ const Gallery: FC = () => {
                         </button>
 
                         <div className="flex gap-2 overflow-x-auto no-scrollbar py-2 px-1">
-                            {config.galleryImages.map((img, idx) => (
+                            {images.map((img, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => {
@@ -906,7 +908,7 @@ const Gallery: FC = () => {
                 <Reveal delay={0.4}>
                     <div className="relative aspect-[9/16] w-full max-w-[500px] mx-auto rounded-[3rem] sm:rounded-[4.5rem] overflow-hidden border border-slate-200 dark:border-white/5 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] group">
                         {/* Multiple images for crossfade effect */}
-                        {config.galleryImages.map((img, idx) => (
+                        {images.map((img, idx) => (
                             <img
                                 key={idx}
                                 src={img}
@@ -970,7 +972,7 @@ const Gallery: FC = () => {
                                     animate={{ opacity: 1, scale: 1, x: 0 }}
                                     exit={{ opacity: 0, scale: 1.1, x: -20 }}
                                     transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                                    src={config.galleryImages[selectedImg]}
+                                    src={images[selectedImg]}
                                     className="max-h-[85vh] w-auto h-auto object-contain rounded-2xl md:rounded-[4rem] shadow-2xl border border-white/10"
                                     alt="Fullscreen Moment"
                                 />
@@ -990,7 +992,7 @@ const Gallery: FC = () => {
                         <div className="absolute bottom-6 sm:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
                             <div className="bg-white/10 backdrop-blur-xl border border-white/20 px-6 py-3 rounded-full">
                                 <p className="font-serif text-white italic text-sm sm:text-lg">
-                                    Moment {selectedImg + 1} / {config.galleryImages.length}
+                                    Moment {selectedImg + 1} / {images.length}
                                 </p>
                             </div>
                             <p className="text-white/40 text-[10px] uppercase tracking-widest">The Wedding of {firstName} & {secondName}</p>
@@ -1936,12 +1938,12 @@ const Navbar: FC<NavbarProps> = ({ theme, toggleTheme }) => {
                         >
                             {/* Icon lebih kecil */}
                             <Icon size={16} className={`transition-transform duration-300 sm:size-[18px] md:size-[20px] ${isActive ? '' : 'group-hover:-translate-y-1'}`} />
-                            
+
                             {/* Tooltip */}
                             <span className="text-[7px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-8 bg-white dark:bg-slate-900 px-2 py-1 rounded-full whitespace-nowrap text-slate-900 dark:text-white border border-slate-100 dark:border-white/10 shadow-xl pointer-events-none sm:-top-9 sm:text-[8px] sm:px-2.5 sm:py-1.5">
                                 {item.label}
                             </span>
-                            
+
                             {/* Active indicator */}
                             {isActive && (
                                 <div className="bg-accentDark dark:bg-accent absolute -bottom-0.5 h-0.5 w-0.5 rounded-full sm:h-1 sm:w-1"></div>
@@ -1959,8 +1961,8 @@ const Navbar: FC<NavbarProps> = ({ theme, toggleTheme }) => {
                     className="group relative flex flex-col items-center gap-0.5 px-1.5 py-1 text-slate-400 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-all duration-300 sm:px-2 md:gap-1"
                     aria-label="Toggle theme"
                 >
-                    {theme === "light" ? 
-                        <Moon size={16} className="transition-transform duration-500 group-hover:rotate-12 sm:size-[18px] md:size-[20px]" /> : 
+                    {theme === "light" ?
+                        <Moon size={16} className="transition-transform duration-500 group-hover:rotate-12 sm:size-[18px] md:size-[20px]" /> :
                         <Sun size={16} className="transition-transform duration-500 group-hover:rotate-90 sm:size-[18px] md:size-[20px]" />
                     }
                     <span className="text-[7px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all absolute -top-8 bg-white dark:bg-slate-900 px-2 py-1 rounded-full whitespace-nowrap text-slate-900 dark:text-white border border-slate-100 dark:border-white/10 shadow-xl pointer-events-none sm:-top-9 sm:text-[8px] sm:px-2.5 sm:py-1.5">
@@ -2018,7 +2020,7 @@ const LuxuryTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) =
             <MusicPlayer />
 
             <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4">
-                <MusicController isOpened={isOpened} />
+                {config.packageLimits.hasMusic && <MusicController isOpened={isOpened} />}
                 <AutoScrollController isOpened={isOpened} />
             </div>
 
@@ -2082,6 +2084,8 @@ const LuxuryTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) =
                             <p className="mt-2 text-[10px]">{config.closingFamily}</p>
                         </div>
                     </div>
+
+                    {config.packageLimits.hasWatermark && <BrandingWatermark />}
                 </div>
             </footer>
         </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect, type FC } from "react";
+import { useState, useEffect, useMemo, type FC } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSettings } from "../contexts/SettingsContext";
 import {
@@ -22,6 +22,7 @@ import {
 import MusicPlayer from "./Shared/MusicPlayer";
 import MusicController from "./Shared/MusicController";
 import AutoScrollController from "./Shared/AutoScrollController";
+import { BrandingWatermark } from "../components/Shared/BrandingWatermark";
 import type { ThemeProps } from "./types";
 
 // --- Animation Components ---
@@ -123,13 +124,15 @@ const Gallery: FC = () => {
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
 
+    const images = useMemo(() => config.galleryImages.slice(0, config.packageLimits.maxGalleryImages), [config.galleryImages, config.packageLimits.maxGalleryImages]);
+
     // Auto-play logic: berganti setiap 3 detik
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+            setActiveIndex((current) => (current + 1) % images.length);
         }, 3000);
         return () => clearInterval(interval);
-    }, [config.galleryImages.length]);
+    }, [images.length]);
 
     const openLightbox = (index: number) => {
         setSelectedImg(index);
@@ -150,15 +153,15 @@ const Gallery: FC = () => {
         e?.stopPropagation();
         if (selectedImg !== null) {
             if (direction === "prev") {
-                setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
+                setSelectedImg(selectedImg === 0 ? images.length - 1 : selectedImg - 1);
             } else {
-                setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
+                setSelectedImg(selectedImg === images.length - 1 ? 0 : selectedImg + 1);
             }
         } else {
             if (direction === "prev") {
-                setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+                setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1);
             } else {
-                setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+                setActiveIndex((activeIndex + 1) % images.length);
             }
         }
     };
@@ -196,7 +199,7 @@ const Gallery: FC = () => {
                         </button>
 
                         <div className="flex gap-3 sm:gap-4 overflow-x-auto no-scrollbar py-2">
-                            {config.galleryImages.map((img, idx) => (
+                            {images.map((img: string, idx: number) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveIndex(idx)}
@@ -229,7 +232,7 @@ const Gallery: FC = () => {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 1.2, ease: "easeInOut" }}
-                                src={config.galleryImages[activeIndex]}
+                                src={images[activeIndex]}
                                 className="absolute inset-0 w-full h-full object-cover cursor-pointer grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
                                 alt="Gallery Highlight"
                                 onClick={() => openLightbox(activeIndex)}
@@ -285,14 +288,14 @@ const Gallery: FC = () => {
                                     className="relative max-h-full max-w-full flex items-center justify-center"
                                 >
                                     <img
-                                        src={config.galleryImages[selectedImg]}
+                                        src={images[selectedImg]}
                                         className="max-h-[85vh] w-auto h-auto object-contain rounded-sm shadow-2xl"
                                         alt="Gallery Fullscreen"
                                     />
 
                                     <div className="absolute inset-x-0 -bottom-16 flex items-center justify-center">
                                         <p className="font-light italic text-lg text-slate-400">
-                                            {selectedImg + 1} / {config.galleryImages.length}
+                                            {selectedImg + 1} / {images.length}
                                         </p>
                                     </div>
                                 </motion.div>
@@ -387,9 +390,15 @@ const MinimalistTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen 
 
             {/* Standardized Floating Utilities */}
             <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4">
-                <MusicController isOpened={isOpened} />
+                {config.packageLimits.hasMusic && <MusicController isOpened={isOpened} />}
                 <AutoScrollController isOpened={isOpened} />
             </div>
+
+            {config.packageLimits.hasWatermark && (
+                <div className="pb-32 opacity-20 hover:opacity-100 transition-opacity">
+                    <BrandingWatermark />
+                </div>
+            )}
 
             <Navbar theme={theme} toggleTheme={toggleTheme} />
 

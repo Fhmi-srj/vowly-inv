@@ -6,7 +6,7 @@ import sitemap from "@astrojs/sitemap";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
-  site: "https://vowly.app", // Update this to your actual domain
+  site: "https://vowly.hello-inv.com",
   integrations: [react(), sitemap()],
   output: "server",
   adapter: node({
@@ -86,6 +86,7 @@ export default defineConfig({
       }),
     ],
     envPrefix: "PUBLIC_",
+
     build: {
       chunkSizeWarningLimit: 1000,
       rollupOptions: {

@@ -4,6 +4,8 @@ export interface Invitation {
     id: number;
     user_id: string | null;
     slug: string;
+    theme_id: string;
+    package_id: string;
     is_active: boolean;
     views_count: number;
     created_at: string;

@@ -28,6 +28,7 @@ import {
 import { useSettings } from "../contexts/SettingsContext";
 import { dbService } from "../services/dbService";
 import { AttendanceStatus, type RSVP, type Wish } from "../types";
+import { BrandingWatermark } from "../components/Shared/BrandingWatermark";
 
 // Shared Components
 import MusicPlayer from "./Shared/MusicPlayer";
@@ -407,6 +408,7 @@ const EventDetails: FC = () => {
 
 const Gallery: FC = () => {
     const { config } = useSettings();
+    const images = useMemo(() => config.galleryImages.slice(0, config.packageLimits.maxGalleryImages), [config.galleryImages, config.packageLimits.maxGalleryImages]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
@@ -414,7 +416,7 @@ const Gallery: FC = () => {
     // Auto-play logic: berganti setiap 3 detik
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+            setActiveIndex((current) => (current + 1) % images.length);
         }, 3000);
         return () => clearInterval(interval);
     }, [config.galleryImages.length]);
@@ -438,15 +440,15 @@ const Gallery: FC = () => {
         e?.stopPropagation();
         if (selectedImg !== null) {
             if (direction === "prev") {
-                setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
+                setSelectedImg(selectedImg === 0 ? images.length - 1 : selectedImg - 1);
             } else {
-                setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
+                setSelectedImg(selectedImg === images.length - 1 ? 0 : selectedImg + 1);
             }
         } else {
             if (direction === "prev") {
-                setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+                setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1);
             } else {
-                setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+                setActiveIndex((activeIndex + 1) % images.length);
             }
         }
     };
@@ -490,7 +492,7 @@ const Gallery: FC = () => {
                         </button>
 
                         <div className="flex gap-3 sm:gap-4 overflow-x-auto no-scrollbar py-4 px-2">
-                            {config.galleryImages.map((img, idx) => (
+                            {images.map((img, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveIndex(idx)}
@@ -581,7 +583,7 @@ const Gallery: FC = () => {
                                     className="relative h-full w-full flex items-center justify-center"
                                 >
                                     <img
-                                        src={config.galleryImages[selectedImg]}
+                                        src={images[selectedImg]}
                                         className="max-h-full max-w-full object-contain border-8 border-black dark:border-white shadow-2xl"
                                         alt="Fullscreen Frame"
                                     />
@@ -605,7 +607,7 @@ const Gallery: FC = () => {
                         {/* Info Overlay */}
                         <div className="absolute bottom-12 left-12 flex flex-col items-start gap-4">
                             <div className="h-[2px] w-24 bg-black dark:bg-white transition-colors"></div>
-                            <p className="text-[10px] font-black uppercase tracking-[1em] text-black dark:text-white">Image {selectedImg + 1} / {config.galleryImages.length}</p>
+                            <p className="text-[10px] font-black uppercase tracking-[1em] text-black dark:text-white">Image {selectedImg + 1} / {images.length}</p>
                         </div>
                     </motion.div>
                 )}
@@ -1158,6 +1160,12 @@ const Footer: FC = () => {
                     </div>
                     <p className="text-[10px] font-black uppercase tracking-[1em] text-zinc-600">Design for Eternity — {new Date().getFullYear()}</p>
                 </div>
+
+                {config.packageLimits.hasWatermark && (
+                    <div className="mt-12 opacity-50">
+                        <BrandingWatermark />
+                    </div>
+                )}
             </div>
         </footer>
     );
@@ -1166,6 +1174,7 @@ const Footer: FC = () => {
 // --- Main Theme Component ---
 
 const MonokromTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) => {
+    const { config } = useSettings();
     useEffect(() => {
         if (isOpened) {
             document.body.style.overflow = "auto";
@@ -1192,7 +1201,7 @@ const MonokromTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen })
 
             {/* Standardized Floating Utilities */}
             <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4">
-                <MusicController isOpened={isOpened} />
+                {config.packageLimits.hasMusic && <MusicController isOpened={isOpened} />}
                 <AutoScrollController isOpened={isOpened} />
             </div>
 

@@ -41,6 +41,7 @@ import { dbService } from "../services/dbService";
 import { generateGoogleCalendarUrl, downloadICS } from "../utils/calendarUtils";
 import { AttendanceStatus, type RSVP, type Wish } from "../types";
 import { MAX_GUESTS } from "../constants";
+import { BrandingWatermark } from "../components/Shared/BrandingWatermark";
 import React from "react";
 
 // Shared Components
@@ -595,6 +596,7 @@ const EventDetails: FC = () => {
 
 const Gallery: FC = () => {
     const { config } = useSettings();
+    const images = useMemo(() => config.galleryImages.slice(0, config.packageLimits.maxGalleryImages), [config.galleryImages, config.packageLimits.maxGalleryImages]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
@@ -602,10 +604,10 @@ const Gallery: FC = () => {
     // Auto-play logic: berganti setiap 5 detik
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+            setActiveIndex((current) => (current + 1) % images.length);
         }, 5000);
         return () => clearInterval(interval);
-    }, [config.galleryImages.length]);
+    }, [images.length]);
 
     const openLightbox = (index: number) => {
         setSelectedImg(index);
@@ -626,15 +628,15 @@ const Gallery: FC = () => {
         e?.stopPropagation();
         if (selectedImg !== null) {
             if (direction === "prev") {
-                setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
+                setSelectedImg(selectedImg === 0 ? images.length - 1 : selectedImg - 1);
             } else {
-                setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
+                setSelectedImg(selectedImg === images.length - 1 ? 0 : selectedImg + 1);
             }
         } else {
             if (direction === "prev") {
-                setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+                setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1);
             } else {
-                setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+                setActiveIndex((activeIndex + 1) % images.length);
             }
         }
     };
@@ -677,7 +679,7 @@ const Gallery: FC = () => {
                         </button>
 
                         <div className="flex gap-3 sm:gap-4 overflow-x-auto no-scrollbar py-4 px-2">
-                            {config.galleryImages.map((img, idx) => (
+                            {images.map((img, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveIndex(idx)}
@@ -703,7 +705,7 @@ const Gallery: FC = () => {
                 {/* Featured Image Area - Stacked Crossfade */}
                 <Reveal delay={0.4}>
                     <div className="relative aspect-[9/16] w-full max-w-[450px] mx-auto rounded-[3rem] sm:rounded-[4rem] overflow-hidden border border-[#ffd1dc]/30 dark:border-white/5 shadow-2xl group">
-                        {config.galleryImages.map((img, idx) => (
+                        {images.map((img, idx) => (
                             <motion.img
                                 key={idx}
                                 initial={{ opacity: 0 }}
@@ -724,7 +726,7 @@ const Gallery: FC = () => {
 
                         {/* Progress Indicator */}
                         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-                            {config.galleryImages.map((_, i) => (
+                            {images.map((_, i) => (
                                 <div
                                     key={i}
                                     className={`h-1 rounded-full transition-all duration-500 ${activeIndex === i ? 'w-8 bg-white' : 'w-2 bg-white/30'}`}
@@ -782,7 +784,7 @@ const Gallery: FC = () => {
                                     className="relative max-h-full max-w-full flex items-center justify-center"
                                 >
                                     <img
-                                        src={config.galleryImages[selectedImg]}
+                                        src={images[selectedImg]}
                                         className="max-h-[80vh] w-auto h-auto object-contain rounded-3xl sm:rounded-[4rem] shadow-2xl border border-[#ffd1dc]/20"
                                         alt="Full Moment"
                                     />
@@ -790,7 +792,7 @@ const Gallery: FC = () => {
                                     <div className="absolute inset-x-0 -bottom-16 flex items-center justify-center gap-4">
                                         <div className="bg-[#db7093]/10 dark:bg-white/5 backdrop-blur-md px-6 py-3 rounded-full border border-[#db7093]/20 dark:border-white/10">
                                             <p className="font-serif italic text-[#db7093] dark:text-stone-300">
-                                                Moment {selectedImg + 1} of {config.galleryImages.length}
+                                                Moment {selectedImg + 1} of {images.length}
                                             </p>
                                         </div>
                                     </div>
@@ -1731,6 +1733,7 @@ const StickerPicker: FC<{ isOpen: boolean; onClose: () => void; onSelect: (stick
 // --- Main Theme Component ---
 
 const FloralTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) => {
+    const { config } = useSettings();
     useEffect(() => {
         if (isOpened) {
             document.body.style.overflow = "auto";
@@ -1754,11 +1757,16 @@ const FloralTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) =
                 <Wishes />
                 <GiftInfo />
                 <Footer />
+                {config.packageLimits.hasWatermark && (
+                    <div className="pb-24 opacity-50">
+                        <BrandingWatermark />
+                    </div>
+                )}
             </main>
 
             {/* Standardized Floating Utilities */}
             <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4">
-                <MusicController isOpened={isOpened} />
+                {config.packageLimits.hasMusic && <MusicController isOpened={isOpened} />}
                 <AutoScrollController isOpened={isOpened} />
             </div>
 

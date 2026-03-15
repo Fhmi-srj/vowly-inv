@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { FC } from "react";
 import {
@@ -33,6 +33,7 @@ import {
 import { useSettings } from "../contexts/SettingsContext";
 import { dbService } from "../services/dbService";
 import { AttendanceStatus, type RSVP, type Wish } from "../types";
+import { BrandingWatermark } from "../components/Shared/BrandingWatermark";
 
 // Shared Components
 import MusicPlayer from "./Shared/MusicPlayer";
@@ -291,6 +292,7 @@ const EventDetails: FC = () => {
 
 const Gallery: FC = () => {
     const { config } = useSettings();
+    const images = useMemo(() => config.galleryImages.slice(0, config.packageLimits.maxGalleryImages), [config.galleryImages, config.packageLimits.maxGalleryImages]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
@@ -298,10 +300,10 @@ const Gallery: FC = () => {
     // Auto-play logic: berganti setiap 3 detik
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+            setActiveIndex((current) => (current + 1) % images.length);
         }, 3000);
         return () => clearInterval(interval);
-    }, [config.galleryImages.length]);
+    }, [images.length]);
 
     const openLightbox = (index: number) => {
         setSelectedImg(index);
@@ -322,15 +324,15 @@ const Gallery: FC = () => {
         e?.stopPropagation();
         if (selectedImg !== null) {
             if (direction === "prev") {
-                setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
+                setSelectedImg(selectedImg === 0 ? images.length - 1 : selectedImg - 1);
             } else {
-                setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
+                setSelectedImg(selectedImg === images.length - 1 ? 0 : selectedImg + 1);
             }
         } else {
             if (direction === "prev") {
-                setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+                setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1);
             } else {
-                setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+                setActiveIndex((activeIndex + 1) % images.length);
             }
         }
     };
@@ -371,7 +373,7 @@ const Gallery: FC = () => {
                         </button>
 
                         <div className="flex gap-3 sm:gap-4 overflow-x-auto no-scrollbar py-4 px-2">
-                            {config.galleryImages.map((img, idx) => (
+                            {images.map((img: string, idx: number) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveIndex(idx)}
@@ -404,7 +406,7 @@ const Gallery: FC = () => {
                                 animate={{ opacity: 1, filter: "brightness(1) sepia(0)" }}
                                 exit={{ opacity: 0, filter: "brightness(0.8) sepia(0.2)" }}
                                 transition={{ duration: 1, ease: "easeInOut" }}
-                                src={config.galleryImages[activeIndex]}
+                                src={images[activeIndex]}
                                 className="absolute inset-0 w-full h-full object-cover cursor-pointer"
                                 alt="Featured Archives"
                                 onClick={() => openLightbox(activeIndex)}
@@ -463,7 +465,7 @@ const Gallery: FC = () => {
                                     className="relative max-h-full max-w-full flex items-center justify-center"
                                 >
                                     <img
-                                        src={config.galleryImages[selectedImg]}
+                                        src={images[selectedImg]}
                                         className="max-h-[85vh] w-auto h-auto object-contain rounded-[3rem] sm:rounded-[6rem] shadow-2xl border border-[#c5a059]/10"
                                         alt="Fullscreen Archives"
                                     />
@@ -471,7 +473,7 @@ const Gallery: FC = () => {
                                     <div className="absolute inset-x-0 -bottom-20 flex items-center justify-center gap-6">
                                         <div className="px-8 py-3 bg-white/40 dark:bg-[#0c2c1e]/40 backdrop-blur-xl rounded-full border border-[#c5a059]/20">
                                             <p className="font-serif italic text-2xl text-[#2d4a3e] dark:text-stone-300">
-                                                Moment {selectedImg + 1} of {config.galleryImages.length}
+                                                Moment {selectedImg + 1} of {images.length}
                                             </p>
                                         </div>
                                     </div>
@@ -660,14 +662,23 @@ const Navbar: FC<{ theme: "light" | "dark"; toggleTheme: () => void }> = ({ them
 };
 
 const IslamicTheme: FC<ThemeProps> = ({ theme, toggleTheme, isOpened, onOpen }) => {
+    const { config } = useSettings();
     useEffect(() => { document.body.style.overflow = isOpened ? "auto" : "hidden"; }, [isOpened]);
     return (
         <div className={`islamic-theme ${theme === "dark" ? "dark" : ""}`}>
             {!isOpened && <Envelope onOpen={onOpen} />}
             <main className={`transition-all duration-1000 ${isOpened ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20 pointer-events-none"}`}>
                 <Hero /><CoupleProfile /><LoveStory /><EventDetails /><Gallery /><GiftInfo /><RSVPForm /><Wishes />
+                {config.packageLimits.hasWatermark && (
+                    <div className="pb-32 opacity-20 hover:opacity-100 transition-opacity">
+                        <BrandingWatermark />
+                    </div>
+                )}
             </main>
-            <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4"><MusicController isOpened={isOpened} /><AutoScrollController isOpened={isOpened} /></div>
+            <div className="fixed right-4 top-1/2 z-[1000] -translate-y-1/2 flex flex-col items-center gap-4 px-4">
+                {config.packageLimits.hasMusic && <MusicController isOpened={isOpened} />}
+                <AutoScrollController isOpened={isOpened} />
+            </div>
             <Navbar theme={theme} toggleTheme={toggleTheme} /><MusicPlayer /><InstallPrompt />
         </div>
     );

@@ -46,6 +46,7 @@ import { dbService } from "../services/dbService";
 import { generateGoogleCalendarUrl, downloadICS } from "../utils/calendarUtils";
 import { AttendanceStatus, type RSVP, type Wish } from "../types";
 import { MAX_GUESTS } from "../constants";
+import { BrandingWatermark } from "../components/Shared/BrandingWatermark";
 import { STICKERS } from "./Shared/StickerPicker";
 
 // Shared Components
@@ -607,6 +608,7 @@ const EventDetails: FC = () => {
 
 const Gallery: FC = () => {
     const { config } = useSettings();
+    const images = useMemo(() => config.galleryImages.slice(0, config.packageLimits.maxGalleryImages), [config.galleryImages, config.packageLimits.maxGalleryImages]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [selectedImg, setSelectedImg] = useState<number | null>(null);
     const [isClosing, setIsClosing] = useState(false);
@@ -617,12 +619,12 @@ const Gallery: FC = () => {
         const interval = setInterval(() => {
             setIsTransitioning(true);
             setTimeout(() => {
-                setActiveIndex((current) => (current + 1) % config.galleryImages.length);
+                setActiveIndex((current) => (current + 1) % images.length);
                 setIsTransitioning(false);
             }, 400);
         }, 5000);
         return () => clearInterval(interval);
-    }, [config.galleryImages.length]);
+    }, [images.length]);
 
     const openLightbox = (index: number) => {
         setSelectedImg(index);
@@ -646,9 +648,9 @@ const Gallery: FC = () => {
             setIsTransitioning(true);
             setTimeout(() => {
                 if (direction === "prev") {
-                    setSelectedImg(selectedImg === 0 ? config.galleryImages.length - 1 : selectedImg - 1);
+                    setSelectedImg(selectedImg === 0 ? images.length - 1 : selectedImg - 1);
                 } else {
-                    setSelectedImg(selectedImg === config.galleryImages.length - 1 ? 0 : selectedImg + 1);
+                    setSelectedImg(selectedImg === images.length - 1 ? 0 : selectedImg + 1);
                 }
                 setIsTransitioning(false);
             }, 400);
@@ -657,9 +659,9 @@ const Gallery: FC = () => {
             setIsTransitioning(true);
             setTimeout(() => {
                 if (direction === "prev") {
-                    setActiveIndex(activeIndex === 0 ? config.galleryImages.length - 1 : activeIndex - 1);
+                    setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1);
                 } else {
-                    setActiveIndex((activeIndex + 1) % config.galleryImages.length);
+                    setActiveIndex((activeIndex + 1) % images.length);
                 }
                 setIsTransitioning(false);
             }, 400);
@@ -702,7 +704,7 @@ const Gallery: FC = () => {
                         </button>
 
                         <div className="flex gap-1.5 sm:gap-3 overflow-x-auto no-scrollbar py-2 px-1">
-                            {config.galleryImages.map((img, idx) => (
+                            {images.map((img, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveIndex(idx)}
@@ -728,7 +730,7 @@ const Gallery: FC = () => {
                 {/* Featured Image Area - WITH CROSSFADE ANIMATION */}
                 <Reveal delay={0.4}>
                     <div className="relative aspect-[9/16] w-full max-w-[450px] mx-auto rounded-[2.5rem] sm:rounded-[4rem] overflow-hidden border border-[#d9c5b2] dark:border-white/5 shadow-2xl group transition-all duration-1000">
-                        {config.galleryImages.map((img, idx) => (
+                        {images.map((img, idx) => (
                             <img
                                 key={idx}
                                 src={img}
@@ -788,7 +790,7 @@ const Gallery: FC = () => {
                                     animate={{ opacity: 1, scale: 1, x: 0 }}
                                     exit={{ opacity: 0, scale: 1.1, x: -20 }}
                                     transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                                    src={config.galleryImages[selectedImg]}
+                                    src={images[selectedImg]}
                                     className="max-w-full max-h-[80vh] sm:max-h-[85vh] object-contain shadow-2xl rounded-sm"
                                     alt={`Gallery detail ${selectedImg + 1}`}
                                     onClick={(e) => e.stopPropagation()}
@@ -1658,6 +1660,12 @@ const Footer: FC = () => {
                                 </p>
                             </div>
                         </div>
+
+                        {config.packageLimits.hasWatermark && (
+                            <div className="mt-8 opacity-40">
+                                <BrandingWatermark />
+                            </div>
+                        )}
                     </div>
                 </Reveal>
             </div>
@@ -1666,6 +1674,7 @@ const Footer: FC = () => {
 };
 
 export default function Rustic({ theme, toggleTheme, isOpened, onOpen }: ThemeProps) {
+    const { config } = useSettings();
     return (
         <div className={`overflow-x-hidden selection:bg-[#c5a386] selection:text-white ${theme}`}>
             <AnimatePresence mode="wait">
@@ -1677,7 +1686,7 @@ export default function Rustic({ theme, toggleTheme, isOpened, onOpen }: ThemePr
             <MusicPlayer />
             <div className="fixed inset-y-0 right-4 z-[1000] flex flex-col items-center justify-center gap-4 pointer-events-none">
                 <div className="pointer-events-auto flex flex-col items-center gap-4">
-                    <MusicController isOpened={isOpened} />
+                    {config.packageLimits.hasMusic && <MusicController isOpened={isOpened} />}
                     <AutoScrollController isOpened={isOpened} />
                 </div>
             </div>

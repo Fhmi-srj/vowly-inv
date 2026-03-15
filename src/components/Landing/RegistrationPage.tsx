@@ -273,22 +273,22 @@ const RegistrationPage: React.FC = () => {
                         className={`relative group cursor-pointer transition-all duration-500 ${formData.package === pkg.id ? 'scale-105' : 'hover:scale-[1.02]'}`}
                     >
                         <div className={`h-full p-8 rounded-[3rem] border-2 transition-all duration-500 overflow-hidden relative ${formData.package === pkg.id
-                                ? 'border-pink-500 bg-white shadow-2xl shadow-pink-100 z-10'
-                                : 'border-slate-100 bg-white hover:border-pink-200'
+                            ? 'border-pink-500 bg-white shadow-2xl shadow-pink-100 z-10'
+                            : 'border-slate-100 bg-white hover:border-pink-200'
                             }`}>
                             {/* Badge */}
                             <div className={`absolute top-6 right-8 text-[10px] font-black uppercase tracking-tighter px-3 py-1 rounded-lg ${pkg.color === 'pink' ? 'bg-pink-500 text-white shadow-lg shadow-pink-100' :
-                                    pkg.color === 'amber' ? 'bg-amber-500 text-white shadow-lg shadow-amber-100' :
-                                        pkg.color === 'blue' ? 'bg-blue-500 text-white shadow-lg shadow-blue-100' :
-                                            'bg-slate-200 text-slate-500'
+                                pkg.color === 'amber' ? 'bg-amber-500 text-white shadow-lg shadow-amber-100' :
+                                    pkg.color === 'blue' ? 'bg-blue-500 text-white shadow-lg shadow-blue-100' :
+                                        'bg-slate-200 text-slate-500'
                                 }`}>
                                 {pkg.badge}
                             </div>
 
                             <h3 className={`text-xl font-black mb-1 ${pkg.color === 'pink' ? 'text-pink-600' :
-                                    pkg.color === 'amber' ? 'text-amber-600' :
-                                        pkg.color === 'blue' ? 'text-blue-600' :
-                                            'text-slate-700'
+                                pkg.color === 'amber' ? 'text-amber-600' :
+                                    pkg.color === 'blue' ? 'text-blue-600' :
+                                        'text-slate-700'
                                 }`}>{pkg.name}</h3>
 
                             <div className="mb-8">
@@ -307,9 +307,9 @@ const RegistrationPage: React.FC = () => {
                                 {pkg.features.map((feat, i) => (
                                     <li key={i} className="flex items-start gap-3 text-slate-500 text-xs font-medium leading-relaxed">
                                         <div className={`mt-0.5 p-0.5 rounded-full flex-shrink-0 ${pkg.color === 'pink' ? 'bg-pink-100 text-pink-600' :
-                                                pkg.color === 'amber' ? 'bg-amber-100 text-amber-600' :
-                                                    pkg.color === 'blue' ? 'bg-blue-100 text-blue-600' :
-                                                        'bg-slate-100 text-slate-400'
+                                            pkg.color === 'amber' ? 'bg-amber-100 text-amber-600' :
+                                                pkg.color === 'blue' ? 'bg-blue-100 text-blue-600' :
+                                                    'bg-slate-100 text-slate-400'
                                             }`}>
                                             <Check className="h-3 w-3" />
                                         </div>
@@ -319,11 +319,11 @@ const RegistrationPage: React.FC = () => {
                             </ul>
 
                             <button className={`w-full py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all duration-300 ${formData.package === pkg.id
-                                    ? pkg.color === 'pink' ? 'bg-pink-500 text-white shadow-lg shadow-pink-200' :
-                                        pkg.color === 'amber' ? 'bg-amber-500 text-white shadow-lg shadow-amber-200' :
-                                            pkg.color === 'blue' ? 'bg-blue-500 text-white shadow-lg shadow-blue-200' :
-                                                'bg-slate-800 text-white'
-                                    : 'bg-slate-50 text-slate-400 border border-slate-100 group-hover:bg-white group-hover:border-pink-200 group-hover:text-pink-600'
+                                ? pkg.color === 'pink' ? 'bg-pink-500 text-white shadow-lg shadow-pink-200' :
+                                    pkg.color === 'amber' ? 'bg-amber-500 text-white shadow-lg shadow-amber-200' :
+                                        pkg.color === 'blue' ? 'bg-blue-500 text-white shadow-lg shadow-blue-200' :
+                                            'bg-slate-800 text-white'
+                                : 'bg-slate-50 text-slate-400 border border-slate-100 group-hover:bg-white group-hover:border-pink-200 group-hover:text-pink-600'
                                 }`}>
                                 Pilih {pkg.name}
                             </button>
@@ -377,7 +377,7 @@ const RegistrationPage: React.FC = () => {
                                 <a
                                     href={`/demo-${theme.id}`}
                                     target="_blank"
-                                    className="w-full py-2.5 md:py-3.5 bg-slate-900 text-white rounded-xl text-[10px] md:text-sm font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-all active:scale-95"
+                                    className="w-full py-2.5 md:py-3.5 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl text-[10px] md:text-sm font-bold flex items-center justify-center gap-2 hover:shadow-lg transition-all active:scale-95"
                                 >
                                     Lihat Demo <ExternalLink className="h-3 w-3 md:h-4 md:w-4" />
                                 </a>

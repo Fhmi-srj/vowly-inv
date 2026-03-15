@@ -50,11 +50,10 @@ const Sidebar: React.FC<SidebarProps> = ({ invitationId, userName, initialTab })
         return `/dashboard?tab=${tab}`;
     };
 
-    const navItems = [
-        { id: 'overview' as const, label: 'Ringkasan', icon: LayoutDashboard },
-    ];
+    const navItems = [] as const;
 
     const manageItems = invitationId ? [
+        { id: 'overview' as const, label: 'Kelola Undangan', icon: LayoutDashboard },
         { id: 'rsvp' as const, label: 'Data RSVP', icon: Users },
         { id: 'wishes' as const, label: 'Ucapan & Doa', icon: MessageCircle },
         { id: 'qr' as const, label: 'QR Generator', icon: QrCode },
